@@ -33,7 +33,7 @@
         .brand-header { display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; flex-shrink: 0; transition: transform 0.2s; }
         .brand-header:hover { transform: scale(1.02); }
         .brand-logo-svg { width: 46px; height: 46px; flex-shrink: 0; }
-        .brand-text-col { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; }
+        .brand-text-col { display: flex; align-items: flex-start; flex-direction: column; justify-content: center; }
         .brand-title-amovil { font-size: 23px; font-weight: 900; color: var(--secondary-color); line-height: 1; }
         .brand-title-store { font-size: 14px; font-weight: 800; color: #000; letter-spacing: 4.5px; border-top: 2.5px solid #000; margin-top: 3px; padding-top: 2px; line-height: 1.1; width: 100%; text-align: center; }
         .brand-subtitle { font-size: 9.5px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
@@ -264,11 +264,22 @@
         .pay-logo-amex { background: #006fcf; color: #fff; font-size: 10px; border-radius: 4px; padding: 4px 8px; font-weight: 900; }
         .pay-logo-diners { color: #004a97; font-size: 12px; font-weight: 900; display: inline-flex; align-items: center; gap: 5px; }
 
-        /* =========================================================
-           SECCIÓN STREAMING INDEPENDIENTE (CON VIDA Y ANIMACIÓN)
-           ========================================================= */
+        /* BENEFICIOS */
+        .benefits-section { margin: 35px 0; background: #fff; border: 1px solid var(--border-color); border-radius: 18px; padding: 30px 24px; box-shadow: 0 6px 20px rgba(15,23,42,0.04); }
+        .benefits-header { text-align: center; margin-bottom: 24px; }
+        .benefits-header h2 { font-size: 22px; font-weight: 900; color: var(--text-main); margin-bottom: 6px; }
+        .benefits-header p { font-size: 13.5px; color: var(--text-muted); }
+        .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+        .benefit-card { background: #f8fafc; border: 1px solid var(--border-color); border-radius: 14px; padding: 20px 16px; text-align: center; transition: transform 0.25s, border-color 0.25s; }
+        .benefit-card:hover { transform: translateY(-4px); border-color: var(--secondary-color); }
+        .benefit-icon { width: 48px; height: 48px; border-radius: 12px; background: rgba(0,136,255,0.1); color: var(--secondary-color); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px auto; }
+        .benefit-icon svg { width: 24px; height: 24px; fill: currentColor; }
+        .benefit-title { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
+        .benefit-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.45; }
+
+        /* SECCIÓN STREAMING INDEPENDIENTE */
         #vista-streaming-independiente { display: none; }
-        .streaming-independent-wrapper {
+        .streaming-independent-wrapper, .streaming-showcase {
             background: radial-gradient(circle at top, #161b2e 0%, #090b10 100%);
             border-radius: 20px;
             padding: 34px 22px;
@@ -316,7 +327,6 @@
             box-shadow: 0 16px 36px var(--brand-glow, rgba(0, 136, 255, 0.45));
         }
         
-        /* FOTOGRAFÍA REAL DE FONDO */
         .stream-poster-art-bg {
             position: absolute;
             inset: 0;
@@ -333,7 +343,6 @@
             transform: scale(1.08);
         }
 
-        /* LOGO CENTRADO OFICIAL */
         .stream-poster-brand-logo {
             position: absolute;
             top: 42%;
@@ -352,7 +361,6 @@
             transform: translate(-50%, -55%) scale(1.12);
         }
 
-        /* EFECTO SHIMMER DE LUZ METÁLICA */
         .stream-poster-card::before {
             content: "";
             position: absolute;
@@ -368,7 +376,6 @@
         }
         .stream-poster-card:hover::before { left: 140%; }
 
-        /* BASE LIMPIA (PRECIO + BOTÓN) */
         .stream-poster-footer {
             position: relative;
             z-index: 4;
@@ -618,7 +625,7 @@
                 <div class="product-grid" id="destacados-grid"></div>
             </div>
 
-            <!-- BANNER EJECUTIVO PAYPHONE (FORMAS DE PAGO Y DIFERIDOS) -->
+            <!-- BANNER EJECUTIVO PAYPHONE -->
             <div class="payphone-promo-section">
                 <div class="payphone-top-bar">
                     <div class="payphone-title-block">
@@ -690,7 +697,7 @@
             </div>
         </div>
 
-        <!-- VISTA PESTAÑA INDEPENDIENTE STREAMING (ESTILO NEXFREE 9:16) -->
+        <!-- VISTA PESTAÑA INDEPENDIENTE STREAMING -->
         <div id="vista-streaming-independiente" style="display: none;">
             <div class="streaming-showcase" style="margin-top: 10px;">
                 <div class="streaming-independent-header">
@@ -702,7 +709,7 @@
                 </div>
                 
                 <div class="streaming-poster-grid" id="streamingPostersGrid">
-                    <!-- NETFLIX (9:16) -->
+                    <!-- NETFLIX -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('NETFLIX')" style="--brand-color: #E50914; --brand-glow: rgba(229, 9, 20, 0.55);">
                         <div class="stream-poster-art-bg" id="posterBg_NETFLIX" style="background: radial-gradient(circle at 50% 35%, #8a0b12 0%, #200407 70%, #090b10 100%);">
                             <div class="stream-poster-brand-logo"><span style="font-size: 78px; font-weight: 900; color: #E50914; letter-spacing: -2px;">N</span></div>
@@ -714,7 +721,7 @@
                         </div>
                     </div>
 
-                    <!-- DISNEY+ (9:16) -->
+                    <!-- DISNEY+ -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('DISNEY')" style="--brand-color: #006eff; --brand-glow: rgba(0, 110, 255, 0.55);">
                         <div class="stream-poster-art-bg" id="posterBg_DISNEY" style="background: radial-gradient(circle at 50% 35%, #084aa1 0%, #051a3d 70%, #090b10 100%);">
                             <div class="stream-poster-brand-logo"><span style="font-size: 32px; font-weight: 900; color: #38bdf8; letter-spacing: 0.5px;">Disney+</span></div>
@@ -726,7 +733,7 @@
                         </div>
                     </div>
 
-                    <!-- MAX (9:16) -->
+                    <!-- MAX -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('MAX')" style="--brand-color: #a855f7; --brand-glow: rgba(168, 85, 247, 0.55);">
                         <div class="stream-poster-art-bg" id="posterBg_MAX" style="background: radial-gradient(circle at 50% 35%, #591696 0%, #220640 70%, #090b10 100%);">
                             <div class="stream-poster-brand-logo"><span style="font-size: 38px; font-weight: 900; color: #e9d5ff; text-transform: lowercase;">max</span></div>
@@ -738,7 +745,7 @@
                         </div>
                     </div>
 
-                    <!-- PRIME VIDEO (9:16) -->
+                    <!-- PRIME VIDEO -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('PRIME')" style="--brand-color: #00A8E1; --brand-glow: rgba(0, 168, 225, 0.55);">
                         <div class="stream-poster-art-bg" id="posterBg_PRIME" style="background: radial-gradient(circle at 50% 35%, #006087 0%, #022236 70%, #090b10 100%);">
                             <div class="stream-poster-brand-logo"><span style="font-size: 30px; font-weight: 900; color: #00A8E1; letter-spacing: -0.5px;">prime</span></div>
@@ -750,7 +757,7 @@
                         </div>
                     </div>
 
-                    <!-- PARAMOUNT+ (9:16) -->
+                    <!-- PARAMOUNT+ -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('PARAMOUNT')" style="--brand-color: #3b82f6; --brand-glow: rgba(59, 130, 246, 0.55);">
                         <div class="stream-poster-art-bg" id="posterBg_PARAMOUNT" style="background: radial-gradient(circle at 50% 35%, #0c47aa 0%, #061b47 70%, #090b10 100%);">
                             <div class="stream-poster-brand-logo"><span style="font-size: 34px; font-weight: 900; color: #60a5fa; letter-spacing: 0.5px;">P+</span></div>
@@ -762,7 +769,7 @@
                         </div>
                     </div>
 
-                    <!-- CRUNCHYROLL (9:16) -->
+                    <!-- CRUNCHYROLL -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('CRUNCHYROLL')" style="--brand-color: #F47521; --brand-glow: rgba(244, 117, 33, 0.55);">
                         <div class="stream-poster-art-bg" id="posterBg_CRUNCHYROLL" style="background: radial-gradient(circle at 50% 35%, #9e3d00 0%, #301402 70%, #090b10 100%);">
                             <div class="stream-poster-brand-logo"><span style="font-size: 40px; font-weight: 900; color: #F47521; letter-spacing: 0.5px;">CR</span></div>
@@ -825,7 +832,7 @@
     </button>
 
     <!-- MODAL STREAMING -->
-    <div class="stream-modal-overlay" id="streamModalOverlay" onclick="cerrarModalStreaming(event)">
+    <div class="stream-modal-overlay" id="streamModalOverlay" onclick="cerrarModalStreaming()">
         <div class="stream-modal-box" onclick="event.stopPropagation()">
             <div class="stream-modal-header">
                 <div class="stream-modal-title-wrap">
@@ -869,6 +876,52 @@
             "ACCESORIOS": "Hubs multipuerto USB-C, adaptadores HDMI 4K, carcasas externas para discos SSD/HDD y periféricos garantizados."
         };
 
+        // Función que mejora automáticamente la resolución de enlaces de Google Drive y corrige enlaces /file/d/
+        function optimizarUrlDrive(urlRaw, ancho = "w600") {
+            let url = String(urlRaw || "").trim();
+            if (!url) return "";
+            const matchFile = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+            if (matchFile && matchFile[1]) {
+                return `https://drive.google.com/thumbnail?id=${matchFile[1]}&sz=${ancho}`;
+            }
+            if (url.includes("drive.google.com/thumbnail") && !url.includes("&sz=")) {
+                return `${url}&sz=${ancho}`;
+            }
+            return url;
+        }
+
+        // Banners de respaldo con los mismos datos de tu hoja Excel
+        const BANNERS_RESPALDO = [
+            {
+                Tag: "OFERTA IMPERDIBLE",
+                Titulo: "Smartwatches & Wearables",
+                Descripcion: "Monitorea tu salud con AMOLED, llamadas Bluetooth y batería de hasta 21 días.",
+                Imagen: "https://drive.google.com/thumbnail?id=1bI9dOGIndz12gs4lqebSP-2IZm9TTSQe&sz=w1200",
+                CategoriaEnlace: "SMARTWATCHES"
+            },
+            {
+                Tag: "AUDIO DE ALTA DEFINICIÓN",
+                Titulo: "Cancelación de Ruido & Bajos Potentes",
+                Descripcion: "JBL, Ugreen HiTune y Honor Earbuds garantizados para estudio, deporte y juegos.",
+                Imagen: "https://drive.google.com/thumbnail?id=1WynRVSWWYAH_RFU9zAGNVjjUonYvLqmK&sz=w1200",
+                CategoriaEnlace: "AUDIO"
+            },
+            {
+                Tag: "ENERGÍA & VELOCIDAD",
+                Titulo: "Cargadores GaN & Cables",
+                Descripcion: "Ugreen Uno Robot, Anker y Apple original con respaldo oficial.",
+                Imagen: "https://drive.google.com/thumbnail?id=1WynRVSWWYAH_RFU9zAGNVjjUonYvLqmK&sz=w1200",
+                CategoriaEnlace: "ENERGÍA Y CABLES"
+            },
+            {
+                Tag: "ENTRETENIMIENTO TOTAL",
+                Titulo: "Cuentas Digitales de Streaming",
+                Descripcion: "Plataformas premium con entrega digital instantánea por WhatsApp.",
+                Imagen: "https://drive.google.com/thumbnail?id=1EHvgyUzrUnpISDiPW36HF4_Tg8J_bPXR&sz=w1200",
+                CategoriaEnlace: "STREAMING"
+            }
+        ];
+
         let BANNERS_PORTADA = [];
         let STREAMING_IMAGENES = {};
 
@@ -881,17 +934,27 @@
         function inicializarBannersHero() {
             const track = document.getElementById('heroSlidesTrack');
             const indicators = document.getElementById('heroIndicators');
-            if (!track || !indicators || BANNERS_PORTADA.length === 0) return;
+            if (!track || !indicators) return;
+
+            if (!BANNERS_PORTADA || BANNERS_PORTADA.length === 0) {
+                BANNERS_PORTADA = BANNERS_RESPALDO;
+            }
 
             let htmlSlides = "", htmlDots = "";
             BANNERS_PORTADA.forEach((banner, idx) => {
+                const img = optimizarUrlDrive(banner.Imagen || banner.imagen || "", "w1200");
+                const tit = banner.Titulo || banner.titulo || "";
+                const tag = banner.Tag || banner.tag || "OFERTA";
+                const desc = banner.Descripcion || banner.desc || "";
+                const catEnlace = banner.CategoriaEnlace || "SMARTWATCHES";
+
                 htmlSlides += `
-                    <div class="hero-slide-item ${idx === 0 ? 'active' : ''}" onclick="abrirSeccionDesdeBanner('${banner.CategoriaEnlace}')">
-                        <img src="${banner.Imagen}" alt="${banner.Titulo}">
+                    <div class="hero-slide-item ${idx === 0 ? 'active' : ''}" onclick="abrirSeccionDesdeBanner('${catEnlace}')">
+                        <img src="${img}" alt="${tit}">
                         <div class="hero-slide-overlay">
-                            <span class="hero-slide-tag">${banner.Tag}</span>
-                            <div class="hero-slide-title">${banner.Titulo}</div>
-                            <div class="hero-slide-desc">${banner.Descripcion}</div>
+                            <span class="hero-slide-tag">${tag}</span>
+                            <div class="hero-slide-title">${tit}</div>
+                            <div class="hero-slide-desc">${desc}</div>
                         </div>
                     </div>`;
                 htmlDots += `<div class="hero-dot ${idx === 0 ? 'active' : ''}" onclick="irABannerHero(${idx})"></div>`;
@@ -947,6 +1010,7 @@
         }
 
         function reanudarSlideHero() {
+            clearInterval(temporizadorProgreso);
             temporizadorProgreso = setInterval(() => {
                 progresoHero += (100 / (TIEMPO_SLIDE / 50));
                 if (progresoHero >= 100) { progresoHero = 0; moverBannerHero(1); }
@@ -955,21 +1019,6 @@
         }
 
         function subirArriba() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
-
-        function renderizarImagenesStreaming() {
-            Object.keys(STREAMING_IMAGENES).forEach(key => {
-                const imgInfo = STREAMING_IMAGENES[key];
-                if (imgInfo && imgInfo.Imagen && imgInfo.Imagen.trim() !== "") {
-                    const posterBg = document.getElementById(`posterBg_${key}`);
-                    if (posterBg) {
-                        posterBg.style.backgroundImage = `url('${imgInfo.Imagen.trim()}')`;
-                        // Mantenemos el HTML interno intacto por si falla la imagen, el CSS se encarga (o lo ocultamos)
-                        const logoCentro = posterBg.querySelector('.stream-poster-brand-logo');
-                        if(logoCentro) logoCentro.style.display = 'none'; // Ocultamos el logo vector para dejar brillar tu foto
-                    }
-                }
-            });
-        }
 
         const PLANES_STREAMING_FIJOS = {
             "NETFLIX": { nombre: "NETFLIX", icono: "N", color: "#E50914", planes: [
@@ -998,6 +1047,33 @@
             ]}
         };
 
+        // Normaliza "Disney Plus" -> "DISNEY", "Paramount plus" -> "PARAMOUNT", etc.
+        function obtenerClaveStreaming(nombreRaw) {
+            const str = String(nombreRaw || "").trim().toUpperCase();
+            if (str.includes("NETFLIX")) return "NETFLIX";
+            if (str.includes("DISNEY")) return "DISNEY";
+            if (str.includes("MAX") || str.includes("HBO")) return "MAX";
+            if (str.includes("PRIME") || str.includes("AMAZON")) return "PRIME";
+            if (str.includes("PARAMOUNT")) return "PARAMOUNT";
+            if (str.includes("CRUNCHY")) return "CRUNCHYROLL";
+            return str;
+        }
+
+        function renderizarImagenesStreaming() {
+            Object.keys(STREAMING_IMAGENES).forEach(key => {
+                const imgInfo = STREAMING_IMAGENES[key];
+                if (imgInfo && imgInfo.Imagen && imgInfo.Imagen.trim() !== "") {
+                    const posterBg = document.getElementById(`posterBg_${key}`);
+                    if (posterBg) {
+                        const urlHD = optimizarUrlDrive(imgInfo.Imagen, "w600");
+                        posterBg.style.backgroundImage = `url('${urlHD}')`;
+                        const logoCentro = posterBg.querySelector('.stream-poster-brand-logo');
+                        if (logoCentro) logoCentro.style.display = 'none';
+                    }
+                }
+            });
+        }
+
         function abrirModalStreaming(claveServicio, pushHistory = true) {
             const data = PLANES_STREAMING_FIJOS[claveServicio];
             if (!data) return;
@@ -1008,10 +1084,7 @@
             document.getElementById('modalStreamTitle').innerText = data.nombre;
 
             let htmlPlanes = "";
-            let precioDesde = 999;
-
             data.planes.forEach(plan => {
-                if (parseFloat(plan.precio) < precioDesde) precioDesde = parseFloat(plan.precio);
                 const msgWpp = encodeURIComponent(`Hola A-MOVIL, deseo activar el plan *${plan.titulo}* ($${plan.precio})`);
                 htmlPlanes += `
                     <div class="stream-plan-card" style="--plan-accent: ${data.color};">
@@ -1089,23 +1162,6 @@
             return String(texto).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
         }
 
-        const DICCIONARIO_SINONIMOS = {
-            "powerbank": ["power", "bank", "bateria", "portatil", "powerbank"],
-            "powerbanks": ["power", "bank", "bateria", "portatil", "powerbank"],
-            "bateria": ["power", "bank", "bateria"],
-            "audifono": ["audifonos", "auriculares", "earbuds", "tws", "audio"],
-            "audifonos": ["audifonos", "auriculares", "earbuds", "tws", "audio"],
-            "auricular": ["audifonos", "auriculares", "earbuds", "tws", "audio"],
-            "auriculares": ["audifonos", "auriculares", "earbuds", "tws", "audio"],
-            "cargador": ["cargador", "cargadores", "cubo", "adaptador", "gan"],
-            "cargadores": ["cargador", "cargadores", "cubo", "adaptador", "gan"],
-            "cubo": ["cargador", "cubo", "adaptador"],
-            "reloj": ["smartwatch", "reloj", "smartwatches", "wearable"],
-            "relojes": ["smartwatch", "reloj", "smartwatches", "wearable"],
-            "smartwatch": ["smartwatch", "reloj", "smartwatches"],
-            "cable": ["cable", "cables", "lightning", "tipo c", "usb c"]
-        };
-
         function calcularScoreRelevancia(item, queryRaw) {
             const queryNorm = normalizarTextoBusqueda(queryRaw);
             if (!queryNorm) return 0;
@@ -1160,9 +1216,9 @@
             if (c.includes("azul") || c.includes("blue") || c.includes("marino")) return "#2563eb";
             if (c.includes("celeste") || c.includes("cyan")) return "#38bdf8";
             if (c.includes("verde") || c.includes("green") || c.includes("menta")) return "#10b981";
-            if (c.includes("rojo") || c.includes("red")) return "#ef4444";
+            if (c.includes("rojo") || c.includes("red") || c.includes("magneta") || c.includes("magenta")) return "#ef4444";
             if (c.includes("rosado") || c.includes("pink") || c.includes("rosa")) return "#ec4899";
-            if (c.includes("morado") || c.includes("purple") || c.includes("purpura") || c.includes("lila") || c.includes("lavanda")) return "#a855f7";
+            if (c.includes("morado") || c.includes("purple") || c.includes("purpura") || c.includes("lila") || c.includes("lavanda") || c.includes("violeta")) return "#a855f7";
             if (c.includes("dorado") || c.includes("gold") || c.includes("amarillo")) return "#eab308";
             if (c.includes("naranja") || c.includes("orange")) return "#f97316";
             if (c.includes("cafe") || c.includes("brown") || c.includes("caqui")) return "#78350f";
@@ -1190,7 +1246,7 @@
 
             const descRaw = equipo.Descripcion ? String(equipo.Descripcion).trim() : "";
             if (descRaw) {
-                let fragmentos = descRaw.includes('|') ? descRaw.split('|') : descRaw.split(/(?:\.\s+|\n+|;\s+)/);
+                let fragmentos = descRaw.includes('|') ? descRaw.split('|') : descRaw.split(/(?:\.\s+|\n+|;\s+|•\s*)/);
                 fragmentos.forEach(frag => {
                     let txt = frag.trim();
                     if (!txt) return;
@@ -1234,7 +1290,8 @@
             return { capacidadVisible, tituloLlamativo, listaVinetas, listaChips, coloresLimpios };
         }
 
-        const csvUrls = [
+       
+const csvUrls = [
             "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?output=csv",
             "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?gid=1177174992&single=true&output=csv",
             "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?gid=432242137&single=true&output=csv", // Link Banners
@@ -1317,7 +1374,7 @@
 
             const dispStr = String(equipo.DISP || equipo.Agotado || "").trim().toUpperCase();
             const estaAgotado = (dispStr === "NO" || dispStr === "AGOTADO");
-            const imagenURL = equipo.Imagen ? String(equipo.Imagen).trim() : "";
+            const imagenURL = optimizarUrlDrive(equipo.Imagen, "w500");
             const imgClase = estaAgotado ? 'product-image agotado-img' : 'product-image';
             const badgeAgotado = estaAgotado ? '<div class="agotado-badge">AGOTADO</div>' : '';
             
@@ -1406,7 +1463,7 @@
             const dispStr = String(equipo.DISP || equipo.Agotado || "").trim().toUpperCase();
             const estaAgotado = (dispStr === "NO" || dispStr === "AGOTADO");
 
-            const { precioEfectivoNum, precioTarjetaNum, precioAnteriorNum, porcentajeOff, esOfertaReal } = calcularDescuentoEquipo(equipo);
+            const { precioEfectivoNum, precioTarjetaNum, precioAnteriorNum, esOfertaReal } = calcularDescuentoEquipo(equipo);
 
             document.getElementById('detailBreadcrumbs').innerHTML = `
                 <span onclick="volverAPortada()">Inicio</span> /
@@ -1461,11 +1518,13 @@
             if (coloresLimpios && coloresLimpios.toUpperCase() !== "N/A") listaDescHtml += `<li><strong>Colores:</strong> ${coloresLimpios}.</li>`;
             (listaVinetas || []).forEach(vineta => { listaDescHtml += `<li>${resaltarDatosTecnicos(vineta)}</li>`; });
 
+            const imgDetalle = optimizarUrlDrive(equipo.Imagen, "w800");
+
             document.getElementById('detalle-producto-inyectado').innerHTML = `
                 <div class="detail-hero-card">
                     <div class="detail-left-col">
                         <div class="detail-image-frame">
-                            <img src="${equipo.Imagen ? String(equipo.Imagen).trim() : ''}" alt="${tituloLlamativo}">
+                            <img src="${imgDetalle}" alt="${tituloLlamativo}">
                         </div>
                         <div class="detail-trust-badges">
                             <span><strong>&#10003;</strong> Garantía Local</span>
@@ -1545,10 +1604,6 @@
                 history.pushState({ vista: "PORTADA" }, "", window.location.pathname);
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function irASeccionStreaming() {
-            abrirSeccionStreamingIndependiente(true);
         }
 
         function abrirSeccionStreamingIndependiente(pushHistory = true) {
@@ -1697,36 +1752,37 @@
 
         Promise.all(csvUrls.map(url => descargarHojaCSV(url))).then(resultadosHojas => {
             
-            // LECTURA DE BANNERS (HOJA 3)
+            // 1. LECTURA DE BANNERS (HOJA 3) - Con propiedades Mayúsculas exactas
             const datosBanners = resultadosHojas[2] || [];
             if (datosBanners.length > 0) {
                 BANNERS_PORTADA = datosBanners.filter(b => b.Titulo && String(b.Titulo).trim() !== "").map(b => {
                     return {
-                        tag: String(b.Tag || "OFERTA").trim(),
-                        titulo: String(b.Titulo).trim(),
-                        desc: String(b.Descripcion || "").trim(),
-                        imagen: String(b.Imagen || "").trim(),
-                        CategoriaEnlace: String(b.CategoriaEnlace || "SMARTWATCHES").trim().toUpperCase(),
-                        accion: function() { abrirSeccionDesdeBanner(this.CategoriaEnlace); }
+                        Tag: String(b.Tag || "OFERTA").trim(),
+                        Titulo: String(b.Titulo).trim(),
+                        Descripcion: String(b.Descripcion || "").trim(),
+                        Imagen: optimizarUrlDrive(b.Imagen, "w1200"),
+                        CategoriaEnlace: String(b.CategoriaEnlace || "SMARTWATCHES").trim().toUpperCase()
                     };
                 });
             }
             
-            // LECTURA DE STREAMING IMÁGENES (HOJA 4)
+            // 2. LECTURA DE STREAMING IMÁGENES (HOJA 4) - Corregido PLANES_STREAMING_FIJOS y nombres como "Disney Plus"
             const datosStreaming = resultadosHojas[3] || [];
             if (datosStreaming.length > 0) {
                 datosStreaming.forEach(s => {
-                    const servicio = String(s.Servicio || "").trim().toUpperCase();
-                    if (servicio) {
-                        STREAMING_IMAGENES[servicio] = {
+                    const clave = obtenerClaveStreaming(s.Servicio);
+                    if (clave && PLANES_STREAMING_FIJOS[clave]) {
+                        const precioNum = parseFloat(String(s.PrecioDesde || "").replace(',', '.'));
+                        const precioFormateado = !isNaN(precioNum) ? precioNum.toFixed(2) : String(s.PrecioDesde || "").trim();
+
+                        STREAMING_IMAGENES[clave] = {
                             Imagen: String(s.Imagen || "").trim(),
-                            PrecioDesde: String(s.PrecioDesde || "").trim()
+                            PrecioDesde: precioFormateado
                         };
                         
-                        const servicioKeyBase = Object.keys(STREAMING_DATA).find(k => k.includes(servicio) || servicio.includes(k));
-                        if (servicioKeyBase && STREAMING_IMAGENES[servicio].PrecioDesde) {
-                            const btnPrecio = document.querySelector(`.stream-poster-card[onclick*="'${servicioKeyBase}'"] .stream-desde-price`);
-                            if(btnPrecio) btnPrecio.innerText = `$${STREAMING_IMAGENES[servicio].PrecioDesde}`;
+                        if (precioFormateado) {
+                            const btnPrecio = document.querySelector(`.stream-poster-card[onclick*="'${clave}'"] .stream-desde-price`);
+                            if (btnPrecio) btnPrecio.innerText = `$${precioFormateado}`;
                         }
                     }
                 });
@@ -1736,6 +1792,7 @@
             vistaPortada.style.display = 'block';
             inicializarBannersHero();
 
+            // 3. LECTURA DE PRODUCTOS (HOJA 1 + HOJA 2)
             const todosLosEquipos = resultadosHojas[0].concat(resultadosHojas[1] || []);
             let destacadosHTML = "";
             let contadorDestacados = 0;
