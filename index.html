@@ -1739,16 +1739,17 @@ const csvUrls = [
             }
         }
 
-        function descargarHojaCSV(url) {
+ function descargarHojaCSV(url) {
+            const urlSinCache = url + "&t=" + new Date().getTime();
             return new Promise((resolve) => {
-                Papa.parse(url, {
+                Papa.parse(urlSinCache, {
                     download: true,
                     header: true,
                     complete: results => resolve(results.data || []),
                     error: () => resolve([])
                 });
             });
-        }
+        }      
 
         Promise.all(csvUrls.map(url => descargarHojaCSV(url))).then(resultadosHojas => {
             
