@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catálogo | A-MOVIL STORE</title>
-    <!-- FAVICON OFICIAL SVG -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23ffffff'/%3E%3Ccircle cx='50' cy='18' r='11' fill='%230088ff'/%3E%3Cpath d='M 41 36 L 16 90 L 30 90 L 47 50 Z' fill='%23000000'/%3E%3Cpath d='M 59 36 L 84 90 L 70 90 L 53 50 Z' fill='%23000000'/%3E%3Cpolygon points='22,82 70,58 74,68 26,90' fill='%23000000'/%3E%3C/svg%3E">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -22,7 +21,6 @@
             --price-card: #0088ff;
             --offer-red: #e60023;
         }
-
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Montserrat', sans-serif; }
         html { scroll-behavior: smooth; }
         body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 80px; overflow-x: hidden; }
@@ -37,14 +35,12 @@
         .brand-title-amovil { font-size: 23px; font-weight: 900; color: var(--secondary-color); line-height: 1; }
         .brand-title-store { font-size: 14px; font-weight: 800; color: #000; letter-spacing: 4.5px; border-top: 2.5px solid #000; margin-top: 3px; padding-top: 2px; line-height: 1.1; width: 100%; text-align: center; }
         .brand-subtitle { font-size: 9.5px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
-
         .header-search-wrapper { flex: 1; max-width: 480px; position: relative; display: flex; align-items: center; }
         .header-search-icon { position: absolute; left: 16px; width: 17px; height: 17px; stroke: #64748b; stroke-width: 2.3; fill: none; pointer-events: none; }
         .search-input { width: 100%; padding: 11px 40px 11px 42px; border-radius: 30px; border: 2px solid var(--border-color); background: #f8fafc; color: var(--text-main); font-size: 13.5px; font-weight: 600; outline: none; transition: all 0.25s; }
         .search-input:focus { background: #fff; border-color: var(--secondary-color); box-shadow: 0 0 16px rgba(0,136,255,0.22); }
         .search-clear-btn { position: absolute; right: 14px; background: none; border: none; color: #94a3b8; font-size: 18px; font-weight: 800; cursor: pointer; display: none; line-height: 1; }
         .search-clear-btn:hover { color: var(--offer-red); }
-
         .header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .social-circle-link { width: 38px; height: 38px; border-radius: 50%; background: #1e293b; border: 1px solid rgba(255,255,255,0.1); color: #f8fafc; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.25s; flex-shrink: 0; }
         .social-circle-link svg { width: 17px; height: 17px; fill: currentColor; }
@@ -52,11 +48,9 @@
         .social-circle-link.fb:hover { background: #1877F2; box-shadow: 0 4px 12px rgba(24,119,242,0.4); }
         .social-circle-link.tt:hover { background: #000; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
         .social-circle-link.wa:hover { background: #25D366; box-shadow: 0 4px 12px rgba(37,211,102,0.4); }
-
         .constant-up-arrow { position: fixed; bottom: 20px; right: 16px; z-index: 900; width: 40px; height: 40px; border-radius: 50%; background: rgba(15,23,42,0.9); backdrop-filter: blur(5px); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 6px 16px rgba(15,23,42,0.28); transition: all 0.25s; }
         .constant-up-arrow svg { width: 18px; height: 18px; stroke: currentColor; stroke-width: 2.8; fill: none; }
         .constant-up-arrow:hover { background: var(--secondary-color); transform: translateY(-4px) scale(1.08); }
-
         .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
 
         /* LOADER */
@@ -96,7 +90,6 @@
         .slider-arrow:hover { background-color: var(--secondary-hover); transform: scale(1.1); }
         .slider-arrow.left { left: -10px; }
         .slider-arrow.right { right: -10px; }
-
         .slider-section { margin: 10px 0 40px 0; background: #fff; padding: 30px 20px; border-radius: 15px; border: 1px solid var(--border-color); box-shadow: 0 8px 20px rgba(15,23,42,0.04); }
         .slider-container { display: flex; overflow-x: auto; gap: 15px; padding: 10px 0 20px 0; scroll-behavior: smooth; scroll-snap-type: x mandatory; scrollbar-width: none; }
         .slider-container::-webkit-scrollbar { display: none; }
@@ -107,18 +100,16 @@
         .slider-title { font-size: 17px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; padding: 0 15px; }
         .slider-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 15px; line-height: 1.4; padding: 0 15px; }
         .slider-btn { display: inline-block; background: var(--secondary-color); color: #fff; padding: 8px 20px; border-radius: 20px; font-size: 12px; font-weight: 800; text-decoration: none; cursor: pointer; border: none; margin: 0 15px; }
-
         .destacados-section { margin-bottom: 45px; }
         .destacados-section .section-header h2 { color: var(--offer-red); border-left: 5px solid var(--offer-red); padding-left: 12px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 20px; }
 
-        /* TARJETAS RESUMIDAS */
+        /* TARJETAS PRODUCTOS */
         .product-card { background: var(--card-bg); border-radius: 16px; padding: 18px 16px; border: 1.5px solid var(--border-color); transition: all 0.3s cubic-bezier(0.25,1,0.5,1); display: flex; flex-direction: column; position: relative; box-shadow: 0 4px 14px rgba(15,23,42,0.05); }
         .product-card:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 16px 32px rgba(0,136,255,0.16); border-color: var(--secondary-color); }
         .product-card.card-oferta { border-color: rgba(230,0,35,0.3); }
         .product-card.card-oferta:hover { border-color: var(--offer-red); box-shadow: 0 16px 32px rgba(230,0,35,0.18); }
         .badge-destacado { position: absolute; top: 12px; left: 12px; background: linear-gradient(135deg, #e60023, #ff2a4b); color: white; padding: 4px 10px; font-weight: 900; font-size: 10.5px; border-radius: 6px; z-index: 5; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(230,0,35,0.4); }
-
         .card-click-zone { cursor: pointer; text-align: center; display: flex; flex-direction: column; }
         .product-image { width: 100%; height: 195px; object-fit: contain; margin-bottom: 12px; border-radius: 12px; background: #fff; padding: 10px; border: 1px solid #f1f5f9; transition: transform 0.35s; }
         .card-click-zone:hover .product-image { transform: scale(1.06); }
@@ -126,7 +117,6 @@
         .card-brand-tag { font-size: 11px; color: var(--secondary-color); font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px; }
         .card-main-title { font-weight: 900; font-size: 15px; color: var(--text-main); line-height: 1.35; margin-bottom: 12px; min-height: 42px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color 0.2s; }
         .card-click-zone:hover .card-main-title { color: var(--secondary-color); }
-
         .card-prices-dual-box { display: flex; justify-content: space-around; align-items: flex-start; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 8px; margin-bottom: 12px; gap: 6px; cursor: pointer; }
         .card-price-col { display: flex; flex-direction: column; align-items: center; flex: 1; }
         .card-price-col:first-child { border-right: 1px dashed #cbd5e1; padding-right: 6px; }
@@ -135,31 +125,25 @@
         .card-price-cash-val.is-offer { color: var(--offer-red); }
         .card-price-old { font-size: 11px; color: #94a3b8; text-decoration: line-through; font-weight: 700; margin-top: 2px; }
         .card-price-card-val { font-size: 18px; font-weight: 900; color: var(--price-card); line-height: 1.1; }
-
         .card-chips-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 5px; margin-bottom: 14px; cursor: pointer; }
         .spec-chip-pill { background: #f1f5f9; border: 1px solid #cbd5e1; color: #334155; font-size: 10px; font-weight: 700; padding: 4px 8px; border-radius: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-        .btn-card {
-            margin-top: auto; position: relative; display: block; width: 100%; background: var(--secondary-color); color: #fff; text-align: center; padding: 11px; border-radius: 8px; font-weight: 900; text-decoration: none; text-transform: uppercase; font-size: 12.5px; letter-spacing: 0.5px; border: none; cursor: pointer; overflow: hidden; transition: all 0.25s;
-        }
+        .btn-card { margin-top: auto; position: relative; display: block; width: 100%; background: var(--secondary-color); color: #fff; text-align: center; padding: 11px; border-radius: 8px; font-weight: 900; text-decoration: none; text-transform: uppercase; font-size: 12.5px; letter-spacing: 0.5px; border: none; cursor: pointer; overflow: hidden; transition: all 0.25s; }
         .btn-card::after { content: ""; position: absolute; top: -50%; left: -60%; width: 40%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transform: rotate(25deg); transition: left 0.6s ease; }
         .btn-card:hover::after { left: 120%; }
         .btn-card:hover { background: var(--secondary-hover); box-shadow: 0 6px 16px rgba(0,136,255,0.35); transform: translateY(-2px); }
-
         .costo-distribuidor { display: none; background: #fef2f2; color: #dc2626; border: 1px dashed #ef4444; font-size: 11.5px; font-weight: 800; text-align: center; margin-bottom: 10px; padding: 6px; border-radius: 6px; }
         body.admin-mode .costo-distribuidor { display: block; }
         .agotado-img { opacity: 0.25; filter: grayscale(100%); }
         .agotado-badge { position: absolute; top: 90px; left: 50%; transform: translateX(-50%) rotate(-10deg); background: #ef4444; color: white; padding: 8px 20px; font-weight: 900; font-size: 18px; border-radius: 6px; border: 2px solid white; z-index: 10; letter-spacing: 1.5px; }
 
-        /* VISTA CATEGORÍA */
-        #vista-categoria-seleccionada { display: none; }
+        /* VISTA CATEGORÍA Y DETALLE */
+        #vista-categoria-seleccionada, #vista-producto-detalle, #vista-streaming-independiente { display: none; }
         .cat-banner-header { background: #fff; border: 1px solid var(--border-color); border-left: 5px solid var(--secondary-color); border-radius: 14px; padding: 20px 22px; margin-bottom: 18px; box-shadow: 0 4px 12px rgba(15,23,42,0.04); }
         .cat-banner-top { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 6px; }
         .cat-banner-title { font-size: 22px; font-weight: 900; color: var(--text-main); text-transform: uppercase; }
         .cat-banner-desc { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
         .btn-volver-portada { background: var(--secondary-color); color: #fff; border: none; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer; transition: all 0.2s; box-shadow: 0 3px 10px rgba(0,136,255,0.22); }
         .btn-volver-portada:hover { background: var(--secondary-hover); transform: translateY(-1px); }
-
         .categoria-activa-toolbar { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 12px rgba(15,23,42,0.03); }
         .ordenar-box { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
         .ordenar-box label { font-size: 12px; font-weight: 800; color: var(--text-main); }
@@ -169,29 +153,21 @@
         .brand-pill-btn { background: #f1f5f9; border: 1px solid var(--border-color); color: var(--text-muted); font-size: 11px; font-weight: 800; padding: 6px 12px; border-radius: 20px; cursor: pointer; text-transform: uppercase; transition: all 0.2s; }
         .brand-pill-btn:hover, .brand-pill-btn.active { background: var(--secondary-color); color: #fff; border-color: var(--secondary-color); }
 
-        /* VISTA DETALLE */
-        #vista-producto-detalle { display: none; }
         .detail-top-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
         .detail-breadcrumbs { font-size: 12px; font-weight: 700; color: var(--text-muted); display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
         .detail-breadcrumbs span { cursor: pointer; color: var(--secondary-color); }
         .detail-breadcrumbs span:hover { text-decoration: underline; }
-
         .detail-hero-card { background: #fff; border: 1px solid var(--border-color); border-radius: 18px; padding: 28px; box-shadow: 0 10px 30px rgba(15,23,42,0.05); display: grid; grid-template-columns: 1fr 1.1fr; gap: 32px; margin-bottom: 24px; }
         .detail-left-col { display: flex; flex-direction: column; }
         .detail-image-frame { background: #fff; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 20px; height: 340px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
         .detail-image-frame img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .detail-trust-badges { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 8px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 10px; padding: 11px 10px; font-size: 11px; font-weight: 800; color: var(--text-main); }
-        .detail-trust-badges span svg { width: 14px; height: 14px; stroke: var(--price-cash); stroke-width: 2.5; fill: none; margin-right: 4px; }
-        .detail-trust-badges span { display: flex; align-items: center; }
-
         .detail-right-col { display: flex; flex-direction: column; justify-content: center; }
         .detail-main-heading { font-size: 24px; font-weight: 900; color: var(--text-main); line-height: 1.3; margin-bottom: 10px; }
         .detail-pills-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
         .detail-pill-tag { font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border-color); background: #f8fafc; color: var(--text-main); }
         .detail-pill-tag.ok { background: #ecfdf5; border-color: #a7f3d0; color: #059669; }
         .detail-pill-tag.out { background: #fef2f2; border-color: #fecaca; color: #dc2626; }
-
-        /* SELECTOR DE COLORES */
         .color-selector-zone { background: #f8fafc; border: 1.5px solid var(--border-color); border-radius: 12px; padding: 12px 16px; margin-bottom: 18px; }
         .color-selector-label { font-size: 12px; color: var(--text-muted); font-weight: 700; margin-bottom: 8px; }
         .color-selector-label strong { color: var(--text-main); font-weight: 800; }
@@ -200,7 +176,6 @@
         .color-swatch-chip:hover { border-color: var(--secondary-color); transform: translateY(-2px); }
         .color-swatch-chip.active { border-color: var(--secondary-color); background: #f0f7ff; color: var(--secondary-color); box-shadow: 0 0 10px rgba(0,136,255,0.25); }
         .color-dot-circle { width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.15); display: inline-block; }
-
         .detail-prices-dual-banner { display: flex; align-items: flex-start; gap: 32px; flex-wrap: wrap; background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 18px 22px; margin-bottom: 12px; }
         .detail-price-col { display: flex; flex-direction: column; }
         .detail-price-label { font-size: 12px; font-weight: 800; color: var(--text-muted); margin-bottom: 4px; }
@@ -208,26 +183,22 @@
         .detail-price-cash.is-offer { color: var(--offer-red); }
         .detail-old-price { font-size: 14px; font-weight: 700; color: #94a3b8; text-decoration: line-through; margin-top: 4px; }
         .detail-price-card { font-size: 32px; font-weight: 900; color: var(--price-card); line-height: 1; }
-
         .detail-payphone-badge { display: inline-flex; align-items: center; gap: 8px; background: #f0fdf4; border: 1.5px solid #bbf7d0; color: #15803d; font-size: 11.5px; font-weight: 800; padding: 8px 14px; border-radius: 8px; margin-bottom: 18px; width: fit-content; }
         .detail-payphone-badge svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 2.3; fill: none; flex-shrink: 0; }
         .btn-detail-loquiero { display: block; width: 100%; background: var(--secondary-color); color: #fff; text-align: center; text-decoration: none; padding: 15px 20px; border-radius: 10px; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; box-shadow: 0 6px 18px rgba(0,136,255,0.3); transition: all 0.25s; }
         .btn-detail-loquiero:hover { background: var(--secondary-hover); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,136,255,0.45); }
-
         .detail-description-card { background: #fff; border: 1px solid var(--border-color); border-radius: 18px; padding: 26px 28px; box-shadow: 0 6px 20px rgba(15,23,42,0.04); margin-bottom: 35px; }
         .detail-tab-header { border-bottom: 2px solid var(--border-color); margin-bottom: 20px; display: flex; }
         .detail-tab-active { font-size: 14px; font-weight: 800; color: var(--secondary-color); border-bottom: 3px solid var(--secondary-color); padding-bottom: 10px; margin-bottom: -2px; }
         .detail-desc-title { font-size: 20px; font-weight: 900; color: var(--secondary-color); margin-bottom: 16px; }
         .detail-desc-list { list-style: none; padding: 0; margin: 0; }
         .detail-desc-list li { font-size: 14px; color: #334155; line-height: 1.7; margin-bottom: 10px; padding-left: 18px; position: relative; font-weight: 500; }
-        .detail-desc-list li:last-child { margin-bottom: 0; }
         .detail-desc-list li::before { content: "»"; position: absolute; left: 0; top: 0; color: var(--secondary-color); font-weight: 900; font-size: 16px; }
         .detail-desc-list li strong { color: #0f172a; font-weight: 800; }
-
         .related-products-section { margin-bottom: 40px; }
         .related-products-title { font-size: 22px; font-weight: 900; color: var(--text-main); margin-bottom: 18px; padding-left: 12px; border-left: 5px solid var(--secondary-color); }
 
-        /* BANNER PAYPHONE OFICIAL Y LIMPIO */
+        /* PAYPHONE Y BENEFICIOS */
         .payphone-promo-section { margin: 35px 0 40px 0; background: #fff; border: 1.5px solid var(--border-color); border-radius: 20px; padding: 30px 24px; box-shadow: 0 10px 30px rgba(15,23,42,0.05); position: relative; overflow: hidden; }
         .payphone-promo-section::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #0088ff, #00d2ff, #10b981); }
         .payphone-top-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-bottom: 22px; }
@@ -235,7 +206,6 @@
         .payphone-title-block p { font-size: 13px; color: var(--text-muted); margin-top: 4px; font-weight: 600; }
         .payphone-official-badge { background: #0f172a; color: #fff; padding: 6px 16px; border-radius: 25px; font-size: 11px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px; }
         .payphone-official-badge span { color: #38bdf8; }
-
         .payphone-plans-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 25px; }
         .payphone-plan-card { background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 14px; padding: 18px; text-align: center; transition: all 0.25s; }
         .payphone-plan-card:hover { border-color: var(--secondary-color); background: #fff; transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,136,255,0.12); }
@@ -244,14 +214,10 @@
         .payphone-plan-badge { display: inline-block; background: #10b981; color: #fff; font-size: 10px; font-weight: 900; padding: 3px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
         .payphone-plan-monto { font-size: 12.5px; font-weight: 700; color: var(--text-muted); }
         .payphone-plan-monto strong { color: var(--text-main); font-weight: 900; }
-
         .payphone-logos-strip { border-top: 1px solid var(--border-color); padding-top: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
         .payphone-logos-label { font-size: 12px; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; }
         .payphone-badges-group { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        
-        /* LOGOS VECTORIALES DE FORMAS DE PAGO */
-        .pay-brand-logo { background: #ffffff; border: 1.5px solid #e2e8f0; height: 38px; padding: 4px 14px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(15,23,42,0.04); font-weight: 900; font-size: 13px; user-select: none; transition: transform 0.2s; }
-        .pay-brand-logo:hover { transform: translateY(-2px); border-color: #cbd5e1; }
+        .pay-brand-logo { background: #ffffff; border: 1.5px solid #e2e8f0; height: 38px; padding: 4px 14px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(15,23,42,0.04); font-weight: 900; font-size: 13px; user-select: none; }
         .pay-logo-mc { display: inline-flex; align-items: center; gap: 6px; }
         .mc-circle-red { width: 16px; height: 16px; border-radius: 50%; background: #eb001b; display: inline-block; }
         .mc-circle-yellow { width: 16px; height: 16px; border-radius: 50%; background: #f79e1b; display: inline-block; margin-left: -10px; }
@@ -264,7 +230,6 @@
         .pay-logo-amex { background: #006fcf; color: #fff; font-size: 10px; border-radius: 4px; padding: 4px 8px; font-weight: 900; }
         .pay-logo-diners { color: #004a97; font-size: 12px; font-weight: 900; display: inline-flex; align-items: center; gap: 5px; }
 
-        /* BENEFICIOS */
         .benefits-section { margin: 35px 0; background: #fff; border: 1px solid var(--border-color); border-radius: 18px; padding: 30px 24px; box-shadow: 0 6px 20px rgba(15,23,42,0.04); }
         .benefits-header { text-align: center; margin-bottom: 24px; }
         .benefits-header h2 { font-size: 22px; font-weight: 900; color: var(--text-main); margin-bottom: 6px; }
@@ -277,155 +242,38 @@
         .benefit-title { font-size: 15px; font-weight: 800; color: var(--text-main); margin-bottom: 6px; }
         .benefit-desc { font-size: 12.5px; color: var(--text-muted); line-height: 1.45; }
 
-        /* SECCIÓN STREAMING INDEPENDIENTE */
-        #vista-streaming-independiente { display: none; }
-        .streaming-independent-wrapper, .streaming-showcase {
-            background: radial-gradient(circle at top, #161b2e 0%, #090b10 100%);
-            border-radius: 20px;
-            padding: 34px 22px;
-            margin-bottom: 45px;
-            box-shadow: 0 16px 36px rgba(9, 11, 16, 0.45);
-            border: 1px solid #1e293b;
-        }
-        .streaming-independent-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 26px;
-            padding-bottom: 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
+        /* STREAMING */
+        .streaming-showcase { background: radial-gradient(circle at top, #161b2e 0%, #090b10 100%); border-radius: 20px; padding: 34px 22px; margin-bottom: 45px; box-shadow: 0 16px 36px rgba(9, 11, 16, 0.45); border: 1px solid #1e293b; }
+        .streaming-independent-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; padding-bottom: 18px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
         .streaming-independent-header h2 { font-size: 26px; font-weight: 900; color: #ffffff; }
         .streaming-independent-header p { font-size: 13.5px; color: #94a3b8; font-weight: 500; margin-top: 4px; }
-        
-        .streaming-poster-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 18px;
-            width: 100%;
-        }
-        .stream-poster-card {
-            position: relative;
-            width: 100%;
-            height: 330px;
-            background-color: #0b0d13;
-            border: 1.5px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6);
-        }
-        .stream-poster-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            border-color: var(--brand-color, #0088ff);
-            box-shadow: 0 16px 36px var(--brand-glow, rgba(0, 136, 255, 0.45));
-        }
-        
-        .stream-poster-art-bg {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .stream-poster-card:hover .stream-poster-art-bg {
-            transform: scale(1.08);
-        }
-
-        .stream-poster-brand-logo {
-            position: absolute;
-            top: 42%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 85%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            text-align: center;
-            transition: transform 0.35s ease;
-            filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.9));
-        }
-        .stream-poster-card:hover .stream-poster-brand-logo {
-            transform: translate(-50%, -55%) scale(1.12);
-        }
-
-        .stream-poster-card::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -80%;
-            width: 50%;
-            height: 200%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: rotate(25deg);
-            transition: left 0.75s ease;
-            z-index: 5;
-            pointer-events: none;
-        }
+        .streaming-poster-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; width: 100%; }
+        .stream-poster-card { position: relative; width: 100%; height: 330px; background-color: #0b0d13; border: 1.5px solid rgba(255, 255, 255, 0.12); border-radius: 16px; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; justify-content: flex-end; transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1); box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6); }
+        .stream-poster-card:hover { transform: translateY(-8px) scale(1.02); border-color: var(--brand-color, #0088ff); box-shadow: 0 16px 36px var(--brand-glow, rgba(0, 136, 255, 0.45)); }
+        .stream-poster-art-bg { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1); display: flex; align-items: center; justify-content: center; }
+        .stream-poster-card:hover .stream-poster-art-bg { transform: scale(1.08); }
+        .stream-poster-card::before { content: ""; position: absolute; top: -50%; left: -80%; width: 50%; height: 200%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent); transform: rotate(25deg); transition: left 0.75s ease; z-index: 5; pointer-events: none; }
         .stream-poster-card:hover::before { left: 140%; }
-
-        .stream-poster-footer {
-            position: relative;
-            z-index: 4;
-            width: 100%;
-            padding: 30px 14px 14px 14px;
-            background: linear-gradient(to top, rgba(9, 11, 16, 0.98) 0%, rgba(9, 11, 16, 0.75) 60%, transparent 100%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
+        .stream-poster-footer { position: relative; z-index: 4; width: 100%; padding: 30px 14px 14px 14px; background: linear-gradient(to top, rgba(9, 11, 16, 0.98) 0%, rgba(9, 11, 16, 0.75) 60%, transparent 100%); display: flex; flex-direction: column; align-items: center; text-align: center; }
         .stream-desde-label { font-size: 9.5px; font-weight: 800; color: #94a3b8; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 2px; }
         .stream-desde-price { font-size: 26px; font-weight: 900; color: #ffffff; line-height: 1; margin-bottom: 12px; }
-        .stream-ver-btn {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #ffffff;
-            padding: 10px 12px;
-            border-radius: 8px;
-            font-size: 10.5px;
-            font-weight: 900;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-        .stream-poster-card:hover .stream-ver-btn {
-            background: var(--brand-color, #0088ff);
-            border-color: var(--brand-color, #0088ff);
-            color: #ffffff;
-            box-shadow: 0 4px 16px var(--brand-glow, rgba(0, 136, 255, 0.5));
-        }
+        .stream-ver-btn { width: 100%; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(4px); border: 1px solid rgba(255, 255, 255, 0.25); color: #ffffff; padding: 10px 12px; border-radius: 8px; font-size: 10.5px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; cursor: pointer; transition: all 0.25s ease; }
+        .stream-poster-card:hover .stream-ver-btn { background: var(--brand-color, #0088ff); border-color: var(--brand-color, #0088ff); color: #ffffff; box-shadow: 0 4px 16px var(--brand-glow, rgba(0, 136, 255, 0.5)); }
 
         /* MODAL STREAMING */
         .stream-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 7, 12, 0.85); backdrop-filter: blur(7px); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 15px; opacity: 0; transition: opacity 0.25s ease; }
         .stream-modal-overlay.active { display: flex; opacity: 1; }
-        .stream-modal-box { background: #0b0d13; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; max-width: 780px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 26px 22px; position: relative; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85); animation: modalPop 0.25s ease-out; }
-        @keyframes modalPop { from { transform: scale(0.93) translateY(10px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+        .stream-modal-box { background: #0b0d13; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 18px; max-width: 780px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 26px 22px; position: relative; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85); }
         .stream-modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 16px; margin-bottom: 20px; }
         .stream-modal-title-wrap { display: flex; align-items: center; gap: 12px; }
         .stream-modal-badge-logo { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16px; color: #fff; background: #181b24; border: 1px solid rgba(255,255,255,0.12); }
         .stream-modal-title { font-size: 20px; font-weight: 900; color: #ffffff; letter-spacing: 0.5px; }
         .stream-modal-subtitle { font-size: 12px; color: #94a3b8; font-weight: 500; }
-        .stream-modal-close { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); color: #cbd5e1; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
+        .stream-modal-close { background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.12); color: #cbd5e1; width: 36px; height: 36px; border-radius: 50%; font-size: 18px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         .stream-modal-close:hover { background: #e60023; color: #ffffff; border-color: #e60023; }
         .stream-plans-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
-        .stream-plan-card { background: #12151e; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; position: relative; transition: border-color 0.25s, box-shadow 0.25s; }
-        .stream-plan-card:hover { border-color: var(--plan-accent, #e50914); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5); }
+        .stream-plan-card { background: #12151e; border: 1px solid rgba(255, 255, 255, 0.09); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; position: relative; }
+        .stream-plan-card:hover { border-color: var(--plan-accent, #e50914); }
         .stream-plan-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
         .stream-plan-mini-logo { width: 44px; height: 44px; border-radius: 10px; background: #090b10; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 18px; color: var(--plan-accent, #ffffff); }
         .stream-plan-pills { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
@@ -436,62 +284,35 @@
         .stream-plan-features { list-style: none; margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
         .stream-plan-features li { font-size: 12px; color: #94a3b8; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-weight: 500; }
         .stream-plan-features li::before { content: ""; width: 5px; height: 5px; border-radius: 50%; background: var(--plan-accent, #0088ff); display: inline-block; flex-shrink: 0; }
-        .stream-plan-features li:last-child { margin-bottom: 0; }
         .stream-plan-features li strong { color: #f8fafc; font-weight: 700; }
         .stream-plan-footer { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
         .stream-price-block { display: flex; flex-direction: column; }
         .stream-price-label { font-size: 9.5px; font-weight: 800; color: #64748b; letter-spacing: 0.8px; text-transform: uppercase; }
         .stream-price-final { font-size: 24px; font-weight: 900; color: #ffffff; }
-        .btn-comprar-stream { background: linear-gradient(90deg, #e50914, #ff1e56); color: #ffffff; text-decoration: none; padding: 11px 18px; border-radius: 25px; font-size: 12px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(229, 9, 20, 0.45); transition: transform 0.2s, box-shadow 0.2s; }
+        .btn-comprar-stream { background: linear-gradient(90deg, #e50914, #ff1e56); color: #ffffff; text-decoration: none; padding: 11px 18px; border-radius: 25px; font-size: 12px; font-weight: 900; letter-spacing: 0.5px; text-transform: uppercase; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(229, 9, 20, 0.45); }
         .btn-comprar-stream svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 2.3; fill: none; }
-        .btn-comprar-stream:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(229, 9, 20, 0.65); }
 
-        /* FOOTER CON CONTADOR EN VIVO */
+        /* FOOTER */
         .footer { text-align: center; padding: 40px 15px; background-color: #ffffff; margin-top: 20px; border-top: 2px solid var(--border-color); color: var(--text-muted); font-size: 14px; }
         .footer strong { color: var(--secondary-color); }
-        .visit-counter-container {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: #0f172a;
-            padding: 8px 18px;
-            border-radius: 30px;
-            border: 1px solid #334155;
-            margin-top: 22px;
-            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12);
-        }
-        .live-pulse-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: #10b981;
-            box-shadow: 0 0 10px #10b981;
-            animation: livePulse 2s infinite;
-        }
-        @keyframes livePulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(0.85); }
-        }
+        .visit-counter-container { display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #0f172a; padding: 8px 18px; border-radius: 30px; border: 1px solid #334155; margin-top: 22px; box-shadow: 0 6px 18px rgba(15, 23, 42, 0.12); }
+        .live-pulse-dot { width: 8px; height: 8px; border-radius: 50%; background-color: #10b981; box-shadow: 0 0 10px #10b981; animation: livePulse 2s infinite; }
+        @keyframes livePulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.85); } }
         .visit-counter-icon { width: 17px; height: 17px; stroke: var(--secondary-color); stroke-width: 2.2; fill: none; flex-shrink: 0; }
         .visit-counter-label { font-size: 11px; font-weight: 800; color: #f8fafc; letter-spacing: 0.8px; text-transform: uppercase; }
         .visit-counter-badge-img { display: block; height: 20px; border-radius: 4px; }
-
         #sin-resultados { text-align: center; padding: 40px; font-weight: 800; color: #ef4444; display: none; font-size: 16px; }
 
         @media (max-width: 768px) {
             header { padding: 10px 12px; }
             .header-inner { flex-wrap: wrap; gap: 10px; }
-            .brand-header { gap: 8px; }
             .brand-logo-svg { width: 38px; height: 38px; }
             .brand-title-amovil { font-size: 19px; }
             .brand-title-store { font-size: 12px; letter-spacing: 3.5px; }
             .brand-subtitle { display: none; }
             .header-actions { gap: 6px; margin-left: auto; }
             .social-circle-link { width: 33px; height: 33px; }
-            .social-circle-link svg { width: 15px; height: 15px; }
             .header-search-wrapper { order: 3; flex: 1 1 100%; max-width: 100%; }
-            .search-input { padding: 9px 36px 9px 38px; font-size: 13px; }
             .hero-banner-slider { height: 190px; border-radius: 14px; margin-bottom: 20px; }
             .hero-slide-overlay { padding: 14px 16px; }
             .hero-slide-title { font-size: 16px; }
@@ -500,10 +321,8 @@
             .slider-arrow { display: none; }
             .detail-hero-card { grid-template-columns: 1fr; padding: 18px; gap: 20px; }
             .detail-image-frame { height: 250px; }
-            .detail-main-heading { font-size: 20px; }
             .streaming-poster-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .stream-poster-card { height: 280px; }
-            .constant-up-arrow { width: 34px; height: 34px; bottom: 14px; right: 12px; }
             .payphone-plans-row { grid-template-columns: 1fr; }
         }
     </style>
@@ -563,7 +382,6 @@
 
         <!-- VISTA 1: PORTADA PRINCIPAL -->
         <div id="vista-portada" style="display: none;">
-            <!-- BANNERS HERO -->
             <div class="hero-banner-slider" id="heroBannerSlider">
                 <div class="hero-slides-track" id="heroSlidesTrack"></div>
                 <div class="hero-progress-bar" id="heroProgressBar"></div>
@@ -572,7 +390,6 @@
                 <div class="hero-indicators" id="heroIndicators"></div>
             </div>
 
-            <!-- CARRUSEL CATEGORÍAS -->
             <div class="slider-section">
                 <div class="section-header">
                     <h2>Explora por categoría</h2>
@@ -616,7 +433,6 @@
                 </div>
             </div>
 
-            <!-- OFERTAS DESTACADAS -->
             <div class="destacados-section" id="destacados-zona">
                 <div class="section-header">
                     <h2>Ofertas Destacadas</h2>
@@ -625,7 +441,6 @@
                 <div class="product-grid" id="destacados-grid"></div>
             </div>
 
-            <!-- BANNER EJECUTIVO PAYPHONE -->
             <div class="payphone-promo-section">
                 <div class="payphone-top-bar">
                     <div class="payphone-title-block">
@@ -666,7 +481,6 @@
                 </div>
             </div>
 
-            <!-- BENEFICIOS -->
             <div class="benefits-section">
                 <div class="benefits-header">
                     <h2>¿Por qué comprar en A-MOVIL?</h2>
@@ -697,8 +511,8 @@
             </div>
         </div>
 
-        <!-- VISTA PESTAÑA INDEPENDIENTE STREAMING -->
-        <div id="vista-streaming-independiente" style="display: none;">
+        <!-- VISTA PESTAÑA INDEPENDIENTE STREAMING (CON TUS 6 FOTOS REALES DE GOOGLE DRIVE) -->
+        <div id="vista-streaming-independiente">
             <div class="streaming-showcase" style="margin-top: 10px;">
                 <div class="streaming-independent-header">
                     <div>
@@ -709,10 +523,8 @@
                 </div>
                 
                 <div class="streaming-poster-grid" id="streamingPostersGrid">
-                    <!-- NETFLIX -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('NETFLIX')" style="--brand-color: #E50914; --brand-glow: rgba(229, 9, 20, 0.55);">
-                        <div class="stream-poster-art-bg" id="posterBg_NETFLIX" style="background-image: url('https://drive.google.com/thumbnail?id=1uM-r3wD4xV-d2iK4c25e1eB4rL1mX8p_&sz=w600');">
-                        </div>
+                        <div class="stream-poster-art-bg" id="posterBg_NETFLIX" style="background-image: url('https://drive.google.com/thumbnail?id=1CgG-zWNZGOQmxf6jolHltbC2dIPWCsZU&sz=w600');"></div>
                         <div class="stream-poster-footer">
                             <span class="stream-desde-label">DESDE</span>
                             <span class="stream-desde-price">$4.00</span>
@@ -720,10 +532,8 @@
                         </div>
                     </div>
 
-                    <!-- DISNEY+ -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('DISNEY')" style="--brand-color: #006eff; --brand-glow: rgba(0, 110, 255, 0.55);">
-                        <div class="stream-poster-art-bg" id="posterBg_DISNEY" style="background-image: url('https://drive.google.com/thumbnail?id=1F4gT8nJ2wK9pL5mX7vB1cZ3qR6yH0sD_&sz=w600');">
-                        </div>
+                        <div class="stream-poster-art-bg" id="posterBg_DISNEY" style="background-image: url('https://drive.google.com/thumbnail?id=1C8j8nevqriBSG_NA9B3RE3TiIQ8klSTD&sz=w600');"></div>
                         <div class="stream-poster-footer">
                             <span class="stream-desde-label">DESDE</span>
                             <span class="stream-desde-price">$3.00</span>
@@ -731,10 +541,8 @@
                         </div>
                     </div>
 
-                    <!-- MAX -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('MAX')" style="--brand-color: #a855f7; --brand-glow: rgba(168, 85, 247, 0.55);">
-                        <div class="stream-poster-art-bg" id="posterBg_MAX" style="background-image: url('https://drive.google.com/thumbnail?id=1A2bC3dE4fG5hI6jK7lM8nO9pQ0rS1tU_&sz=w600');">
-                        </div>
+                        <div class="stream-poster-art-bg" id="posterBg_MAX" style="background-image: url('https://drive.google.com/thumbnail?id=1sO92Umzh1khkx-6X55xLRx73wPMzXxix&sz=w600');"></div>
                         <div class="stream-poster-footer">
                             <span class="stream-desde-label">DESDE</span>
                             <span class="stream-desde-price">$3.00</span>
@@ -742,10 +550,8 @@
                         </div>
                     </div>
 
-                    <!-- PRIME VIDEO -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('PRIME')" style="--brand-color: #00A8E1; --brand-glow: rgba(0, 168, 225, 0.55);">
-                        <div class="stream-poster-art-bg" id="posterBg_PRIME" style="background-image: url('https://drive.google.com/thumbnail?id=1Z9yX8wV7uT6sR5qP4oN3mL2kJ1iH0gF_&sz=w600');">
-                        </div>
+                        <div class="stream-poster-art-bg" id="posterBg_PRIME" style="background-image: url('https://drive.google.com/thumbnail?id=1VqiFdao6QswkrF9QNX1LZlyY7zCIDTyz&sz=w600');"></div>
                         <div class="stream-poster-footer">
                             <span class="stream-desde-label">DESDE</span>
                             <span class="stream-desde-price">$3.00</span>
@@ -753,10 +559,8 @@
                         </div>
                     </div>
 
-                    <!-- PARAMOUNT+ -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('PARAMOUNT')" style="--brand-color: #3b82f6; --brand-glow: rgba(59, 130, 246, 0.55);">
-                        <div class="stream-poster-art-bg" id="posterBg_PARAMOUNT" style="background-image: url('https://drive.google.com/thumbnail?id=1Q1wE2rT3yU4iO5pA6sD7fG8hJ9kL0zX_&sz=w600');">
-                        </div>
+                        <div class="stream-poster-art-bg" id="posterBg_PARAMOUNT" style="background-image: url('https://drive.google.com/thumbnail?id=1OcTF1NFJMcEoBfKDsSR6-GZjP2XyMCxd&sz=w600');"></div>
                         <div class="stream-poster-footer">
                             <span class="stream-desde-label">DESDE</span>
                             <span class="stream-desde-price">$4.00</span>
@@ -764,10 +568,8 @@
                         </div>
                     </div>
 
-                    <!-- CRUNCHYROLL -->
                     <div class="stream-poster-card" onclick="abrirModalStreaming('CRUNCHYROLL')" style="--brand-color: #F47521; --brand-glow: rgba(244, 117, 33, 0.55);">
-                        <div class="stream-poster-art-bg" id="posterBg_CRUNCHYROLL" style="background-image: url('https://drive.google.com/thumbnail?id=1M0nB9vC8xZ7lK6jH5gF4dS3aP2oI1uY_&sz=w600');">
-                        </div>
+                        <div class="stream-poster-art-bg" id="posterBg_CRUNCHYROLL" style="background-image: url('https://drive.google.com/thumbnail?id=1ZCUby9v5qyGapUE21icDV_8wEbtGRckz&sz=w600');"></div>
                         <div class="stream-poster-footer">
                             <span class="stream-desde-label">DESDE</span>
                             <span class="stream-desde-price">$2.50</span>
@@ -818,14 +620,12 @@
         </div>
     </div>
 
-    <!-- BOTÓN SUBIR -->
     <button type="button" class="constant-up-arrow" onclick="subirArriba()" title="Subir al inicio">
         <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="18 15 12 9 6 15"></polyline>
         </svg>
     </button>
 
-    <!-- MODAL STREAMING -->
     <div class="stream-modal-overlay" id="streamModalOverlay" onclick="cerrarModalStreaming()">
         <div class="stream-modal-box" onclick="event.stopPropagation()">
             <div class="stream-modal-header">
@@ -842,7 +642,6 @@
         </div>
     </div>
 
-    <!-- FOOTER CON CONTADOR EN VIVO -->
     <div class="footer">
         <p>Visítanos en el sector <strong>Yacucalle, Ibarra - Ecuador</strong>.</p>
         <p>Envíos 100% seguros a nivel nacional.</p>
@@ -870,7 +669,6 @@
             "ACCESORIOS": "Hubs multipuerto USB-C, adaptadores HDMI 4K, carcasas externas para discos SSD/HDD y periféricos garantizados."
         };
 
-        // Función que mejora automáticamente la resolución de enlaces de Google Drive y corrige enlaces /file/d/
         function optimizarUrlDrive(urlRaw, ancho = "w600") {
             let url = String(urlRaw || "").trim();
             if (!url) return "";
@@ -884,7 +682,6 @@
             return url;
         }
 
-        // Banners de respaldo con los mismos datos de tu hoja Excel
         const BANNERS_RESPALDO = [
             {
                 Tag: "OFERTA IMPERDIBLE",
@@ -904,7 +701,7 @@
                 Tag: "ENERGÍA & VELOCIDAD",
                 Titulo: "Cargadores GaN & Cables",
                 Descripcion: "Ugreen Uno Robot, Anker y Apple original con respaldo oficial.",
-                Imagen: "https://drive.google.com/thumbnail?id=1WynRVSWWYAH_RFU9zAGNVjjUonYvLqmK&sz=w1200",
+                Imagen: "https://drive.google.com/thumbnail?id=1A6QywISivHafSYhSMGlGW3LfGpGpbgzF&sz=w1200",
                 CategoriaEnlace: "ENERGÍA Y CABLES"
             },
             {
@@ -918,7 +715,6 @@
 
         let BANNERS_PORTADA = [];
         let STREAMING_IMAGENES = {};
-
         let bannerHeroActual = 0;
         let progresoHero = 0;
         let temporizadorHero = null;
@@ -956,7 +752,6 @@
 
             track.innerHTML = htmlSlides;
             indicators.innerHTML = htmlDots;
-
             iniciarAutoSlideHero();
 
             const sliderBox = document.getElementById('heroBannerSlider');
@@ -966,11 +761,8 @@
 
         function abrirSeccionDesdeBanner(categoriaEnlace) {
             const cat = String(categoriaEnlace).trim().toUpperCase();
-            if (cat === "STREAMING") {
-                abrirSeccionStreamingIndependiente();
-            } else {
-                abrirSeccionCategoria(cat);
-            }
+            if (cat === "STREAMING") abrirSeccionStreamingIndependiente();
+            else abrirSeccionCategoria(cat);
         }
 
         function irABannerHero(indice) {
@@ -986,7 +778,6 @@
         }
 
         function moverBannerHero(dir) { irABannerHero(bannerHeroActual + dir); }
-        
         function actualizarBarraProgreso() {
             const bar = document.getElementById('heroProgressBar');
             if (bar) bar.style.width = `${progresoHero}%`;
@@ -1041,7 +832,6 @@
             ]}
         };
 
-        // Normaliza "Disney Plus" -> "DISNEY", "Paramount plus" -> "PARAMOUNT", etc.
         function obtenerClaveStreaming(nombreRaw) {
             const str = String(nombreRaw || "").trim().toUpperCase();
             if (str.includes("NETFLIX")) return "NETFLIX";
@@ -1053,21 +843,19 @@
             return str;
         }
 
-       function renderizarImagenesStreaming() {
+        function renderizarImagenesStreaming() {
             Object.keys(STREAMING_IMAGENES).forEach(key => {
                 const imgInfo = STREAMING_IMAGENES[key];
                 if (imgInfo && imgInfo.Imagen && imgInfo.Imagen.trim() !== "") {
                     const posterBg = document.getElementById(`posterBg_${key}`);
                     if (posterBg) {
                         const urlHD = optimizarUrlDrive(imgInfo.Imagen, "w600");
-                        // Sobrescribe por completo el radial-gradient para que la foto sí aparezca
-                        posterBg.style.background = `url('${urlHD}') center / cover no-repeat`;
-                        const logoCentro = posterBg.querySelector('.stream-poster-brand-logo');
-                        if (logoCentro) logoCentro.style.display = 'none';
+                        posterBg.style.backgroundImage = `url('${urlHD}')`;
                     }
                 }
             });
         }
+
         function abrirModalStreaming(claveServicio, pushHistory = true) {
             const data = PLANES_STREAMING_FIJOS[claveServicio];
             if (!data) return;
@@ -1284,12 +1072,11 @@
             return { capacidadVisible, tituloLlamativo, listaVinetas, listaChips, coloresLimpios };
         }
 
-       
-const csvUrls = [
+        const csvUrls = [
             "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?output=csv",
             "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?gid=1177174992&single=true&output=csv",
-            "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?gid=432242137&single=true&output=csv", // Link Banners
-            "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?gid=1849156475&single=true&output=csv" // Link Streaming
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?gid=432242137&single=true&output=csv",
+            "https://docs.google.com/spreadsheets/d/e/2PACX-1vTD4S3CEkSw5KaZ58nRQZF9rHbolRO_EbU84pPChf2YzZ4jv5CVPAyyDCWURihccSd4Jw1peDNCoPr6/pub?gid=1849156475&single=true&output=csv"
         ];
 
         const globalLoader = document.getElementById('global-loader');
@@ -1333,7 +1120,6 @@ const csvUrls = [
         function calcularDescuentoEquipo(equipo) {
             const precioEfectivoNum = parseFloat(String(equipo.PrecioEfectivo || "0").replace(',', '.')) || 0;
             const precioTarjetaNum = parseFloat(String(equipo.PrecioTarjeta || "0").replace(',', '.')) || 0;
-
             const ofertaCelda = String(equipo.OFERTAS || equipo.Oferta || "").trim().toUpperCase();
             const descuentoManual = equipo.Descuento ? parseFloat(String(equipo.Descuento).replace('%', '').replace(',', '.').trim()) : 0;
             const precioNormalManual = equipo.PrecioNormal ? parseFloat(String(equipo.PrecioNormal).replace(',', '.').trim()) : 0;
@@ -1355,7 +1141,6 @@ const csvUrls = [
                 precioAnteriorNum = precioEfectivoNum / (1 - (porcentajeOff / 100));
                 esOfertaReal = true;
             }
-
             return { precioEfectivoNum, precioTarjetaNum, precioAnteriorNum, porcentajeOff, esOfertaReal };
         }
 
@@ -1421,7 +1206,7 @@ const csvUrls = [
                     <a href="https://wa.me/593982747634?text=${msgWpp}" target="_blank" class="btn-card">
                         LO QUIERO
                     </a>
-                </div>`;
+</div>`;
         }
 
         function seleccionarColorDetalle(nombreColor, elementoBoton, tituloProducto) {
@@ -1733,21 +1518,18 @@ const csvUrls = [
             }
         }
 
- function descargarHojaCSV(url) {
-            const urlSinCache = url + "&t=" + new Date().getTime();
-            return new Promise((resolve) => {
-                Papa.parse(urlSinCache, {
-                    download: true,
-                    header: true,
-                    complete: results => resolve(results.data || []),
-                    error: () => resolve([])
-                });
-            });
-        }      
+        function descargarHojaCSV(url) {
+            return fetch(url, { cache: "no-store" })
+                .then(response => response.ok ? response.text() : "")
+                .then(csvText => {
+                    if (!csvText) return [];
+                    const parsed = Papa.parse(csvText, { header: true });
+                    return parsed.data || [];
+                })
+                .catch(() => []);
+        }
 
         Promise.all(csvUrls.map(url => descargarHojaCSV(url))).then(resultadosHojas => {
-            
-            // 1. LECTURA DE BANNERS (HOJA 3) - Con propiedades Mayúsculas exactas
             const datosBanners = resultadosHojas[2] || [];
             if (datosBanners.length > 0) {
                 BANNERS_PORTADA = datosBanners.filter(b => b.Titulo && String(b.Titulo).trim() !== "").map(b => {
@@ -1761,7 +1543,6 @@ const csvUrls = [
                 });
             }
             
-            // 2. LECTURA DE STREAMING IMÁGENES (HOJA 4) - Corregido PLANES_STREAMING_FIJOS y nombres como "Disney Plus"
             const datosStreaming = resultadosHojas[3] || [];
             if (datosStreaming.length > 0) {
                 datosStreaming.forEach(s => {
@@ -1787,7 +1568,6 @@ const csvUrls = [
             vistaPortada.style.display = 'block';
             inicializarBannersHero();
 
-            // 3. LECTURA DE PRODUCTOS (HOJA 1 + HOJA 2)
             const todosLosEquipos = resultadosHojas[0].concat(resultadosHojas[1] || []);
             let destacadosHTML = "";
             let contadorDestacados = 0;
