@@ -102,6 +102,7 @@
         .slider-btn { display: inline-block; background: var(--secondary-color); color: #fff; padding: 8px 20px; border-radius: 20px; font-size: 12px; font-weight: 800; text-decoration: none; cursor: pointer; border: none; margin: 0 15px; }
         .destacados-section { margin-bottom: 45px; }
         .destacados-section .section-header h2 { color: var(--offer-red); border-left: 5px solid var(--offer-red); padding-left: 12px; }
+        .destacados-section.modo-populares .section-header h2 { color: var(--text-main); border-left-color: var(--secondary-color); }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 20px; }
 
         /* TARJETAS PRODUCTOS */
@@ -435,8 +436,8 @@
 
             <div class="destacados-section" id="destacados-zona">
                 <div class="section-header">
-                    <h2>Ofertas Destacadas</h2>
-                    <p>Descuentos especiales pagando en efectivo o transferencia.</p>
+                    <h2 id="destacados-titulo">OFERTAS</h2>
+                    <p id="destacados-subtitulo">Descuentos especiales pagando en efectivo o transferencia.</p>
                 </div>
                 <div class="product-grid" id="destacados-grid"></div>
             </div>
@@ -1117,16 +1118,94 @@
             }
         });
 
+        const STORAGE_CLICS_KEY = "amovil_clics_productos_v1";
+        let MAPA_CLICS_MEMORIA = {};
+
+        function cargarMapaClics() {
+            try {
+                const guardado = localStorage.getItem(STORAGE_CLICS_KEY);
+                if (guardado) {
+                    const obj = JSON.parse(guardado);
+                    if (obj && typeof obj === "object") {
+                        MAPA_CLICS_MEMORIA = obj;
+                        return obj;
+                    }
+                }
+            } catch (e) {}
+            return MAPA_CLICS_MEMORIA;
+        }
+
+        function guardarMapaClics(mapa) {
+            MAPA_CLICS_MEMORIA = mapa;
+            try {
+                localStorage.setItem(STORAGE_CLICS_KEY, JSON.stringify(mapa));
+            } catch (e) {}
+        }
+
+        function obtenerClaveUnicaProducto(item) {
+            if (!item) return "";
+            return `${item.marcaNorm || ""}_${item.modeloNorm || ""}_${item.tituloComercialNorm || ""}`;
+        }
+
+        function obtenerClicsProducto(item) {
+            if (!item) return 0;
+            const mapa = cargarMapaClics();
+            const clave = obtenerClaveUnicaProducto(item);
+            const clicsLocal = Number(mapa[clave] || 0);
+            const eq = item.raw || {};
+            const clicsSheet = parseFloat(String(eq.Clics ?? eq.Clicks ?? eq.Vistas ?? "0").replace(',', '.')) || 0;
+            return clicsLocal + clicsSheet;
+        }
+
+        function registrarInteraccionProducto(idProd, peso = 1) {
+            const item = INVENTARIO_GLOBAL.find(p => p.id === idProd);
+            if (!item) return;
+            const clave = obtenerClaveUnicaProducto(item);
+            if (!clave) return;
+            const mapa = cargarMapaClics();
+            mapa[clave] = (Number(mapa[clave] || 0)) + peso;
+            guardarMapaClics(mapa);
+        }
+
         function calcularDescuentoEquipo(equipo) {
             const precioEfectivoNum = parseFloat(String(equipo.PrecioEfectivo || "0").replace(',', '.')) || 0;
             const precioTarjetaNum = parseFloat(String(equipo.PrecioTarjeta || "0").replace(',', '.')) || 0;
-            const ofertaCelda = String(equipo.OFERTAS || equipo.Oferta || "").trim().toUpperCase();
+            const rawOferta = equipo.OFERTAS ?? equipo.Ofertas ?? equipo.Oferta ?? equipo.OFERTA ?? "";
+            const ofertaCelda = String(rawOferta).trim().toUpperCase();
             const descuentoManual = equipo.Descuento ? parseFloat(String(equipo.Descuento).replace('%', '').replace(',', '.').trim()) : 0;
             const precioNormalManual = equipo.PrecioNormal ? parseFloat(String(equipo.PrecioNormal).replace(',', '.').trim()) : 0;
 
-            let precioAnteriorNum = 0, porcentajeOff = 0, esOfertaReal = false;
+            let precioAnteriorNum = 0, porcentajeOff = 0, esOfertaReal = false, tieneOfertaColumnaL = false;
 
-            if (descuentoManual > 0 && descuentoManual < 90 && precioEfectivoNum > 0) {
+            if (ofertaCelda !== "" && ofertaCelda !== "NO" && ofertaCelda !== "0" && ofertaCelda !== "0%" && precioEfectivoNum > 0) {
+                const tienePorcentaje = ofertaCelda.includes("%");
+                const limpioNum = parseFloat(ofertaCelda.replace('%', '').replace('$', '').replace(',', '.').trim());
+
+                if (!isNaN(limpioNum) && limpioNum > 0) {
+                    let pctExacto = 0;
+                    if (!tienePorcentaje && limpioNum < 1) {
+                        pctExacto = limpioNum * 100;
+                    } else if (tienePorcentaje && limpioNum >= 100 && limpioNum <= 9000) {
+                        pctExacto = limpioNum / 100;
+                    } else {
+                        pctExacto = limpioNum;
+                    }
+
+                    if (pctExacto > 0 && pctExacto < 95) {
+                        porcentajeOff = Math.max(1, Math.round(pctExacto));
+                        const rawPrev = precioEfectivoNum / (1 - (pctExacto / 100));
+                        const redondeadoDecima = Math.round(rawPrev * 10) / 10;
+                        precioAnteriorNum = Math.abs(rawPrev - redondeadoDecima) < 0.02 ? redondeadoDecima : rawPrev;
+                        esOfertaReal = true;
+                        tieneOfertaColumnaL = true;
+                    }
+                } else if (ofertaCelda === "SI") {
+                    porcentajeOff = 15;
+                    precioAnteriorNum = precioEfectivoNum / 0.85;
+                    esOfertaReal = true;
+                    tieneOfertaColumnaL = true;
+                }
+            } else if (descuentoManual > 0 && descuentoManual < 90 && precioEfectivoNum > 0) {
                 porcentajeOff = Math.round(descuentoManual);
                 precioAnteriorNum = precioEfectivoNum / (1 - (porcentajeOff / 100));
                 esOfertaReal = true;
@@ -1134,14 +1213,8 @@
                 precioAnteriorNum = precioNormalManual;
                 porcentajeOff = Math.round(((precioAnteriorNum - precioEfectivoNum) / precioAnteriorNum) * 100);
                 esOfertaReal = true;
-            } else if (ofertaCelda === "SI" || ofertaCelda.includes("%")) {
-                let pct = parseFloat(ofertaCelda.replace('%', '')) || 15;
-                if (pct <= 0 || pct > 80) pct = 15;
-                porcentajeOff = Math.round(pct);
-                precioAnteriorNum = precioEfectivoNum / (1 - (porcentajeOff / 100));
-                esOfertaReal = true;
             }
-            return { precioEfectivoNum, precioTarjetaNum, precioAnteriorNum, porcentajeOff, esOfertaReal };
+            return { precioEfectivoNum, precioTarjetaNum, precioAnteriorNum, porcentajeOff, esOfertaReal, tieneOfertaColumnaL };
         }
 
         function generarTarjetaResumenHtml(item) {
@@ -1159,6 +1232,7 @@
             
             const { precioEfectivoNum, precioTarjetaNum, precioAnteriorNum, porcentajeOff, esOfertaReal } = calcularDescuentoEquipo(equipo);
             const costoDist = equipo.CostoDistribuidor ? equipo.CostoDistribuidor : 'N/A';
+            const clicsProd = obtenerClicsProducto(item);
 
             const badgeDestacado = esOfertaReal ? `<div class="badge-destacado">OFERTA -${porcentajeOff}%</div>` : '';
             const claseTarjetaOferta = esOfertaReal ? 'product-card card-oferta' : 'product-card';
@@ -1201,12 +1275,12 @@
                         ${chipsHtml}
                     </div>
                     <div class="costo-distribuidor">
-                        SKU: ${codigoSKU} | Costo: $${costoDist}
+                        SKU: ${codigoSKU} | Costo: $${costoDist} | Clics: ${clicsProd}
                     </div>
-                    <a href="https://wa.me/593982747634?text=${msgWpp}" target="_blank" class="btn-card">
+                    <a href="https://wa.me/593982747634?text=${msgWpp}" target="_blank" class="btn-card" onclick="registrarInteraccionProducto(${idProd}, 2)">
                         LO QUIERO
                     </a>
-</div>`;
+                </div>`;
         }
 
         function seleccionarColorDetalle(nombreColor, elementoBoton, tituloProducto) {
@@ -1224,6 +1298,10 @@
         function abrirDetalleProducto(idProd, pushHistory = true) {
             const item = INVENTARIO_GLOBAL.find(p => p.id === idProd);
             if (!item) return;
+
+            if (pushHistory) {
+                registrarInteraccionProducto(idProd, 1);
+            }
 
             if (vistaCategoriaSeleccionada.style.display === 'block') vistaPreviaAlDetalle = "CATEGORIA";
             else if (vistaPortada.style.display === 'block') vistaPreviaAlDetalle = "PORTADA";
@@ -1290,6 +1368,7 @@
             const textoWppInicial = colorInicial ? `Hola A-MOVIL, me interesa el ${tituloLlamativo} en color ${colorInicial}` : `Hola A-MOVIL, me interesa el ${tituloLlamativo}`;
             const msgWpp = encodeURIComponent(textoWppInicial);
             const costoDist = equipo.CostoDistribuidor ? equipo.CostoDistribuidor : 'N/A';
+            const clicsProd = obtenerClicsProducto(item);
 
             let listaDescHtml = `<li><strong>Producto:</strong> ${tituloLlamativo}.</li>`;
             if (marca !== "OTRAS MARCAS") listaDescHtml += `<li><strong>Marca:</strong> ${marca}.</li>`;
@@ -1331,8 +1410,8 @@
                             </div>
                         </div>
                         ${avisoDiferidoHtml}
-                        <div class="costo-distribuidor">SKU: ${item.nombreModelo} | Costo Base: $${costoDist}</div>
-                        <a href="https://wa.me/593982747634?text=${msgWpp}" id="btnDetailWhatsapp" target="_blank" class="btn-detail-loquiero">LO QUIERO</a>
+                        <div class="costo-distribuidor">SKU: ${item.nombreModelo} | Costo Base: $${costoDist} | Clics: ${clicsProd}</div>
+                        <a href="https://wa.me/593982747634?text=${msgWpp}" id="btnDetailWhatsapp" target="_blank" class="btn-detail-loquiero" onclick="registrarInteraccionProducto(${idProd}, 2)">LO QUIERO</a>
                     </div>
                 </div>
                 <div class="detail-description-card">
@@ -1375,6 +1454,7 @@
             searchClearBtn.style.display = "none";
             categoriaSeleccionadaActual = "TODOS";
             marcaFiltroActual = "TODAS";
+            renderizarSeccionPortadaDinamica();
             vistaPortada.style.display = 'block';
             vistaCategoriaSeleccionada.style.display = 'none';
             vistaStreamingIndependiente.style.display = 'none';
@@ -1523,10 +1603,106 @@
                 .then(response => response.ok ? response.text() : "")
                 .then(csvText => {
                     if (!csvText) return [];
-                    const parsed = Papa.parse(csvText, { header: true });
+                    const parsed = Papa.parse(csvText, {
+                        header: true,
+                        transformHeader: h => String(h || "").trim()
+                    });
                     return parsed.data || [];
                 })
                 .catch(() => []);
+        }
+
+        function renderizarSeccionPortadaDinamica() {
+            const zona = document.getElementById('destacados-zona');
+            const grid = document.getElementById('destacados-grid');
+            const tituloEl = document.getElementById('destacados-titulo');
+            const subtituloEl = document.getElementById('destacados-subtitulo');
+            if (!zona || !grid || INVENTARIO_GLOBAL.length === 0) return;
+
+            const esDisponible = (item) => {
+                const eq = item.raw || {};
+                const dispStr = String(eq.DISP || eq.Agotado || "").trim().toUpperCase();
+                return dispStr !== "NO" && dispStr !== "AGOTADO" && item.precioEfectivo > 0;
+            };
+            const tieneImagen = (item) => {
+                const eq = item.raw || {};
+                return Boolean(eq.Imagen && String(eq.Imagen).trim() !== "");
+            };
+
+            const ofertasActivas = INVENTARIO_GLOBAL.filter(item => esDisponible(item) && item.tieneOfertaColumnaL);
+
+            if (ofertasActivas.length > 0) {
+                zona.classList.remove('modo-populares');
+                if (tituloEl) tituloEl.innerText = "OFERTAS";
+                if (subtituloEl) subtituloEl.innerText = "Descuentos especiales pagando en efectivo o transferencia.";
+
+                ofertasActivas.sort((a, b) => (tieneImagen(b) ? 1 : 0) - (tieneImagen(a) ? 1 : 0));
+
+                let htmlOfertas = "";
+                ofertasActivas.forEach(item => { htmlOfertas += generarTarjetaResumenHtml(item); });
+                zona.style.display = 'block';
+                grid.innerHTML = htmlOfertas;
+                return;
+            }
+
+            zona.classList.add('modo-populares');
+            if (tituloEl) tituloEl.innerText = "Productos Más Vistos";
+            if (subtituloEl) subtituloEl.innerText = "Los productos preferidos y con más clics en nuestro catálogo.";
+
+            let candidatos = INVENTARIO_GLOBAL.filter(item => esDisponible(item) && tieneImagen(item));
+            if (candidatos.length === 0) {
+                candidatos = INVENTARIO_GLOBAL.filter(item => esDisponible(item));
+            }
+
+            if (candidatos.length === 0) {
+                zona.style.display = 'none';
+                grid.innerHTML = "";
+                return;
+            }
+
+            const LIMITE_POPULARES = 8;
+            const conClics = candidatos
+                .map(item => ({ item, clics: obtenerClicsProducto(item) }))
+                .filter(x => x.clics > 0)
+                .sort((a, b) => b.clics - a.clics)
+                .map(x => x.item);
+
+            let seleccionados = conClics.slice(0, LIMITE_POPULARES);
+
+            if (seleccionados.length < LIMITE_POPULARES) {
+                const idsIncluidos = new Set(seleccionados.map(p => p.id));
+                const restantes = candidatos.filter(p => !idsIncluidos.has(p.id));
+                const ordenCategorias = ["SMARTWATCHES", "AUDIO", "ENERGÍA Y CABLES", "ACCESORIOS"];
+                const cubetas = {};
+                ordenCategorias.forEach(c => { cubetas[c] = []; });
+                const otros = [];
+
+                restantes.forEach(p => {
+                    const catUp = String(p.categoria || "").toUpperCase();
+                    if (cubetas[catUp]) cubetas[catUp].push(p);
+                    else otros.push(p);
+                });
+
+                let huboAvance = true;
+                while (seleccionados.length < LIMITE_POPULARES && huboAvance) {
+                    huboAvance = false;
+                    for (let i = 0; i < ordenCategorias.length; i++) {
+                        const listaCat = cubetas[ordenCategorias[i]];
+                        if (listaCat && listaCat.length > 0 && seleccionados.length < LIMITE_POPULARES) {
+                            seleccionados.push(listaCat.shift());
+                            huboAvance = true;
+                        }
+                    }
+                }
+                while (seleccionados.length < LIMITE_POPULARES && otros.length > 0) {
+                    seleccionados.push(otros.shift());
+                }
+            }
+
+            let htmlPopulares = "";
+            seleccionados.forEach(item => { htmlPopulares += generarTarjetaResumenHtml(item); });
+            zona.style.display = 'block';
+            grid.innerHTML = htmlPopulares;
         }
 
         Promise.all(csvUrls.map(url => descargarHojaCSV(url))).then(resultadosHojas => {
@@ -1569,8 +1745,6 @@
             inicializarBannersHero();
 
             const todosLosEquipos = resultadosHojas[0].concat(resultadosHojas[1] || []);
-            let destacadosHTML = "";
-            let contadorDestacados = 0;
 
             const equiposFiltrados = todosLosEquipos.filter(equipo => {
                 const modeloStr = String(equipo.Modelo || equipo["Nombre Comercial"] || equipo.Titulo || equipo.Nombre || "").trim();
@@ -1585,7 +1759,7 @@
                 const nombreModelo = String(equipo.Modelo || equipo["Nombre Comercial"] || equipo.Nombre || "").trim();
                 const precioEfectivo = parseFloat(String(equipo.PrecioEfectivo || "0").replace(',', '.')) || 0;
                 const info = construirInfoProducto(equipo, marca);
-                const { esOfertaReal } = calcularDescuentoEquipo(equipo);
+                const { esOfertaReal, tieneOfertaColumnaL } = calcularDescuentoEquipo(equipo);
 
                 return {
                     id: idx,
@@ -1596,6 +1770,7 @@
                     precioEfectivo: precioEfectivo,
                     info: info,
                     tieneOfertaManual: esOfertaReal,
+                    tieneOfertaColumnaL: Boolean(tieneOfertaColumnaL),
                     tituloComercialNorm: normalizarTextoBusqueda(info.tituloLlamativo),
                     modeloNorm: normalizarTextoBusqueda(nombreModelo),
                     marcaNorm: normalizarTextoBusqueda(marca),
@@ -1605,34 +1780,7 @@
                 };
             });
 
-            INVENTARIO_GLOBAL.forEach(item => {
-                const equipo = item.raw || {};
-                const dispStr = String(equipo.DISP || equipo.Agotado || "").trim().toUpperCase();
-                const estaAgotado = (dispStr === "NO" || dispStr === "AGOTADO");
-                if (!estaAgotado && equipo.Imagen && String(equipo.Imagen).trim() !== "" && equipo.PrecioEfectivo) {
-                    if (item.tieneOfertaManual && contadorDestacados < 8) {
-                        destacadosHTML += generarTarjetaResumenHtml(item);
-                        contadorDestacados++;
-                    }
-                }
-            });
-
-            if (contadorDestacados === 0) {
-                INVENTARIO_GLOBAL.slice(0, 4).forEach(item => {
-                    const equipo = item.raw || {};
-                    const dispStr = String(equipo.DISP || equipo.Agotado || "").trim().toUpperCase();
-                    if (dispStr !== "NO" && equipo.Imagen && String(equipo.Imagen).trim() !== "") {
-                        destacadosHTML += generarTarjetaResumenHtml(item);
-                    }
-                });
-            }
-
-            if (destacadosHTML === "") {
-                document.getElementById('destacados-zona').style.display = 'none';
-            } else {
-                document.getElementById('destacados-zona').style.display = 'block';
-                document.getElementById('destacados-grid').innerHTML = destacadosHTML;
-            }
+            renderizarSeccionPortadaDinamica();
             renderizarImagenesStreaming();
         }).catch(err => {
             console.error(err);
