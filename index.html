@@ -371,34 +371,56 @@
             -moz-appearance: textfield;
         }
 
-        /* GALERÍA AUTOMÁTICA DE 4 IMÁGENES ADICIONALES (POSICIONES Y BENEFICIOS) */
-        .detail-image-frame { position: relative; overflow: hidden; transition: all 0.3s ease; }
-        .detail-stage-badge { position: absolute; top: 12px; left: 12px; background: rgba(15,23,42,0.85); color: #fff; font-size: 10.5px; font-weight: 800; padding: 4px 10px; border-radius: 20px; z-index: 6; letter-spacing: 0.4px; backdrop-filter: blur(4px); }
-        .detail-stage-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(15,23,42,0.75); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 6; font-size: 16px; font-weight: 900; transition: all 0.2s; user-select: none; }
-        .detail-stage-nav:hover { background: var(--secondary-color); transform: translateY(-50%) scale(1.08); }
-        .detail-stage-nav.prev { left: 10px; }
-        .detail-stage-nav.next { right: 10px; }
-        .detail-auto-gallery-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; }
-        .detail-gallery-thumb { position: relative; height: 68px; border-radius: 10px; border: 2px solid #e2e8f0; background: #fff; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px; transition: all 0.2s ease; }
-        .detail-gallery-thumb:hover { border-color: #94a3b8; transform: translateY(-2px); }
-        .detail-gallery-thumb.active { border-color: var(--secondary-color); background: #f0f7ff; box-shadow: 0 4px 12px rgba(0,136,255,0.2); }
-        .detail-gallery-thumb img { max-width: 100%; max-height: 42px; object-fit: contain; transition: transform 0.25s ease; }
-        .detail-gallery-thumb-label { font-size: 8.5px; font-weight: 800; color: #334155; text-transform: uppercase; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-        .detail-gallery-thumb.active .detail-gallery-thumb-label { color: var(--secondary-color); }
-        /* Efectos visuales para posiciones y beneficios basados en la imagen principal */
-        .stage-mode-angle img { transform: perspective(600px) rotateY(-14deg) rotateX(4deg) scale(1.06); filter: drop-shadow(12px 14px 18px rgba(15,23,42,0.22)); transition: all 0.35s ease; }
-        .stage-mode-zoom img { transform: scale(1.42); transform-origin: center center; transition: all 0.35s ease; }
-        .stage-infographic-wrap { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1.15fr; gap: 14px; align-items: center; padding: 6px; background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border-radius: 10px; }
-        .stage-infographic-img-box { display: flex; align-items: center; justify-content: center; height: 100%; background: #fff; border-radius: 10px; padding: 10px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(15,23,42,0.05); }
-        .stage-infographic-img-box img { max-width: 100%; max-height: 220px; object-fit: contain; }
-        .stage-infographic-list { display: flex; flex-direction: column; gap: 8px; text-align: left; }
-        .stage-infographic-title { font-size: 11px; font-weight: 900; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 0.6px; }
-        .stage-benefit-item { background: #fff; border: 1px solid #dbeafe; border-left: 3.5px solid var(--secondary-color); border-radius: 8px; padding: 7px 9px; font-size: 11px; font-weight: 700; color: #0f172a; line-height: 1.3; box-shadow: 0 2px 6px rgba(15,23,42,0.03); }
+        /* GALERÍA ESTILO MERCADO LIBRE (COLUMNA VERTICAL IZQUIERDA + VISOR CUADRADO + BUSCADOR POR MODELO/SERIE) */
+        .ml-gallery-layout { display: flex; flex-direction: row; gap: 14px; align-items: flex-start; margin-bottom: 14px; width: 100%; }
+        .ml-thumbs-column { display: flex; flex-direction: column; gap: 10px; width: 64px; flex-shrink: 0; }
+        .ml-thumb-item { width: 60px; height: 60px; border-radius: 6px; border: 1.5px solid #cbd5e1; background: #fff; padding: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; transition: all 0.15s ease; }
+        .ml-thumb-item:hover, .ml-thumb-item.active { border: 2px solid #3483fa; box-shadow: 0 0 0 2px rgba(52, 131, 250, 0.18); }
+        .ml-thumb-item img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; }
+        .ml-thumb-item.thumb-poster-blue { background: linear-gradient(135deg, #4338ca 0%, #3b82f6 100%); padding: 4px; }
+        .ml-thumb-item.thumb-poster-dark { background: linear-gradient(135deg, #1e1b4b 0%, #2563eb 100%); padding: 4px; }
+        .ml-thumb-mini-tag { position: absolute; top: 2px; left: 2px; right: 2px; font-size: 5.5px; font-weight: 900; color: #7dd3fc; text-align: center; text-transform: uppercase; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .detail-image-frame { flex: 1; height: 390px !important; margin-bottom: 0 !important; padding: 0 !important; position: relative; overflow: hidden; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+        .detail-image-frame > img.ml-main-clean-img { max-width: 90%; max-height: 90%; object-fit: contain; transition: transform 0.3s ease; }
+        .detail-image-frame:hover > img.ml-main-clean-img { transform: scale(1.04); }
+        /* Póster Azul/Violeta Estilo Mercado Libre (como captura Logitech) */
+        .ml-slide-poster-blue { width: 100%; height: 100%; background: linear-gradient(145deg, #4f46e5 0%, #3b82f6 55%, #2563eb 100%); display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 22px 20px; text-align: center; color: #fff; position: relative; }
+        .ml-poster-headline { font-size: 21px; font-weight: 900; color: #7dd3fc; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.15; max-width: 92%; z-index: 2; }
+        .ml-poster-center { position: relative; width: 100%; flex: 1; display: flex; align-items: center; justify-content: center; my: 6px; min-height: 0; }
+        .ml-poster-center img.ml-same-prod-img { max-width: 66%; max-height: 220px; object-fit: contain; filter: drop-shadow(0 18px 24px rgba(9, 11, 16, 0.45)); z-index: 2; }
+        .ml-poster-side-icons { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 3; }
+        .ml-poster-icon-circle { width: 38px; height: 38px; border-radius: 50%; border: 1.8px solid rgba(186, 230, 253, 0.8); background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; backdrop-filter: blur(4px); }
+        .ml-poster-badge-right { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 64px; height: 64px; border-radius: 50%; background: #e0f2fe; color: #1d4ed8; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; line-height: 1.1; box-shadow: 0 8px 20px rgba(0,0,0,0.25); padding: 4px; z-index: 3; }
+        .ml-poster-footer-text { font-size: 12px; font-weight: 800; color: #bae6fd; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; max-width: 94%; z-index: 2; }
+        /* Guía Técnica Blanca Estilo Ugreen / Mercado Libre (como captura Ugreen Charging Guide) */
+        .ml-slide-tech-guide { width: 100%; height: 100%; background: #f8fafc; display: grid; grid-template-columns: 0.95fr 1.15fr; align-items: center; gap: 12px; padding: 20px; text-align: left; }
+        .ml-guide-left { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; height: 100%; }
+        .ml-guide-left img { max-width: 100%; max-height: 185px; object-fit: contain; margin-bottom: 10px; }
+        .ml-guide-brand-title { font-size: 13px; font-weight: 900; color: #0f172a; line-height: 1.25; }
+        .ml-guide-sub { font-size: 10.5px; font-weight: 700; color: #64748b; margin-top: 3px; }
+        .ml-guide-right { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+        .ml-guide-spec-row { display: flex; align-items: center; gap: 8px; }
+        .ml-guide-port-pill { background: #fff; border: 1.8px solid #334155; border-radius: 8px; padding: 5px 8px; font-size: 10px; font-weight: 900; color: #0f172a; min-width: 58px; text-align: center; shrink: 0; }
+        .ml-guide-line { width: 22px; height: 1.5px; background: #94a3b8; flex-shrink: 0; }
+        .ml-guide-spec-text { font-size: 11.5px; font-weight: 700; color: #1e293b; line-height: 1.3; background: #fff; padding: 7px 10px; border-radius: 8px; border: 1px solid #e2e8f0; flex: 1; }
+        /* Póster Zoom Detalle Macro (mismo producto) */
+        .ml-slide-zoom-card { width: 100%; height: 100%; background: linear-gradient(160deg, #1e293b 0%, #1d4ed8 100%); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 20px; text-align: center; color: #fff; overflow: hidden; }
+        .ml-zoom-img-circle { width: 220px; height: 220px; border-radius: 50%; background: #fff; border: 4px solid #60a5fa; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 14px 30px rgba(0,0,0,0.4); }
+        .ml-zoom-img-circle img { width: 88%; height: 88%; object-fit: contain; transform: scale(1.38); }
+        /* Buscador y Pegador de las 4 imágenes por Modelo / Número de Serie */
+        .ml-finder-bar { margin-bottom: 12px; }
+        .ml-finder-toggle-btn { width: 100%; background: #f0f7ff; border: 1.5px dashed #3b82f6; color: #1d4ed8; border-radius: 10px; padding: 9px 12px; font-size: 11.5px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s; }
+        .ml-finder-toggle-btn:hover { background: #e0f2fe; border-style: solid; }
+        .ml-finder-panel { display: none; background: #fff; border: 1.5px solid #bfdbfe; border-radius: 12px; padding: 14px; margin-top: 8px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); }
+        .ml-finder-panel.open { display: block; }
         @media (max-width: 768px) {
-            .detail-auto-gallery-strip { gap: 5px; }
-            .detail-gallery-thumb { height: 58px; }
-            .stage-infographic-wrap { grid-template-columns: 1fr; gap: 8px; overflow-y: auto; }
-            .stage-infographic-img-box img { max-height: 110px; }
+            .ml-gallery-layout { flex-direction: column-reverse; gap: 10px; }
+            .ml-thumbs-column { flex-direction: row; width: 100%; justify-content: center; overflow-x: auto; }
+            .detail-image-frame { width: 100%; height: 320px !important; }
+            .ml-slide-tech-guide { grid-template-columns: 1fr; padding: 12px; overflow-y: auto; }
+            .ml-guide-left img { max-height: 100px; }
+            .ml-poster-headline { font-size: 16px; }
+            .ml-zoom-img-circle { width: 165px; height: 165px; }
         }
     </style>
 </head>
@@ -1190,7 +1212,7 @@
         };
 
         function optimizarUrlDrive(urlRaw, ancho = "w600") {
-            let url = String(urlRaw || "").trim();
+            let url = String(urlRaw || "").split(/\s*\|\s*|\r?\n/)[0].trim();
             if (!url) return "";
             const matchFile = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (matchFile && matchFile[1]) {
@@ -3791,210 +3813,376 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
         });
 
         // =========================================================================
-        // NUEVA FUNCIÓN AL FINAL: BÚSQUEDA Y GENERACIÓN AUTOMÁTICA DE 4 IMÁGENES
-        // ADICIONALES (DIFERENTES POSICIONES DEL PRODUCTO Y SUS BENEFICIOS)
-        // BASADAS EN LA 1ª IMAGEN PRINCIPAL + REPOSITORIOS WEB / GOOGLE
+        // NUEVA FUNCIÓN AL FINAL: GALERÍA ESTILO MERCADO LIBRE (MISMO PRODUCTO)
+        // + BUSCADOR POR NOMBRE / NÚMERO DE SERIE (MODELO) PARA PEGAR LAS 4 IMÁGENES
         // =========================================================================
-        const CACHE_GALERIA_4_EXTRAS = {};
-        let estadoGaleriaDetalleActual = {
+        const STORAGE_GALERIA_POR_MODELO = 'amovil_galeria_4fotos_modelo_v1';
+        let MAPA_FOTOS_EXTRA_MODELO = {};
+        let estadoGaleriaML = {
             idProd: null,
+            claveModelo: '',
+            queryBusqueda: '',
+            imgPrincipal: '',
             indiceActivo: 0,
             vistas: []
         };
 
-        function extraerBeneficiosClaveProducto(titulo, marca, listaVinetas, listaChips) {
-            const beneficios = [];
-            (listaVinetas || []).forEach(v => {
-                const limpio = String(v || '').replace(/<[^>]+>/g, '').replace(/^[-•*]+\s*/, '').trim();
-                if (limpio && limpio.length > 6 && beneficios.length < 4) {
-                    beneficios.push(limpio.length > 68 ? limpio.slice(0, 65) + '...' : limpio);
+        function cargarMapaFotosExtraModelo() {
+            try {
+                const raw = localStorage.getItem(STORAGE_GALERIA_POR_MODELO);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed && typeof parsed === 'object') {
+                        MAPA_FOTOS_EXTRA_MODELO = parsed;
+                    }
                 }
-            });
-            (listaChips || []).forEach(c => {
-                if (beneficios.length < 4 && c && !beneficios.some(b => b.toLowerCase().includes(c.toLowerCase()))) {
-                    beneficios.push(`Especificación destacada: ${c}`);
-                }
-            });
-            const defaults = [
-                `Diseño original ${marca || 'A-MOVIL'} de alta resistencia y durabilidad.`,
-                `Rendimiento verificado con protección inteligente de energía y temperatura.`,
-                `Compatibilidad universal plug & play lista para uso diario.`,
-                `Garantía local directa y soporte técnico en A-MOVIL STORE.`
-            ];
-            let i = 0;
-            while (beneficios.length < 4) {
-                beneficios.push(defaults[i % defaults.length]);
-                i++;
-            }
-            return beneficios.slice(0, 4);
+            } catch (e) {}
+            return MAPA_FOTOS_EXTRA_MODELO;
         }
 
-        function construir4VistasAdicionalesBase(imgPrincipal, infoProd) {
-            const urlBase = optimizarUrlDrive(imgPrincipal, 'w800');
-            const titulo = infoProd?.titulo || 'Producto Oficial';
-            const marca = infoProd?.marca || 'A-MOVIL';
-            const sku = infoProd?.sku || '';
-            const beneficios = extraerBeneficiosClaveProducto(titulo, marca, infoProd?.vinetas, infoProd?.chips);
+        function guardarFotosExtraDeModelo(claveModelo, array4Urls) {
+            cargarMapaFotosExtraModelo();
+            MAPA_FOTOS_EXTRA_MODELO[claveModelo] = array4Urls.map(u => String(u || '').trim());
+            try {
+                localStorage.setItem(STORAGE_GALERIA_POR_MODELO, JSON.stringify(MAPA_FOTOS_EXTRA_MODELO));
+            } catch (e) {}
+        }
+
+        function obtenerClaveGaleriaProducto(marca, modelo, titulo) {
+            return normImgToken(`${marca || ''}_${modelo || ''}_${titulo || ''}`);
+        }
+
+        // Extrae las 4 imágenes extra SOLO si pertenecen a ESTE MISMO producto (desde Excel Imagen separada por |, Imagen2..5, o guardadas para este SKU)
+        function obtener4UrlsMismoProducto(equipoRaw, claveModelo, imgPrincipal) {
+            cargarMapaFotosExtraModelo();
+            const guardadas = MAPA_FOTOS_EXTRA_MODELO[claveModelo];
+            if (Array.isArray(guardadas) && guardadas.some(Boolean)) {
+                return [guardadas[0] || '', guardadas[1] || '', guardadas[2] || '', guardadas[3] || ''];
+            }
+
+            const extrasExcel = [];
+            const principalLimpia = optimizarUrlDrive(imgPrincipal, 'w800');
+
+            // Si en la celda Imagen del Excel pusieron varios links separados por "|" o salto de línea
+            const rawImgCell = String(equipoRaw?.Imagen || '').trim();
+            if (rawImgCell.includes('|') || rawImgCell.includes('\n')) {
+                rawImgCell.split(/\s*\|\s*|\r?\n/).slice(1).forEach(u => {
+                    const l = optimizarUrlDrive(u.trim(), 'w800');
+                    if (l && l !== principalLimpia && !extrasExcel.includes(l)) extrasExcel.push(l);
+                });
+            }
+
+            // O si el Excel tiene columnas Imagen2, Imagen3, Imagen4, Imagen5
+            ['Imagen2', 'Imagen3', 'Imagen4', 'Imagen5', 'Foto2', 'Foto3', 'Foto4', 'Foto5'].forEach(col => {
+                if (equipoRaw && equipoRaw[col]) {
+                    const l = optimizarUrlDrive(String(equipoRaw[col]).trim(), 'w800');
+                    if (l && l !== principalLimpia && !extrasExcel.includes(l)) extrasExcel.push(l);
+                }
+            });
 
             return [
+                extrasExcel[0] || '',
+                extrasExcel[1] || '',
+                extrasExcel[2] || '',
+                extrasExcel[3] || ''
+            ];
+        }
+
+        // Construye las 5 diapositivas estilo Mercado Libre usando SIEMPRE la foto del MISMO producto (o las 4 fotos reales pegadas de ese mismo modelo)
+        function construirVistasMercadoLibreMismoProducto(imgPrincipal, infoProd, cuatroUrlsReales = ['', '', '', '']) {
+            const urlBase = optimizarUrlDrive(imgPrincipal, 'w800');
+            const titulo = infoProd?.titulo || 'Producto Oficial';
+            const marca = (infoProd?.marca && infoProd.marca !== 'OTRAS MARCAS') ? infoProd.marca : 'A-MOVIL';
+            const sku = infoProd?.sku || '';
+            const colores = infoProd?.colores && infoProd.colores.toUpperCase() !== 'N/A' ? infoProd.colores : 'Original';
+
+            const vinetasLimpias = (infoProd?.vinetas || []).map(v => String(v || '').replace(/<[^>]+>/g, '').replace(/^[-•*]+\s*/, '').trim()).filter(Boolean);
+            const chipsLimpios = (infoProd?.chips || []).map(c => String(c || '').trim()).filter(Boolean);
+
+            const titularBeneficio1 = (chipsLimpios[0] || vinetasLimpias[0] || `CALIDAD OFICIAL ${marca}`).slice(0, 34).toUpperCase();
+            const textoBeneficio1 = (vinetasLimpias[0] || `Diseño original ${marca} ${sku} con máximo rendimiento garantizado.`).slice(0, 95);
+            const titularBeneficio2 = (chipsLimpios[1] || 'DISEÑO Y ACABADO PREMIUM').slice(0, 34).toUpperCase();
+            const textoBeneficio2 = (vinetasLimpias[1] || vinetasLimpias[0] || `Construcción de alta durabilidad y componentes certificados por ${marca}.`).slice(0, 95);
+
+            const spec1 = vinetasLimpias[0] || `Marca Oficial: ${marca} (${sku || 'Original'})`;
+            const spec2 = vinetasLimpias[1] || (chipsLimpios[0] ? `Destacado: ${chipsLimpios.join(' · ')}` : 'Rendimiento estable y seguro');
+            const spec3 = vinetasLimpias[2] || `Colores / Versión: ${colores} · Garantía Local`;
+
+            const u2 = cuatroUrlsReales[0] ? optimizarUrlDrive(cuatroUrlsReales[0], 'w800') : '';
+            const u3 = cuatroUrlsReales[1] ? optimizarUrlDrive(cuatroUrlsReales[1], 'w800') : '';
+            const u4 = cuatroUrlsReales[2] ? optimizarUrlDrive(cuatroUrlsReales[2], 'w800') : '';
+            const u5 = cuatroUrlsReales[3] ? optimizarUrlDrive(cuatroUrlsReales[3], 'w800') : '';
+
+            return [
+                // 1. Foto Principal Limpia
                 {
-                    tipo: 'principal',
-                    etiqueta: '1. Principal',
-                    subtitulo: 'Vista Frontal Oficial',
+                    tipo: 'clean',
                     imgUrl: urlBase,
-                    modoCss: 'normal',
-                    beneficios: []
+                    thumbClass: '',
+                    thumbTag: ''
                 },
-                {
-                    tipo: 'posicion_angulo',
-                    etiqueta: '2. Posición / Ángulo',
-                    subtitulo: `Perspectiva Lateral · ${marca} ${sku}`.trim(),
-                    imgUrl: infoProd?.imgExtra1 || urlBase,
-                    esFotoRealExterna: Boolean(infoProd?.imgExtra1),
-                    modoCss: infoProd?.imgExtra1 ? 'normal' : 'angle',
-                    beneficios: []
+                // 2. Foto 2 Real (si se pegó) o Póster Estilo Mercado Libre (Fondo Azul/Violeta con LA MISMA FOTO del producto)
+                u2 ? {
+                    tipo: 'clean',
+                    imgUrl: u2,
+                    thumbClass: '',
+                    thumbTag: ''
+                } : {
+                    tipo: 'poster_ml_blue',
+                    imgUrl: urlBase,
+                    thumbClass: 'thumb-poster-blue',
+                    thumbTag: titularBeneficio1.slice(0, 12),
+                    headline: titularBeneficio1,
+                    footer: textoBeneficio1,
+                    badgeRight: sku || marca
                 },
-                {
-                    tipo: 'posicion_zoom',
-                    etiqueta: '3. Detalle Macro',
-                    subtitulo: 'Acercamiento de Acabado y Conectores',
-                    imgUrl: infoProd?.imgExtra2 || urlBase,
-                    esFotoRealExterna: Boolean(infoProd?.imgExtra2),
-                    modoCss: infoProd?.imgExtra2 ? 'normal' : 'zoom',
-                    beneficios: []
-                },
-                {
-                    tipo: 'beneficios_clave',
-                    etiqueta: '4. Beneficios',
-                    subtitulo: 'Ventajas Principales del Producto',
-                    imgUrl: infoProd?.imgExtra3 || urlBase,
-                    esFotoRealExterna: Boolean(infoProd?.imgExtra3),
-                    modoCss: 'infografia_beneficios',
-                    beneficios: beneficios.slice(0, 3)
-                },
-                {
-                    tipo: 'ficha_uso',
-                    etiqueta: '5. Ficha / Uso',
-                    subtitulo: 'Especificaciones y Respaldo Garantizado',
-                    imgUrl: infoProd?.imgExtra4 || urlBase,
-                    esFotoRealExterna: Boolean(infoProd?.imgExtra4),
-                    modoCss: 'infografia_ficha',
-                    beneficios: [
-                        beneficios[3] || `Calidad certificada ${marca}`,
-                        `Modelo / Referencia: ${sku || titulo}`,
-                        `Envíos rápidos a todo el Ecuador y retiro inmediato.`
+                // 3. Foto 3 Real (si se pegó) o Guía de Especificaciones Estilo Ugreen/Mercado Libre (con LA MISMA FOTO del producto)
+                u3 ? {
+                    tipo: 'clean',
+                    imgUrl: u3,
+                    thumbClass: '',
+                    thumbTag: ''
+                } : {
+                    tipo: 'tech_guide_ml',
+                    imgUrl: urlBase,
+                    thumbClass: '',
+                    thumbTag: 'GUÍA',
+                    marcaModelo: `${marca} ${sku}`.trim(),
+                    tituloCorto: titulo,
+                    specs: [
+                        { tag: chipsLimpios[0] ? chipsLimpios[0].slice(0, 10) : 'SPEC 1', text: spec1.slice(0, 72) },
+                        { tag: chipsLimpios[1] ? chipsLimpios[1].slice(0, 10) : 'SPEC 2', text: spec2.slice(0, 72) },
+                        { tag: 'GARANTÍA', text: spec3.slice(0, 72) }
                     ]
+                },
+                // 4. Foto 4 Real (si se pegó) o Lámina Zoom Detalle Macro (con LA MISMA FOTO del producto)
+                u4 ? {
+                    tipo: 'clean',
+                    imgUrl: u4,
+                    thumbClass: '',
+                    thumbTag: ''
+                } : {
+                    tipo: 'zoom_ml_card',
+                    imgUrl: urlBase,
+                    thumbClass: 'thumb-poster-dark',
+                    thumbTag: 'DETALLE',
+                    headline: titularBeneficio2,
+                    footer: textoBeneficio2
+                },
+                // 5. Foto 5 Real (si se pegó) o Póster de Colores / Contenido (con LA MISMA FOTO del producto)
+                u5 ? {
+                    tipo: 'clean',
+                    imgUrl: u5,
+                    thumbClass: '',
+                    thumbTag: ''
+                } : {
+                    tipo: 'poster_ml_colors',
+                    imgUrl: urlBase,
+                    thumbClass: 'thumb-poster-blue',
+                    thumbTag: 'COLORES',
+                    headline: `${marca} · ${sku || 'ORIGINAL'}`,
+                    colores: colores,
+                    footer: 'PRODUCTO 100% ORIGINAL CON GARANTÍA EN A-MOVIL STORE'
                 }
             ];
         }
 
-        // Busca automáticamente imágenes adicionales en el Excel (Imagen2..Imagen5), variantes del catálogo y repositorios abiertos (Wikimedia Commons API)
-        async function buscar4ImagenesRepositorioAutomatico(queryProducto, imgPrincipal, equipoRaw = {}) {
-            const claveCache = String(queryProducto || imgPrincipal || '').toLowerCase().trim();
-            if (CACHE_GALERIA_4_EXTRAS[claveCache]) {
-                return CACHE_GALERIA_4_EXTRAS[claveCache];
-            }
-
-            const urlsEncontradas = [];
-            const principalNorm = optimizarUrlDrive(imgPrincipal, 'w600');
-
-            // 1. Revisar si el Excel tiene columnas Imagen2, Imagen3, Imagen4, Imagen5 o Galeria
-            ['Imagen2', 'Imagen3', 'Imagen4', 'Imagen5', 'Foto2', 'Foto3', 'Foto4', 'Galeria'].forEach(col => {
-                if (equipoRaw && equipoRaw[col]) {
-                    String(equipoRaw[col]).split(/[,;|\s]+/).forEach(u => {
-                        const limpia = optimizarUrlDrive(u.trim(), 'w800');
-                        if (limpia && limpia.startsWith('http') && limpia !== principalNorm && !urlsEncontradas.includes(limpia)) {
-                            urlsEncontradas.push(limpia);
-                        }
-                    });
-                }
-            });
-
-            // 2. Buscar en el banco del Catálogo 2026 otras fotos de la misma familia/modelo (ej. otros colores o ángulos subidos)
-            const candidatosLocal = buscarCandidatosImagenCatalogo('', queryProducto, '', 6);
-            candidatosLocal.forEach(c => {
-                const u = optimizarUrlDrive(c.img, 'w800');
-                if (u && u !== principalNorm && !urlsEncontradas.includes(u) && c.score >= 160) {
-                    urlsEncontradas.push(u);
-                }
-            });
-
-            // 3. Consultar repositorio abierto de imágenes (Wikimedia Commons API con CORS '*') si faltan ángulos externos
-            if (urlsEncontradas.length < 2 && queryProducto) {
-                try {
-                    const tokensLimpios = normImgToken(queryProducto).split(' ').slice(0, 3).join(' ');
-                    if (tokensLimpios.length >= 3) {
-                        const apiUrl = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=filetype:bitmap|${encodeURIComponent(tokensLimpios)}&gsrlimit=4&prop=imageinfo&iiprop=url&iiurlwidth=600&format=json&origin=*`;
-                        const resp = await fetch(apiUrl);
-                        if (resp.ok) {
-                            const data = await resp.json();
-                            const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
-                            pages.forEach(pg => {
-                                const thumb = pg?.imageinfo?.[0]?.thumburl || pg?.imageinfo?.[0]?.url;
-                                if (thumb && !urlsEncontradas.includes(thumb)) {
-                                    urlsEncontradas.push(thumb);
-                                }
-                            });
-                        }
-                    }
-                } catch (e) {}
-            }
-
-            CACHE_GALERIA_4_EXTRAS[claveCache] = urlsEncontradas.slice(0, 4);
-            return CACHE_GALERIA_4_EXTRAS[claveCache];
-        }
-
-        function renderizarEscenarioGaleriaDetalle(indice) {
+        function renderizarVisorPrincipalML(indice) {
             const frame = document.querySelector('#detalle-producto-inyectado .detail-image-frame');
-            if (!frame || !estadoGaleriaDetalleActual.vistas.length) return;
+            if (!frame || !estadoGaleriaML.vistas.length) return;
 
-            const total = estadoGaleriaDetalleActual.vistas.length;
+            const total = estadoGaleriaML.vistas.length;
             const idx = ((indice % total) + total) % total;
-            estadoGaleriaDetalleActual.indiceActivo = idx;
-            const vista = estadoGaleriaDetalleActual.vistas[idx];
+            estadoGaleriaML.indiceActivo = idx;
+            const v = estadoGaleriaML.vistas[idx];
 
-            frame.classList.remove('stage-mode-angle', 'stage-mode-zoom');
-            if (vista.modoCss === 'angle') frame.classList.add('stage-mode-angle');
-            if (vista.modoCss === 'zoom') frame.classList.add('stage-mode-zoom');
-
-            let contenidoCentral = '';
-            if (vista.modoCss === 'infografia_beneficios' || vista.modoCss === 'infografia_ficha') {
-                contenidoCentral = `
-                    <div class="stage-infographic-wrap">
-                        <div class="stage-infographic-img-box">
-                            <img src="${vista.imgUrl}" alt="${vista.etiqueta}">
+            if (v.tipo === 'clean') {
+                frame.innerHTML = `<img src="${v.imgUrl}" class="ml-main-clean-img" alt="Vista ${idx + 1}">`;
+            } else if (v.tipo === 'poster_ml_blue') {
+                frame.innerHTML = `
+                    <div class="ml-slide-poster-blue">
+                        <div class="ml-poster-headline">${v.headline}</div>
+                        <div class="ml-poster-center">
+                            <div class="ml-poster-side-icons">
+                                <div class="ml-poster-icon-circle">⚡</div>
+                                <div class="ml-poster-icon-circle">🛡️</div>
+                                <div class="ml-poster-icon-circle">✓</div>
+                            </div>
+                            <img src="${v.imgUrl}" class="ml-same-prod-img" alt="${v.headline}">
+                            <div class="ml-poster-badge-right">
+                                <span>OFICIAL</span>
+                                <strong style="font-size:11px;">${v.badgeRight.slice(0, 9)}</strong>
+                            </div>
                         </div>
-                        <div class="stage-infographic-list">
-                            <div class="stage-infographic-title">${vista.modoCss === 'infografia_beneficios' ? '✨ Beneficios Destacados' : '🛡️ Ficha y Garantía'}</div>
-                            ${vista.beneficios.map(b => `<div class="stage-benefit-item">✓ ${b}</div>`).join('')}
+                        <div class="ml-poster-footer-text">${v.footer}</div>
+                    </div>
+                `;
+            } else if (v.tipo === 'tech_guide_ml') {
+                frame.innerHTML = `
+                    <div class="ml-slide-tech-guide">
+                        <div class="ml-guide-left">
+                            <img src="${v.imgUrl}" alt="${v.tituloCorto}">
+                            <div class="ml-guide-brand-title">${v.marcaModelo}</div>
+                            <div class="ml-guide-sub">${v.tituloCorto}</div>
+                        </div>
+                        <div class="ml-guide-right">
+                            ${v.specs.map(s => `
+                                <div class="ml-guide-spec-row">
+                                    <span class="ml-guide-port-pill">${s.tag}</span>
+                                    <span class="ml-guide-line"></span>
+                                    <div class="ml-guide-spec-text">${s.text}</div>
+                                </div>
+                            `).join('')}
                         </div>
                     </div>
                 `;
-            } else {
-                contenidoCentral = `<img src="${vista.imgUrl}" alt="${vista.subtitulo}">`;
+            } else if (v.tipo === 'zoom_ml_card') {
+                frame.innerHTML = `
+                    <div class="ml-slide-zoom-card">
+                        <div class="ml-poster-headline" style="font-size:18px;">${v.headline}</div>
+                        <div class="ml-zoom-img-circle">
+                            <img src="${v.imgUrl}" alt="Detalle">
+                        </div>
+                        <div class="ml-poster-footer-text">${v.footer}</div>
+                    </div>
+                `;
+            } else if (v.tipo === 'poster_ml_colors') {
+                frame.innerHTML = `
+                    <div class="ml-slide-poster-blue" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+                        <div class="ml-poster-headline" style="font-size:18px;">${v.headline}</div>
+                        <div class="ml-poster-center">
+                            <img src="${v.imgUrl}" class="ml-same-prod-img" style="transform: scale(1.08);" alt="Variante">
+                        </div>
+                        <div style="background:rgba(255,255,255,0.14); padding:6px 14px; border-radius:20px; font-size:11.5px; font-weight:800; color:#fff; margin-bottom:4px;">
+                            Colores / Versión: ${v.colores}
+                        </div>
+                        <div class="ml-poster-footer-text">${v.footer}</div>
+                    </div>
+                `;
             }
 
-            frame.innerHTML = `
-                <span class="detail-stage-badge">${vista.etiqueta} · ${vista.subtitulo}</span>
-                <button type="button" class="detail-stage-nav prev" onclick="cambiarVistaGaleriaDetalle(-1)" title="Vista anterior">&#10094;</button>
-                ${contenidoCentral}
-                <button type="button" class="detail-stage-nav next" onclick="cambiarVistaGaleriaDetalle(1)" title="Siguiente vista">&#10095;</button>
-            `;
-
-            document.querySelectorAll('#detailAutoGalleryStrip .detail-gallery-thumb').forEach((el, i) => {
+            document.querySelectorAll('#mlThumbsColumn .ml-thumb-item').forEach((el, i) => {
                 el.classList.toggle('active', i === idx);
             });
         }
 
-        function seleccionarVistaGaleriaDetalle(indice) {
-            renderizarEscenarioGaleriaDetalle(indice);
+        function renderizarMiniaturasColumnaML() {
+            const col = document.getElementById('mlThumbsColumn');
+            if (!col) return;
+            col.innerHTML = estadoGaleriaML.vistas.map((v, idx) => `
+                <div
+                    class="ml-thumb-item ${v.thumbClass || ''} ${idx === estadoGaleriaML.indiceActivo ? 'active' : ''}"
+                    onmouseenter="renderizarVisorPrincipalML(${idx})"
+                    onclick="renderizarVisorPrincipalML(${idx})"
+                    title="Imagen ${idx + 1}"
+                >
+                    ${v.thumbTag ? `<span class="ml-thumb-mini-tag">${v.thumbTag}</span>` : ''}
+                    <img src="${v.imgUrl}" alt="Miniatura ${idx + 1}" style="${v.tipo === 'zoom_ml_card' ? 'transform:scale(1.35);' : ''}">
+                </div>
+            `).join('');
         }
 
-        function cambiarVistaGaleriaDetalle(delta) {
-            renderizarEscenarioGaleriaDetalle(estadoGaleriaDetalleActual.indiceActivo + delta);
+        // Busca en la web imágenes por Nombre + Número de Serie / Modelo (usando Bing Images vía proxy CORS público) para que el usuario las pegue con 1 clic
+        async function buscarImagenesWebPorModeloSerie(queryStr, contenedorId) {
+            const box = document.getElementById(contenedorId);
+            if (!box) return;
+            box.innerHTML = '<div style="font-size:11px; color:#2563eb; font-weight:700; padding:6px 0;">🔎 Buscando en la web fotos del modelo <strong>' + queryStr.replace(/</g, '&lt;') + '</strong>...</div>';
+
+            const urlsHalladas = [];
+            try {
+                const searchUrl = 'https://www.bing.com/images/search?q=' + encodeURIComponent(queryStr + ' product') + '&form=HDRSC2';
+                const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(searchUrl);
+                const resp = await fetch(proxyUrl);
+                if (resp.ok) {
+                    const data = await resp.json();
+                    const htmlText = data?.contents || '';
+                    const matches = [...htmlText.matchAll(/murl&quot;:&quot;(https?:\/\/[^&]+?)&quot;/gi)];
+                    matches.forEach(m => {
+                        const u = m[1];
+                        if (u && !urlsHalladas.includes(u) && /\.(jpg|jpeg|png|webp)/i.test(u)) {
+                            urlsHalladas.push(u);
+                        }
+                    });
+                }
+            } catch (e) {}
+
+            if (urlsHalladas.length === 0) {
+                box.innerHTML = `
+                    <div style="font-size:11px; color:#475569; padding:6px 0;">
+                        Haz clic en <strong>Google Imágenes</strong> o <strong>Mercado Libre</strong> arriba, copia la dirección de imagen de los ángulos del producto y pégalas en las 4 casillas de abajo.
+                    </div>
+                `;
+                return;
+            }
+
+            box.innerHTML = `
+                <div style="font-size:11px; font-weight:800; color:#0f172a; margin-bottom:6px;">
+                    ✨ Imágenes encontradas en la web para «${queryStr.replace(/</g, '&lt;')}» (Haz clic en hasta 4 fotos para asignarlas a las casillas):
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(68px, 1fr)); gap:8px; max-height:160px; overflow-y:auto; padding:4px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px;">
+                    ${urlsHalladas.slice(0, 12).map(u => {
+                        const safeU = u.replace(/'/g, "\\'");
+                        return `
+                            <div
+                                onclick="asignarUrlWebACasillaLibre('${safeU}')"
+                                title="Clic para agregar como una de las 4 imágenes del producto"
+                                style="height:64px; background:#fff; border:1.5px solid #cbd5e1; border-radius:6px; padding:3px; cursor:pointer; display:flex; align-items:center; justify-content:center; overflow:hidden;"
+                            >
+                                <img src="${u}" alt="" style="max-width:100%; max-height:100%; object-fit:contain;" onerror="this.parentElement.style.display='none'" />
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
         }
 
-        // Envuelve abrirDetalleProducto para inyectar automáticamente las 4 imágenes adicionales (posiciones y beneficios)
+        function asignarUrlWebACasillaLibre(url) {
+            for (let i = 1; i <= 4; i++) {
+                const inp = document.getElementById('ml-extra-input-' + i) || document.getElementById('modal-extra-input-' + i);
+                if (inp && !inp.value.trim()) {
+                    inp.value = url;
+                    if (document.getElementById('ml-extra-input-1')) {
+                        guardar4ImagenesDesdeDetalle();
+                    }
+                    return;
+                }
+            }
+            const inp4 = document.getElementById('ml-extra-input-4') || document.getElementById('modal-extra-input-4');
+            if (inp4) {
+                inp4.value = url;
+                if (document.getElementById('ml-extra-input-1')) {
+                    guardar4ImagenesDesdeDetalle();
+                }
+            }
+        }
+
+        function guardar4ImagenesDesdeDetalle() {
+            const item = INVENTARIO_GLOBAL.find(p => p.id === estadoGaleriaML.idProd);
+            if (!item) return;
+            const urls4 = [1, 2, 3, 4].map(i => (document.getElementById('ml-extra-input-' + i)?.value || '').trim());
+            guardarFotosExtraDeModelo(estadoGaleriaML.claveModelo, urls4);
+
+            const infoBase = {
+                titulo: item.info?.tituloLlamativo || item.nombreModelo || 'Producto',
+                marca: item.marca || 'A-MOVIL',
+                sku: item.nombreModelo || '',
+                colores: item.info?.coloresLimpios || '',
+                vinetas: item.info?.listaVinetas || [],
+                chips: item.info?.listaChips || []
+            };
+            estadoGaleriaML.vistas = construirVistasMercadoLibreMismoProducto(estadoGaleriaML.imgPrincipal, infoBase, urls4);
+            renderizarMiniaturasColumnaML();
+            renderizarVisorPrincipalML(estadoGaleriaML.indiceActivo);
+        }
+
+        function copiar5UrlsParaExcel() {
+            const urls4 = [1, 2, 3, 4].map(i => (document.getElementById('ml-extra-input-' + i)?.value || '').trim()).filter(Boolean);
+            const todas = [estadoGaleriaML.imgPrincipal, ...urls4].filter(Boolean).join(' | ');
+            navigator.clipboard.writeText(todas);
+            alert('¡Copiado! Pega este texto en la celda de la columna "Imagen" de este producto en tu Excel Catalogo 2026-NO BORRAR:\n\n' + todas);
+        }
+
+        // Conecta abrirDetalleProducto para crear la Galería Vertical Estilo Mercado Libre + Buscador por Modelo/Serie
         const _abrirDetalleProductoOriginal = abrirDetalleProducto;
         abrirDetalleProducto = function(idProd, pushHistory = true) {
             _abrirDetalleProductoOriginal(idProd, pushHistory);
@@ -4004,55 +4192,94 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
 
             const equipo = item.raw || {};
             const imgPrincipal = optimizarUrlDrive(equipo.Imagen, 'w800');
+            const titulo = item.info?.tituloLlamativo || item.nombreModelo || 'Producto';
+            const marca = item.marca !== 'OTRAS MARCAS' ? item.marca : '';
+            const sku = item.nombreModelo || '';
+            const claveModelo = obtenerClaveGaleriaProducto(marca, sku, titulo);
+            const queryBusqueda = `${marca} ${sku} ${titulo}`.replace(/\s+/g, ' ').trim();
+
+            const cuatroUrls = obtener4UrlsMismoProducto(equipo, claveModelo, imgPrincipal);
             const infoBase = {
-                titulo: item.info?.tituloLlamativo || item.nombreModelo || 'Producto',
+                titulo,
                 marca: item.marca || 'A-MOVIL',
-                sku: item.nombreModelo || '',
+                sku,
+                colores: item.info?.coloresLimpios || '',
                 vinetas: item.info?.listaVinetas || [],
                 chips: item.info?.listaChips || []
             };
 
-            const vistasIniciales = construir4VistasAdicionalesBase(imgPrincipal, infoBase);
-            estadoGaleriaDetalleActual = {
+            estadoGaleriaML = {
                 idProd,
+                claveModelo,
+                queryBusqueda,
+                imgPrincipal,
                 indiceActivo: 0,
-                vistas: vistasIniciales
+                vistas: construirVistasMercadoLibreMismoProducto(imgPrincipal, infoBase, cuatroUrls)
             };
 
             const leftCol = document.querySelector('#detalle-producto-inyectado .detail-left-col');
             const frame = document.querySelector('#detalle-producto-inyectado .detail-image-frame');
             if (leftCol && frame) {
-                const stripExistente = document.getElementById('detailAutoGalleryStrip');
-                if (stripExistente) stripExistente.remove();
+                // Envolver el frame en el layout horizontal estilo Mercado Libre (miniaturas verticales a la izquierda + visor grande a la derecha)
+                const layoutWrap = document.createElement('div');
+                layoutWrap.className = 'ml-gallery-layout';
 
-                const strip = document.createElement('div');
-                strip.id = 'detailAutoGalleryStrip';
-                strip.className = 'detail-auto-gallery-strip';
-                strip.innerHTML = vistasIniciales.map((v, idx) => `
-                    <div class="detail-gallery-thumb ${idx === 0 ? 'active' : ''}" onclick="seleccionarVistaGaleriaDetalle(${idx})" title="${v.subtitulo}">
-                        <img src="${v.imgUrl}" alt="${v.etiqueta}" style="${v.modoCss === 'angle' ? 'transform:rotate(-8deg) scale(1.05);' : v.modoCss === 'zoom' ? 'transform:scale(1.35);' : ''}">
-                        <span class="detail-gallery-thumb-label">${v.etiqueta.replace(/^\d+\.\s*/, '')}</span>
+                const thumbsCol = document.createElement('div');
+                thumbsCol.id = 'mlThumbsColumn';
+                thumbsCol.className = 'ml-thumbs-column';
+
+                frame.parentNode.insertBefore(layoutWrap, frame);
+                layoutWrap.appendChild(thumbsCol);
+                layoutWrap.appendChild(frame);
+
+                // Agregar el buscador por Nombre / Número de Serie (Modelo) para pegar las 4 imágenes restantes
+                const finderWrap = document.createElement('div');
+                finderWrap.className = 'ml-finder-bar';
+                const qEncoded = encodeURIComponent(queryBusqueda);
+                finderWrap.innerHTML = `
+                    <button type="button" class="ml-finder-toggle-btn" onclick="const p=document.getElementById('mlFinderPanel'); p.classList.toggle('open'); if(p.classList.contains('open') && !p.dataset.searched){ p.dataset.searched='1'; buscarImagenesWebPorModeloSerie(document.getElementById('ml-model-query-input').value, 'ml-web-results-box'); }">
+                        <span>📸 +4 Imágenes del Modelo <strong>${sku || titulo}</strong> (Buscar por Serie/Nombre o Pegar Links)</span>
+                        <span>▼</span>
+                    </button>
+                    <div id="mlFinderPanel" class="ml-finder-panel">
+                        <div style="font-size:11.5px; font-weight:800; color:#0f172a; margin-bottom:8px;">
+                            Buscar las 4 imágenes restantes por Nombre o Número de Serie / Modelo:
+                        </div>
+                        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;">
+                            <input id="ml-model-query-input" type="text" value="${queryBusqueda.replace(/"/g, '&quot;')}" style="flex:1; min-width:180px; padding:7px 10px; font-size:11.5px; font-weight:700; border:1.5px solid #cbd5e1; border-radius:8px;" />
+                            <button type="button" onclick="buscarImagenesWebPorModeloSerie(document.getElementById('ml-model-query-input').value, 'ml-web-results-box')" style="background:#0088ff; color:#fff; border:none; border-radius:8px; padding:7px 12px; font-size:11px; font-weight:800; cursor:pointer;">
+                                🌐 Buscar en Web Ahora
+                            </button>
+                            <a href="https://www.google.com/search?tbm=isch&q=${qEncoded}" target="_blank" style="background:#f1f5f9; color:#0f172a; border:1px solid #cbd5e1; border-radius:8px; padding:7px 10px; font-size:11px; font-weight:800; text-decoration:none;">
+                                🔎 Google Imágenes
+                            </a>
+                            <a href="https://listado.mercadolibre.com.ec/${qEncoded}" target="_blank" style="background:#fef9c3; color:#854d0e; border:1px solid #fde047; border-radius:8px; padding:7px 10px; font-size:11px; font-weight:800; text-decoration:none;">
+                                🛒 Mercado Libre
+                            </a>
+                        </div>
+                        <div id="ml-web-results-box"></div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px;">
+                            <input id="ml-extra-input-1" type="text" value="${(cuatroUrls[0] || '').replace(/"/g, '&quot;')}" oninput="guardar4ImagenesDesdeDetalle()" placeholder="Pegar Link Imagen 2 (Ángulo / Posición)..." style="padding:6px 9px; font-size:11px; border:1px solid #cbd5e1; border-radius:6px;" />
+                            <input id="ml-extra-input-2" type="text" value="${(cuatroUrls[1] || '').replace(/"/g, '&quot;')}" oninput="guardar4ImagenesDesdeDetalle()" placeholder="Pegar Link Imagen 3 (Guía / Puertos)..." style="padding:6px 9px; font-size:11px; border:1px solid #cbd5e1; border-radius:6px;" />
+                            <input id="ml-extra-input-3" type="text" value="${(cuatroUrls[2] || '').replace(/"/g, '&quot;')}" oninput="guardar4ImagenesDesdeDetalle()" placeholder="Pegar Link Imagen 4 (Detalle / Uso)..." style="padding:6px 9px; font-size:11px; border:1px solid #cbd5e1; border-radius:6px;" />
+                            <input id="ml-extra-input-4" type="text" value="${(cuatroUrls[3] || '').replace(/"/g, '&quot;')}" oninput="guardar4ImagenesDesdeDetalle()" placeholder="Pegar Link Imagen 5 (Beneficios / Caja)..." style="padding:6px 9px; font-size:11px; border:1px solid #cbd5e1; border-radius:6px;" />
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;">
+                            <span style="font-size:10.5px; color:#64748b;">Al pegar un link arriba se actualiza la galería estilo Mercado Libre al instante.</span>
+                            <button type="button" onclick="copiar5UrlsParaExcel()" style="background:#0f172a; color:#fff; border:none; border-radius:7px; padding:6px 11px; font-size:10.5px; font-weight:800; cursor:pointer;">
+                                📋 Copiar las 5 URLs para mi Excel
+                            </button>
+                        </div>
                     </div>
-                `).join('');
+                `;
+                layoutWrap.insertAdjacentElement('afterend', finderWrap);
 
-                frame.insertAdjacentElement('afterend', strip);
-                renderizarEscenarioGaleriaDetalle(0);
+                renderizarMiniaturasColumnaML();
+                renderizarVisorPrincipalML(0);
             }
-
-            // Buscar en repositorios en segundo plano para enriquecer ángulos si existen
-            buscar4ImagenesRepositorioAutomatico(`${item.marca} ${item.nombreModelo} ${infoBase.titulo}`, imgPrincipal, equipo).then(extras => {
-                if (estadoGaleriaDetalleActual.idProd !== idProd || !extras || !extras.length) return;
-                if (extras[0]) infoBase.imgExtra1 = extras[0];
-                if (extras[1]) infoBase.imgExtra2 = extras[1];
-                estadoGaleriaDetalleActual.vistas = construir4VistasAdicionalesBase(imgPrincipal, infoBase);
-                const thumbs = document.querySelectorAll('#detailAutoGalleryStrip .detail-gallery-thumb img');
-                estadoGaleriaDetalleActual.vistas.forEach((v, i) => {
-                    if (thumbs[i]) thumbs[i].src = v.imgUrl;
-                });
-            });
         };
 
-        // Envuelve actualizarPreviewEnModal para mostrar también las 4 imágenes adicionales en el Punto de Venta / Inventario
+        // Conecta el Modal de Fotos del Punto de Venta para buscar por Nombre / Número de Serie (Modelo) las 4 imágenes restantes
         const _actualizarPreviewEnModalOriginal = actualizarPreviewEnModal;
         actualizarPreviewEnModal = function(url) {
             _actualizarPreviewEnModalOriginal(url);
@@ -4066,47 +4293,43 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
 
             const limpia = optimizarUrlDrive(urlPrincipal, 'w400');
             const p = products.find(x => x.id === photoModalTargetId);
-            const nombreProd = p ? `${p.brand} ${p.name}` : (document.getElementById('new-name')?.value || 'Producto');
-            const skuProd = p ? p.id : (document.getElementById('new-id')?.value || '');
-
-            if (!limpia) {
-                grid4.innerHTML = '<div class="col-span-4 text-[11px] text-slate-400 py-2">Selecciona primero la 1ª imagen principal arriba para generar automáticamente sus 4 vistas de posiciones y beneficios.</div>';
-                return;
-            }
-
-            const vistas5 = construir4VistasAdicionalesBase(limpia, {
-                titulo: nombreProd,
-                marca: p?.brand || 'A-MOVIL',
-                sku: skuProd,
-                vinetas: [
-                    `Accesorio original garantizado (${nombreProd})`,
-                    'Máxima velocidad y eficiencia energética comprobada',
-                    'Construcción reforzada de larga vida útil'
-                ],
-                chips: [skuProd || 'Original']
-            });
-            const cuatroExtras = vistas5.slice(1);
+            const marca = p?.brand || (document.getElementById('new-brand')?.value || 'A-MOVIL');
+            const sku = p?.id || (document.getElementById('new-id')?.value || '');
+            const nombre = p?.name || (document.getElementById('new-name')?.value || 'Producto');
+            const claveMod = obtenerClaveGaleriaProducto(marca, sku, nombre);
+            const cuatro = obtener4UrlsMismoProducto({}, claveMod, limpia);
 
             if (status4) {
-                status4.textContent = `✓ 4 vistas generadas automáticamente a partir de la imagen principal para "${nombreProd}".`;
+                status4.innerHTML = `Modelo / Serie: <strong>${marca} · ${sku} — ${nombre}</strong>`;
             }
 
-            grid4.innerHTML = cuatroExtras.map((v, i) => `
-                <div class="bg-white border border-slate-200 rounded-lg p-2 flex flex-col items-center text-center gap-1 shadow-sm">
+            grid4.innerHTML = [0, 1, 2, 3].map(idx => `
+                <div class="bg-white border border-slate-200 rounded-lg p-2 flex flex-col gap-1.5 shadow-sm">
                     <div class="w-full h-14 bg-slate-50 rounded flex items-center justify-center overflow-hidden p-1">
-                        <img src="${v.imgUrl}" alt="${v.etiqueta}" class="max-h-full max-w-full object-contain" style="${v.modoCss === 'angle' ? 'transform:perspective(300px) rotateY(-15deg) scale(1.08);' : v.modoCss === 'zoom' ? 'transform:scale(1.38);' : ''}" />
+                        <img src="${cuatro[idx] ? optimizarUrlDrive(cuatro[idx], 'w300') : limpia}" alt="Foto ${idx + 2}" class="max-h-full max-w-full object-contain" />
                     </div>
-                    <div class="text-[10px] font-bold text-slate-800">${v.etiqueta}</div>
-                    <div class="text-[9px] text-slate-500 leading-tight line-clamp-1">${v.subtitulo}</div>
+                    <input
+                        id="modal-extra-input-${idx + 1}"
+                        type="text"
+                        value="${(cuatro[idx] || '').replace(/"/g, '&quot;')}"
+                        oninput="guardar4ExtrasDesdeModalPOS('${claveMod}')"
+                        placeholder="Pegar link Foto ${idx + 2}..."
+                        class="w-full px-2 py-1 text-[10px] bg-slate-50 border border-slate-200 rounded focus:bg-white focus:border-slate-900 focus:outline-none"
+                    />
                 </div>
             `).join('');
+        }
+
+        function guardar4ExtrasDesdeModalPOS(claveMod) {
+            const urls4 = [1, 2, 3, 4].map(i => (document.getElementById('modal-extra-input-' + i)?.value || '').trim());
+            guardarFotosExtraDeModelo(claveMod, urls4);
         }
 
         function abrirBusquedaGoogleImagenesModal() {
             const p = products.find(x => x.id === photoModalTargetId);
             const q = p
-                ? `${p.brand} ${p.id} ${p.name} product angles`
-                : `${document.getElementById('new-brand')?.value || ''} ${document.getElementById('new-name')?.value || ''} ${document.getElementById('new-id')?.value || ''}`.trim() || 'Anker Ugreen accesorio';
+                ? `${p.brand} ${p.id} ${p.name}`
+                : `${document.getElementById('new-brand')?.value || ''} ${document.getElementById('new-id')?.value || ''} ${document.getElementById('new-name')?.value || ''}`.trim() || 'Anker Ugreen';
             window.open(`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}`, '_blank');
         }
     </script>
