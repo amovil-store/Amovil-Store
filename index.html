@@ -339,14 +339,14 @@
             padding-bottom: 0 !important;
             background-color: #f8fafc !important;
         }
-        :where(#vista-secreta-pos-wrapper, #vista-secreta-pos-wrapper *, #csv-modal, #csv-modal *) {
+        :where(#vista-secreta-pos-wrapper, #vista-secreta-pos-wrapper *, #csv-modal, #csv-modal *, #photo-modal, #photo-modal *) {
             box-sizing: border-box;
             border-width: 0;
             border-style: solid;
             border-color: #e2e8f0;
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        :where(#vista-secreta-pos-wrapper button, #csv-modal button) {
+        :where(#vista-secreta-pos-wrapper button, #csv-modal button, #photo-modal button) {
             cursor: pointer;
             background-color: transparent;
             color: inherit;
@@ -357,7 +357,8 @@
         }
         #vista-secreta-pos-wrapper .font-mono-num,
         #vista-secreta-pos-wrapper .font-mono-num *,
-        #csv-modal .font-mono-num {
+        #csv-modal .font-mono-num,
+        #photo-modal .font-mono-num {
             font-family: 'JetBrains Mono', monospace !important;
             font-variant-numeric: tabular-nums;
         }
@@ -368,6 +369,580 @@
         }
         #vista-secreta-pos-wrapper input[type="number"] {
             -moz-appearance: textfield;
+        }
+
+        /* ========================================================================= */
+        /* MEJORAS UX/UI ESTILO SHOPIFY PREMIUM (GALERÍA, LUPA, STICKY, ACORDEÓN)    */
+        /* ========================================================================= */
+        @keyframes shopifyFadeSlideUp {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes shopifyImgSoftFade {
+            from { opacity: 0.35; transform: scale(0.985); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        #vista-portada,
+        #vista-categoria-seleccionada,
+        #vista-producto-detalle {
+            animation: shopifyFadeSlideUp 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .detail-hero-card {
+            animation: shopifyFadeSlideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .shopify-accordion-wrapper {
+            animation: shopifyFadeSlideUp 0.46s cubic-bezier(0.22, 1, 0.36, 1) 0.05s both;
+        }
+        #relatedProductsSection {
+            animation: shopifyFadeSlideUp 0.52s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        }
+
+        /* 1. GALERÍA DINÁMICA ESTILO SHOPIFY (VISOR + LUPA DESKTOP + SWIPE MÓVIL + THUMBNAILS ABAJO) */
+        .shopify-gallery-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            margin-bottom: 14px;
+            user-select: none;
+        }
+        .shopify-main-stage {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            touch-action: pan-y pinch-zoom;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .shopify-main-stage img.shopify-stage-img {
+            max-width: 88%;
+            max-height: 88%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            pointer-events: none;
+            transform-origin: 50% 50%;
+            transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.22s ease;
+            animation: shopifyImgSoftFade 0.26s ease;
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .shopify-main-stage {
+                cursor: zoom-in;
+            }
+            .shopify-main-stage.is-zooming {
+                cursor: crosshair;
+                border-color: var(--secondary-color);
+                box-shadow: 0 12px 28px rgba(0, 136, 255, 0.10);
+            }
+            .shopify-main-stage.is-zooming img.shopify-stage-img {
+                transform: scale(2.15);
+                transition: transform 0.08s ease-out;
+            }
+        }
+        .shopify-zoom-hint {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(15, 23, 42, 0.72);
+            backdrop-filter: blur(6px);
+            color: #ffffff;
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            pointer-events: none;
+            opacity: 0.88;
+            transition: opacity 0.2s ease;
+            z-index: 4;
+        }
+        .shopify-zoom-hint svg {
+            width: 13px;
+            height: 13px;
+            stroke: currentColor;
+            stroke-width: 2.3;
+            fill: none;
+        }
+        .shopify-main-stage.is-zooming .shopify-zoom-hint {
+            opacity: 0;
+        }
+        .shopify-stage-counter {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            background: rgba(248, 250, 252, 0.92);
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            pointer-events: none;
+            z-index: 4;
+        }
+        .shopify-stage-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid #cbd5e1;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 5;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+            transition: all 0.2s ease;
+        }
+        .shopify-stage-arrow:hover {
+            background: var(--secondary-color);
+            color: #ffffff;
+            border-color: var(--secondary-color);
+            transform: translateY(-50%) scale(1.06);
+        }
+        .shopify-stage-arrow.prev { left: 10px; }
+        .shopify-stage-arrow.next { right: 10px; }
+        .shopify-stage-arrow svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+        }
+        .shopify-stage-arrow.is-hidden {
+            display: none;
+        }
+        .shopify-thumbs-bar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+        .shopify-thumbs-track {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            padding: 3px 2px;
+            flex: 1;
+        }
+        .shopify-thumbs-track::-webkit-scrollbar {
+            display: none;
+        }
+        .shopify-thumb-btn {
+            width: 68px;
+            height: 68px;
+            flex-shrink: 0;
+            border-radius: 12px;
+            border: 1.5px solid #e2e8f0;
+            background: #ffffff;
+            padding: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .shopify-thumb-btn:hover {
+            border-color: #94a3b8;
+            transform: translateY(-2px);
+        }
+        .shopify-thumb-btn.active {
+            border: 2px solid #0f172a;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+            transform: translateY(-2px);
+        }
+        .shopify-thumb-btn img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+        }
+        .shopify-thumbs-scroll-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+            transition: all 0.2s ease;
+        }
+        .shopify-thumbs-scroll-btn.visible {
+            display: inline-flex;
+        }
+        .shopify-thumbs-scroll-btn:hover {
+            background: var(--secondary-color);
+            color: #ffffff;
+            border-color: var(--secondary-color);
+        }
+
+        /* 2. ACORDEÓN MINIMALISTA PARA DESCRIPCIÓN Y FICHA TÉCNICA */
+        .shopify-accordion-wrapper {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
+            margin-bottom: 36px;
+            overflow: hidden;
+        }
+        .shopify-acc-item {
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .shopify-acc-item:last-child {
+            border-bottom: none;
+        }
+        .shopify-acc-trigger {
+            width: 100%;
+            background: #ffffff;
+            border: none;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            cursor: pointer;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+        .shopify-acc-trigger:hover {
+            background: #f8fafc;
+        }
+        .shopify-acc-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .shopify-acc-badge-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: rgba(0, 136, 255, 0.09);
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .shopify-acc-badge-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: currentColor;
+            stroke-width: 2.2;
+            fill: none;
+        }
+        .shopify-acc-heading {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+        .shopify-acc-sub {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .shopify-acc-chevron {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.2s ease, color 0.2s ease;
+        }
+        .shopify-acc-chevron svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+        }
+        .shopify-acc-item.is-open .shopify-acc-chevron {
+            transform: rotate(180deg);
+            background: var(--secondary-color);
+            color: #ffffff;
+        }
+        .shopify-acc-collapse {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            transition: grid-template-rows 0.32s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.24s ease;
+        }
+        .shopify-acc-item.is-open .shopify-acc-collapse {
+            grid-template-rows: 1fr;
+            opacity: 1;
+        }
+        .shopify-acc-inner {
+            overflow: hidden;
+        }
+        .shopify-acc-body {
+            padding: 4px 24px 22px 24px;
+            border-top: 1px dashed #f1f5f9;
+        }
+        .shopify-spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 10px;
+            margin-top: 8px;
+        }
+        .shopify-spec-cell {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .shopify-spec-label {
+            font-size: 10.5px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .shopify-spec-value {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        /* 3. SECCIÓN "TAMBIÉN TE PUEDE INTERESAR" (GRID 4 COLS DESKTOP + SWIPE HORIZONTAL MÓVIL) */
+        .related-header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .related-header-bar .related-products-title {
+            margin-bottom: 0;
+        }
+        .related-mobile-swipe-pill {
+            display: none;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--secondary-color);
+            background: #f0f7ff;
+            border: 1px solid #bae6fd;
+            padding: 4px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+        #relatedProductsGrid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 20px;
+        }
+        #relatedProductsGrid .product-card {
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
+        }
+        #relatedProductsGrid .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 18px 36px rgba(15, 23, 42, 0.10), 0 6px 16px rgba(0, 136, 255, 0.15);
+            border-color: var(--secondary-color);
+        }
+
+        /* 4. BARRA DE COMPRA FLOTANTE (STICKY ADD-TO-CART) */
+        .shopify-sticky-bar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 995;
+            background: rgba(255, 255, 255, 0.97);
+            backdrop-filter: blur(12px);
+            border-top: 1.5px solid #e2e8f0;
+            box-shadow: 0 -10px 30px rgba(15, 23, 42, 0.12);
+            padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+            transform: translateY(115%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+        }
+        .shopify-sticky-bar.is-visible {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+        body.sticky-cart-shown .constant-up-arrow {
+            bottom: 92px;
+        }
+        .shopify-sticky-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+        .shopify-sticky-product {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+        }
+        .shopify-sticky-thumb {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            background: #ffffff;
+            padding: 3px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .shopify-sticky-meta {
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .shopify-sticky-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .shopify-sticky-prices {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .shopify-sticky-cash {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--price-cash);
+            line-height: 1;
+        }
+        .shopify-sticky-cash.is-offer {
+            color: var(--offer-red);
+        }
+        .shopify-sticky-card {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--price-card);
+            line-height: 1;
+        }
+        .shopify-sticky-cta {
+            background: var(--secondary-color);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            white-space: nowrap;
+            box-shadow: 0 6px 16px rgba(0, 136, 255, 0.32);
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .shopify-sticky-cta:hover {
+            background: var(--secondary-color);
+            filter: brightness(0.92);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 960px) and (min-width: 769px) {
+            #relatedProductsGrid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        @media (max-width: 768px) {
+            .shopify-main-stage {
+                height: 305px;
+            }
+            .shopify-zoom-hint {
+                display: none;
+            }
+            .shopify-thumb-btn {
+                width: 60px;
+                height: 60px;
+                border-radius: 10px;
+            }
+            .shopify-acc-trigger {
+                padding: 15px 16px;
+            }
+            .shopify-acc-body {
+                padding: 4px 16px 18px 16px;
+            }
+            .shopify-acc-heading {
+                font-size: 14px;
+            }
+            .related-mobile-swipe-pill {
+                display: inline-block;
+            }
+            #relatedProductsGrid {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 14px;
+                padding: 6px 2px 18px 2px;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            #relatedProductsGrid::-webkit-scrollbar {
+                display: none;
+            }
+            #relatedProductsGrid .product-card {
+                flex: 0 0 76vw;
+                max-width: 270px;
+                scroll-snap-align: start;
+            }
+            .shopify-sticky-inner {
+                gap: 10px;
+            }
+            .shopify-sticky-thumb {
+                width: 40px;
+                height: 40px;
+            }
+            .shopify-sticky-title {
+                font-size: 12px;
+            }
+            .shopify-sticky-cash {
+                font-size: 15px;
+            }
+            .shopify-sticky-card {
+                font-size: 12px;
+            }
+            .shopify-sticky-cta {
+                padding: 11px 15px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -662,7 +1237,10 @@
             </div>
             <div id="detalle-producto-inyectado"></div>
             <div class="related-products-section" id="relatedProductsSection">
-                <h3 class="related-products-title">También te puede interesar</h3>
+                <div class="related-header-bar">
+                    <h3 class="related-products-title">También te puede interesar</h3>
+                    <span class="related-mobile-swipe-pill">Desliza &rarr;</span>
+                </div>
                 <div class="product-grid" id="relatedProductsGrid"></div>
             </div>
         </div>
@@ -673,6 +1251,23 @@
             <polyline points="18 15 12 9 6 15"></polyline>
         </svg>
     </button>
+
+    <!-- BARRA DE COMPRA FLOTANTE ESTILO SHOPIFY (STICKY ADD-TO-CART) -->
+    <div id="shopifyStickyCartBar" class="shopify-sticky-bar" aria-hidden="true">
+        <div class="shopify-sticky-inner">
+            <div class="shopify-sticky-product">
+                <img id="stickyProductImg" src="" alt="" class="shopify-sticky-thumb">
+                <div class="shopify-sticky-meta">
+                    <div id="stickyProductTitle" class="shopify-sticky-title"></div>
+                    <div class="shopify-sticky-prices">
+                        <span id="stickyPriceCash" class="shopify-sticky-cash"></span>
+                        <span id="stickyPriceCard" class="shopify-sticky-card"></span>
+                    </div>
+                </div>
+            </div>
+            <a id="btnStickyWhatsapp" href="#" target="_blank" class="shopify-sticky-cta">LO QUIERO</a>
+        </div>
+    </div>
 
     <div class="stream-modal-overlay" id="streamModalOverlay" onclick="cerrarModalStreaming()">
         <div class="stream-modal-box" onclick="event.stopPropagation()">
@@ -749,13 +1344,22 @@
           <!-- Catálogo de Productos -->
           <div class="lg:col-span-7 space-y-4">
             <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
-              <div>
-                <h2 class="text-sm font-bold text-slate-900">
-                  Selecciona 1 Producto o Combina 2 o Más para Armar un Combo
-                </h2>
-                <p class="text-xs text-slate-500 mt-0.5">
-                  Agrega los productos al ticket de la derecha, decide tú mismo a cómo venderlos y confirma para descontar del stock.
-                </p>
+              <div class="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h2 class="text-sm font-bold text-slate-900">
+                    Selecciona 1 Producto o Combina 2 o Más para Armar un Combo
+                  </h2>
+                  <p class="text-xs text-slate-500 mt-0.5">
+                    Imágenes sincronizadas con <strong>Catálogo 2026-NO BORRAR</strong>. Haz clic en la foto 📷 de cualquier producto para cambiarla, subir archivo o pegar link.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onclick="irAAgregarProducto()"
+                  class="px-3 py-1.5 text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-900 hover:text-white rounded-lg transition-colors whitespace-nowrap shrink-0"
+                >
+                  + Agregar Producto
+                </button>
               </div>
 
               <div class="relative">
@@ -908,24 +1512,60 @@
             </div>
           </div>
 
-          <!-- Formulario Nuevo Producto -->
-          <form id="new-product-form" onsubmit="saveNewProduct(event)" class="hidden bg-white border border-slate-300 rounded-xl p-5 space-y-4">
+          <!-- Formulario Nuevo Producto con Detector Inteligente de Imágenes (Catálogo 2026) -->
+          <form id="new-product-form" onsubmit="saveNewProduct(event)" class="hidden bg-white border border-slate-300 rounded-xl p-5 space-y-4 shadow-sm">
             <div class="flex items-center justify-between">
-              <h3 class="text-sm font-bold text-slate-900">Agregar Nuevo Producto Físico</h3>
+              <div>
+                <h3 class="text-sm font-bold text-slate-900">Agregar Nuevo Producto Físico</h3>
+                <p class="text-xs text-slate-500 mt-0.5">Escribe el nombre o código (ej. <em>"nano anker"</em>, <em>"ugreen 65w"</em>) y el sistema buscará su foto en <strong>Catalogo 2026-NO BORRAR</strong> automáticamente.</p>
+              </div>
               <button type="button" onclick="toggleNewProductForm()" class="text-xs text-slate-500 hover:text-slate-900">Cancelar</button>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <input id="new-id" type="text" required placeholder="ID_Producto (Ej. UGR-90112)" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
-              <input id="new-barcode" type="text" placeholder="Codigo_Barras" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
-              <input id="new-name" type="text" required placeholder="Nombre del Producto" class="sm:col-span-2 px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
-              <input id="new-brand" type="text" value="UGREEN" placeholder="Marca" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
-              <input id="new-supplier" type="text" value="Nuretic" placeholder="Proveedor" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
-              <input id="new-cost" type="number" step="0.01" required placeholder="Costo_Compra ($)" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
+              <input id="new-id" type="text" required oninput="actualizarSugerenciaImagenNuevoProd()" placeholder="ID_Producto (Ej. ANK-A121DJ11)" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
+              <input id="new-barcode" type="text" placeholder="Codigo_Barras" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
+              <input id="new-name" type="text" required oninput="actualizarSugerenciaImagenNuevoProd()" placeholder="Nombre (Ej. Cargador Nano Anker 45W)" class="sm:col-span-2 px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
+              <input id="new-brand" type="text" value="UGREEN" oninput="actualizarSugerenciaImagenNuevoProd()" placeholder="Marca" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
+              <input id="new-supplier" type="text" value="Nuretic" placeholder="Proveedor" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
+              <input id="new-cost" type="number" step="0.01" required placeholder="Costo_Compra ($)" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
               <div class="flex gap-2">
-                <input id="new-price" type="number" step="0.01" required placeholder="Precio_Venta ($)" class="w-full px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
-                <input id="new-stock" type="number" step="1" value="1" required placeholder="Stock" class="w-24 px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
+                <input id="new-price" type="number" step="0.01" required placeholder="Precio_Venta ($)" class="w-full px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
+                <input id="new-stock" type="number" step="1" value="1" required placeholder="Stock" class="w-24 px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
               </div>
             </div>
+
+            <!-- Asistente Inteligente de Imagen (Catálogo 2026 + Subir Foto + Link) -->
+            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
+              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                <div class="w-20 h-20 rounded-xl bg-white border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 p-1 shadow-sm">
+                  <img id="new-photo-preview" src="" alt="Vista previa" class="w-full h-full object-contain hidden" />
+                  <span id="new-photo-empty" class="text-[11px] text-slate-400 text-center leading-tight px-1">Sin foto</span>
+                </div>
+                <div class="flex-1 space-y-2 w-full">
+                  <div id="new-photo-status" class="text-xs font-semibold text-slate-700">
+                    🔎 Escribe el nombre o código arriba para buscar la imagen en <strong>Catalogo 2026-NO BORRAR</strong>...
+                  </div>
+                  <div id="new-photo-candidates" class="flex items-center gap-2 overflow-x-auto pb-1 hidden"></div>
+                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-1">
+                    <input
+                      id="new-photo-url"
+                      type="text"
+                      oninput="usarUrlManualNuevoProd(this.value)"
+                      placeholder="¿No está o prefieres otra? Pega aquí el link de imagen de tu catálogo web o Drive..."
+                      class="flex-1 px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-slate-900"
+                    />
+                    <label class="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-100 cursor-pointer text-center whitespace-nowrap shrink-0">
+                      📁 Subir archivo
+                      <input id="new-photo-file" type="file" accept="image/*" onchange="subirArchivoNuevoProd(event)" class="hidden" />
+                    </label>
+                    <button type="button" onclick="openPhotoModalForNewProduct()" class="px-3 py-1.5 text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 whitespace-nowrap shrink-0">
+                      📚 Explorar Catálogo 2026
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="flex justify-end">
               <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-slate-900 rounded-lg hover:bg-slate-800">
                 Guardar en Tabla
@@ -1018,6 +1658,91 @@
       </div>
     </div>
 
+    <!-- ==================== MODAL SELECTOR DE IMAGEN (CATÁLOGO 2026 / SUBIR / LINK) ==================== -->
+    <div id="photo-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+      <div class="bg-white border border-slate-200 rounded-xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden shadow-xl">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
+          <div>
+            <h2 id="photo-modal-title" class="text-base font-bold text-slate-900">Imagen del Producto</h2>
+            <p class="text-xs text-slate-500 mt-0.5">Elige una imagen de referencia de tu Excel <strong>Catalogo 2026-NO BORRAR</strong>, sube una foto desde tu equipo o pega el link de tu catálogo web.</p>
+          </div>
+          <button type="button" onclick="closePhotoModal()" class="text-sm font-bold text-slate-500 hover:text-slate-900 px-2 py-1">✕</button>
+        </div>
+
+        <div class="p-6 flex-1 overflow-y-auto space-y-5">
+          <!-- Vista previa actual y detección inteligente -->
+          <div class="flex flex-col sm:flex-row items-center gap-4 p-4 bg-slate-50 border border-slate-200 rounded-xl">
+            <div class="w-24 h-24 rounded-xl bg-white border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 p-1.5 shadow-sm">
+              <img id="photo-modal-preview" src="" alt="Preview" class="w-full h-full object-contain hidden" />
+              <span id="photo-modal-empty" class="text-xs text-slate-400 text-center">Sin imagen</span>
+            </div>
+            <div class="flex-1 space-y-2 w-full">
+              <div id="photo-modal-smart-msg" class="text-xs font-semibold text-emerald-700"></div>
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                <input
+                  id="photo-modal-url-input"
+                  type="text"
+                  oninput="previewUrlInPhotoModal(this.value)"
+                  placeholder="Pegar link de imagen de tu catálogo web o Google Drive..."
+                  class="flex-1 px-3 py-2 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-slate-900"
+                />
+                <label class="px-3.5 py-2 text-xs font-semibold text-slate-800 bg-white border border-slate-200 rounded-lg hover:bg-slate-100 cursor-pointer text-center whitespace-nowrap shrink-0">
+                  📁 Subir desde mi equipo
+                  <input id="photo-modal-file-input" type="file" accept="image/*" onchange="handlePhotoModalFileUpload(event)" class="hidden" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Imágenes Adicionales Automáticas (Posiciones y Beneficios) -->
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <div class="text-xs font-bold text-slate-900">📸 +4 Imágenes Adicionales Automáticas (Posiciones y Beneficios)</div>
+                <p id="photo-modal-extra4-status" class="text-[11px] text-slate-500">Basadas en la 1ª imagen principal + búsqueda automática en repositorios web.</p>
+              </div>
+              <button
+                type="button"
+                onclick="abrirBusquedaGoogleImagenesModal()"
+                class="px-2.5 py-1 text-[11px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100"
+              >
+                🔎 Buscar ángulos en Google Imágenes
+              </button>
+            </div>
+            <div id="photo-modal-extra4-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
+          </div>
+
+          <!-- Buscador en el Banco de Imágenes de Catalogo 2026-NO BORRAR -->
+          <div class="space-y-3">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <label class="text-xs font-bold text-slate-800">
+                📚 Buscar en banco de imágenes de "Catalogo 2026-NO BORRAR"
+              </label>
+              <span id="photo-modal-count" class="text-[11px] font-mono-num text-slate-500"></span>
+            </div>
+            <input
+              id="photo-modal-search"
+              type="text"
+              oninput="renderPhotoModalCatalogGrid()"
+              placeholder="Escribe palabras clave: ej. 'nano anker', 'ugreen 65w', 'cable lightning', 'reloj'..."
+              class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:bg-white focus:border-slate-900"
+            />
+            <div id="photo-modal-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 max-h-[280px] overflow-y-auto p-1"></div>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between gap-2 px-6 py-4 border-t border-slate-200 bg-slate-50">
+          <button type="button" onclick="useAutoSuggestedPhotoInModal()" class="px-3.5 py-2 text-xs font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100">
+            ✨ Usar sugerencia automática del Catálogo 2026
+          </button>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="closePhotoModal()" class="px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg">Cancelar</button>
+            <button type="button" onclick="savePhotoModalSelection()" class="px-4 py-2 text-xs font-semibold text-white bg-slate-900 rounded-lg hover:bg-slate-800">Guardar Imagen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
         const CATEGORIAS_OCULTAS = ["CELULARES", "SMARTPHONES", "TABLETS", "SMART TV"];
 
@@ -1029,7 +1754,7 @@
         };
 
         function optimizarUrlDrive(urlRaw, ancho = "w600") {
-            let url = String(urlRaw || "").trim();
+            let url = String(urlRaw || "").split(/\s*\|\s*|\r?\n/)[0].trim();
             if (!url) return "";
             const matchFile = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (matchFile && matchFile[1]) {
@@ -1666,6 +2391,9 @@
                 const msg = encodeURIComponent(`Hola A-MOVIL, me interesa el ${tituloProducto} en color ${nombreColor}`);
                 btnWpp.href = `https://wa.me/593982747634?text=${msg}`;
             }
+            if (typeof sincronizarColorEnShopifyUX === 'function') {
+                sincronizarColorEnShopifyUX(nombreColor, tituloProducto);
+            }
         }
 
         function abrirDetalleProducto(idProd, pushHistory = true) {
@@ -1689,6 +2417,7 @@
 
             const equipo = item.raw || {};
             const marca = item.marca;
+            const marcaMostrar = marca !== "OTRAS MARCAS" ? marca : "A-MOVIL";
             const { tituloLlamativo, capacidadVisible, listaVinetas, coloresLimpios } = item.info;
             const dispStr = String(equipo.DISP || equipo.Agotado || "").trim().toUpperCase();
             const estaAgotado = item.tieneOfertaColumnaL ? false : (dispStr === "NO" || dispStr === "AGOTADO");
@@ -1743,19 +2472,55 @@
             const costoDist = equipo.CostoDistribuidor ? equipo.CostoDistribuidor : 'N/A';
             const clicsProd = obtenerClicsProducto(item);
 
-            let listaDescHtml = `<li><strong>Producto:</strong> ${tituloLlamativo}.</li>`;
-            if (marca !== "OTRAS MARCAS") listaDescHtml += `<li><strong>Marca:</strong> ${marca}.</li>`;
-            if (capacidadVisible) listaDescHtml += `<li><strong>Capacidad:</strong> ${capacidadVisible}.</li>`;
-            if (coloresLimpios && coloresLimpios.toUpperCase() !== "N/A") listaDescHtml += `<li><strong>Colores:</strong> ${coloresLimpios}.</li>`;
-            (listaVinetas || []).forEach(vineta => { listaDescHtml += `<li>${resaltarDatosTecnicos(vineta)}</li>`; });
+            let listaBeneficiosHtml = "";
+            (listaVinetas || []).forEach(vineta => {
+                listaBeneficiosHtml += `<li>${resaltarDatosTecnicos(vineta)}</li>`;
+            });
+            if (!listaBeneficiosHtml) {
+                listaBeneficiosHtml = `<li><strong>${tituloLlamativo}:</strong> Producto 100% original ${marcaMostrar} con garantía local en A-MOVIL STORE.</li>`;
+            }
 
-            const imgDetalle = optimizarUrlDrive(equipo.Imagen, "w800");
+            const specsArray = [
+                { label: "Producto", value: tituloLlamativo },
+                { label: "Marca", value: marcaMostrar },
+                { label: "SKU / Modelo", value: item.nombreModelo || "Original" },
+                { label: "Categoría", value: item.categoria || "Catálogo Oficial" }
+            ];
+            if (capacidadVisible) specsArray.push({ label: "Capacidad / Potencia", value: capacidadVisible });
+            if (coloresLimpios && coloresLimpios.toUpperCase() !== "N/A") specsArray.push({ label: "Colores Disponibles", value: coloresLimpios });
+            specsArray.push({ label: "Estado de Stock", value: estaAgotado ? "Agotado temporalmente" : "Disponible para entrega inmediata" });
+
+            const specsGridHtml = specsArray.map(sp => `
+                <div class="shopify-spec-cell">
+                    <span class="shopify-spec-label">${sp.label}</span>
+                    <span class="shopify-spec-value">${sp.value}</span>
+                </div>
+            `).join('');
+
+            const imgDetalle = optimizarUrlDrive(equipo.Imagen, "w1000");
 
             document.getElementById('detalle-producto-inyectado').innerHTML = `
                 <div class="detail-hero-card">
                     <div class="detail-left-col">
-                        <div class="detail-image-frame">
-                            <img src="${imgDetalle}" alt="${tituloLlamativo}">
+                        <div class="shopify-gallery-wrapper" id="shopifyGalleryWrapper">
+                            <div class="shopify-main-stage" id="shopifyMainStage">
+                                <button type="button" class="shopify-stage-arrow prev is-hidden" id="shopifyPrevBtn" onclick="cambiarImagenGaleriaShopify(-1)" aria-label="Imagen anterior">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                </button>
+                                <img id="shopifyStageImg" src="${imgDetalle}" alt="${tituloLlamativo}" class="shopify-stage-img">
+                                <button type="button" class="shopify-stage-arrow next is-hidden" id="shopifyNextBtn" onclick="cambiarImagenGaleriaShopify(1)" aria-label="Siguiente imagen">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                </button>
+                                <span id="shopifyStageCounter" class="shopify-stage-counter" style="display:none;">1 / 1</span>
+                                <span class="shopify-zoom-hint">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                    Pasa el cursor para zoom
+                                </span>
+                            </div>
+                            <div class="shopify-thumbs-bar" id="shopifyThumbsBar">
+                                <div class="shopify-thumbs-track" id="shopifyThumbsTrack"></div>
+                                <button type="button" class="shopify-thumbs-scroll-btn" id="shopifyThumbsNextBtn" onclick="desplazarMiniaturasShopify(1)" aria-label="Desplazar miniaturas">&rsaquo;</button>
+                            </div>
                         </div>
                         <div class="detail-trust-badges">
                             <span><strong>&#10003;</strong> Garantía Local</span>
@@ -1787,32 +2552,97 @@
                         <a href="https://wa.me/593982747634?text=${msgWpp}" id="btnDetailWhatsapp" target="_blank" class="btn-detail-loquiero" onclick="registrarInteraccionProducto(${idProd}, 2)">LO QUIERO</a>
                     </div>
                 </div>
-                <div class="detail-description-card">
-                    <div class="detail-tab-header"><div class="detail-tab-active">Descripción</div></div>
-                    <h3 class="detail-desc-title">Descripción y Ficha Técnica</h3>
-                    <ul class="detail-desc-list">${listaDescHtml}</ul>
+
+                <!-- ACORDEÓN MINIMALISTA ESTILO SHOPIFY (DESCRIPCIÓN Y FICHA TÉCNICA) -->
+                <div class="shopify-accordion-wrapper" id="shopifyAccordionWrapper">
+                    <div class="shopify-acc-item">
+                        <button type="button" class="shopify-acc-trigger" onclick="toggleAcordeonShopify(this)" aria-expanded="false">
+                            <div class="shopify-acc-left">
+                                <span class="shopify-acc-badge-icon">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                                </span>
+                                <div>
+                                    <div class="shopify-acc-heading">Descripción y Características Principales</div>
+                                    <div class="shopify-acc-sub">Haz clic para desplegar todos los beneficios del producto</div>
+                                </div>
+                            </div>
+                            <span class="shopify-acc-chevron">
+                                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                        </button>
+                        <div class="shopify-acc-collapse">
+                            <div class="shopify-acc-inner">
+                                <div class="shopify-acc-body">
+                                    <ul class="detail-desc-list">${listaBeneficiosHtml}</ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="shopify-acc-item">
+                        <button type="button" class="shopify-acc-trigger" onclick="toggleAcordeonShopify(this)" aria-expanded="false">
+                            <div class="shopify-acc-left">
+                                <span class="shopify-acc-badge-icon">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line></svg>
+                                </span>
+                                <div>
+                                    <div class="shopify-acc-heading">Ficha Técnica y Especificaciones</div>
+                                    <div class="shopify-acc-sub">Marca ${marcaMostrar} &bull; SKU ${item.nombreModelo}</div>
+                                </div>
+                            </div>
+                            <span class="shopify-acc-chevron">
+                                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                        </button>
+                        <div class="shopify-acc-collapse">
+                            <div class="shopify-acc-inner">
+                                <div class="shopify-acc-body">
+                                    <div class="shopify-spec-grid">${specsGridHtml}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="shopify-acc-item">
+                        <button type="button" class="shopify-acc-trigger" onclick="toggleAcordeonShopify(this)" aria-expanded="false">
+                            <div class="shopify-acc-left">
+                                <span class="shopify-acc-badge-icon">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                </span>
+                                <div>
+                                    <div class="shopify-acc-heading">Garantía Local, Pagos y Envíos a todo Ecuador</div>
+                                    <div class="shopify-acc-sub">Atención física en Ibarra (Yacucalle) y envíos asegurados</div>
+                                </div>
+                            </div>
+                            <span class="shopify-acc-chevron">
+                                <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </span>
+                        </button>
+                        <div class="shopify-acc-collapse">
+                            <div class="shopify-acc-inner">
+                                <div class="shopify-acc-body">
+                                    <ul class="detail-desc-list">
+                                        <li><strong>Garantía Local Directa:</strong> Respaldo inmediato en nuestra tienda física en Yacucalle, Ibarra.</li>
+                                        <li><strong>Envíos Nacionales 100% Seguros:</strong> Despachos rápidos y protegidos a todas las provincias del Ecuador.</li>
+                                        <li><strong>Doble Modalidad de Pago:</strong> Aprovecha el precio especial en <strong>Promo Efectivo / Transferencia / Deuna</strong> o paga con <strong>Tarjeta vía PayPhone</strong>.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>`;
 
-            let sugeridos = INVENTARIO_GLOBAL.filter(p => p.id !== idProd && p.categoria === item.categoria);
-            if (sugeridos.length < 4) {
-                const extras = INVENTARIO_GLOBAL.filter(p => p.id !== idProd && p.categoria !== item.categoria);
-                sugeridos = sugeridos.concat(extras);
+            if (typeof renderizarRelacionadosAutomaticosShopify === 'function') {
+                renderizarRelacionadosAutomaticosShopify(item);
             }
-            sugeridos = sugeridos.slice(0, 4);
-
-            const relatedSection = document.getElementById('relatedProductsSection');
-            if (sugeridos.length === 0) {
-                relatedSection.style.display = 'none';
-            } else {
-                relatedSection.style.display = 'block';
-                let htmlRel = "";
-                sugeridos.forEach(rel => { htmlRel += generarTarjetaResumenHtml(rel); });
-                document.getElementById('relatedProductsGrid').innerHTML = htmlRel;
+            if (typeof inicializarExperienciaShopifyProducto === 'function') {
+                inicializarExperienciaShopifyProducto(item, colorInicial);
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function volverDesdeDetalle() {
+            if (typeof ocultarBarraFlotanteShopify === 'function') ocultarBarraFlotanteShopify();
             if (vistaPreviaAlDetalle === "STREAMING") {
                 abrirSeccionStreamingIndependiente(true);
             } else if (history.state && history.state.vista === "DETALLE") {
@@ -1823,6 +2653,7 @@
         }
 
         function volverAPortada(pushHistory = true) {
+            if (typeof ocultarBarraFlotanteShopify === 'function') ocultarBarraFlotanteShopify();
             buscador.value = "";
             searchClearBtn.style.display = "none";
             categoriaSeleccionadaActual = "TODOS";
@@ -1839,6 +2670,7 @@
         }
 
         function abrirSeccionStreamingIndependiente(pushHistory = true) {
+            if (typeof ocultarBarraFlotanteShopify === 'function') ocultarBarraFlotanteShopify();
             buscador.value = "";
             searchClearBtn.style.display = "none";
             vistaPortada.style.display = 'none';
@@ -1853,6 +2685,7 @@
         }
 
         function abrirSeccionCategoria(nombreCategoria, mantenerBusqueda = false, pushHistory = true) {
+            if (typeof ocultarBarraFlotanteShopify === 'function') ocultarBarraFlotanteShopify();
             if (!mantenerBusqueda) {
                 buscador.value = "";
                 searchClearBtn.style.display = "none";
@@ -2123,6 +2956,7 @@
             inicializarBannersHero();
 
             const todosLosEquipos = resultadosHojas[0].concat(resultadosHojas[1] || []);
+            window.TODOS_EQUIPOS_EXCEL = todosLosEquipos;
 
             const equiposFiltrados = todosLosEquipos.filter(equipo => {
                 const modeloStr = String(equipo.Modelo || equipo["Nombre Comercial"] || equipo.Titulo || equipo.Nombre || "").trim();
@@ -2160,6 +2994,8 @@
 
             renderizarSeccionPortadaDinamica();
             renderizarImagenesStreaming();
+            hidratarFotosProductosDesdeCatalogo();
+            renderAll();
         }).catch(err => {
             console.error(err);
             globalLoader.innerHTML = "<div style='color:#ef4444; font-weight:800; text-align:center;'>Error al cargar el inventario. Verifica tu conexión a internet o el archivo Google Sheets.</div>";
@@ -2182,14 +3018,182 @@
         const POS_GOOGLE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT3mriUBce_e0x4eCtgHcMOiPo7KD7xu6SH6A9coDVAkNpsOGExiy1R7jhyvHnG5yP6ev_ejsfhssj0/pub?output=csv";
 
         const INITIAL_CSV = `ID_Producto,Codigo_Barras,Nombre,Marca,Proveedor,Costo_Compra,Precio_Venta,Stock_Actual,Foto
-ANK-A121DJ11,194644388904,Cargador Nano GaN 45W Smart Display,Anker,DIRESA,$29.47,$45.00,2,
-ANK-A8060H11,0194644209247,Cable Zolo USB-C a USB-C 240W 1m,Anker,DIRESA,$7.19,$20.00,2,
-UGR-15570,6941876215706,Cargador Rápido UNO RG 65W Negro (CD361),UGREEN,Nuretic,$35.60,$55.00,1,
-UGR-15550,6941876215508,Cargador Rápido UNO RG 30W Negro (CD359),UGREEN,Nuretic,$20.29,$35.00,3,
-UGR-65050B,6941876263288,Cargador Rápido 45W GaN (X524),UGREEN,Nuretic,$13.02,$30.00,2,
-UGR-70427,6957303874279,Cable Tipo C a Tipo C 100W 1m Negro (US316),UGREEN,Nuretic,$6.64,$15.00,4,
-UGR-70523,6957303875238,Cable Tipo C a Lightning 20W 1m Silver (US304),UGREEN,Nuretic,$19.21,$35.00,1,
-UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nuretic,$19.14,$35.00,1,`;
+ANK-A121DJ11,194644388904,Cargador Nano GaN 45W Smart Display,Anker,DIRESA,$29.47,$45.00,2,https://drive.google.com/thumbnail?id=1HKgc-0vwzyXeyKqCdqxm2-gC59F7s7fT
+ANK-A8060H11,0194644209247,Cable Zolo USB-C a USB-C 240W 1m,Anker,DIRESA,$7.19,$20.00,2,https://drive.google.com/thumbnail?id=1kwJsns-mTykCugMKoM3eB-VcaA9U5cT9
+UGR-15570,6941876215706,Cargador Rápido UNO RG 65W Negro (CD361),UGREEN,Nuretic,$35.60,$55.00,1,https://drive.google.com/thumbnail?id=1C-zyX2rI2a2GKjfLP7xap2xHloL3oEir
+UGR-15550,6941876215508,Cargador Rápido UNO RG 30W Negro (CD359),UGREEN,Nuretic,$20.29,$35.00,3,https://drive.google.com/thumbnail?id=1JYW0qmgJqWW6iyWAmwW8GOklu9k17Bql
+UGR-65050B,6941876263288,Cargador Rápido 45W GaN (X524),UGREEN,Nuretic,$13.02,$30.00,2,https://drive.google.com/thumbnail?id=1AQw-djF-Z94v08vqcE8CgUB63H76n93w
+UGR-70427,6957303874279,Cable Tipo C a Tipo C 100W 1m Negro (US316),UGREEN,Nuretic,$6.64,$15.00,4,https://drive.google.com/thumbnail?id=1v1vMdIPBm0qFqFVwRFOa9yKIbcIdZ7hg
+UGR-70523,6957303875238,Cable Tipo C a Lightning 20W 1m Silver (US304),UGREEN,Nuretic,$19.21,$35.00,1,https://drive.google.com/thumbnail?id=1MSe32m3-J6XxA5gvy-On_hGIoF6qbJVX
+UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nuretic,$19.14,$35.00,1,https://drive.google.com/thumbnail?id=1MSe32m3-J6XxA5gvy-On_hGIoF6qbJVX`;
+
+        // Banco de imágenes extraído directamente de "Catalogo 2026-NO BORRAR.xlsx"
+        const BANCO_IMAGENES_CATALOGO_2026 = [["APPLE","A2561","Cable Original Apple USB-C a Lightning (1m)","1MSe32m3-J6XxA5gvy-On_hGIoF6qbJVX"],["UGREEN","70429","Cable Ugreen USB-C a USB-C 100W 5A Trenzado (2m)","1v1vMdIPBm0qFqFVwRFOa9yKIbcIdZ7hg"],["UGREEN","15550","Cargador Robot Ugreen Uno 30W GaN Gris","1JYW0qmgJqWW6iyWAmwW8GOklu9k17Bql"],["UGREEN","65050B","Cargador Ugreen 45W GaN USB-C","1AQw-djF-Z94v08vqcE8CgUB63H76n93w"],["ANKER","A121DJ11","Cargador Anker Nano GaN 45W con Pantalla Display","1HKgc-0vwzyXeyKqCdqxm2wQFW6RnQV6v"],["ANKER","A8060H11","Cable Anker USB-C a USB-C 240W Trenzado (1m)","1kwJsns-mTykCugMKoM3eBs4qQXGjMcyT"],["UGREEN","CD361 15570","CARGADOR UNO RG  65W  UGREEN","1C-zyX2rI2a2GKjfLP7xaplNX9-4CdxFU"],["XIAOMI","REDMI","Audífonos Redmi Buds 6 ANC","1TSYxty2k__eleZNFBQX8LdPy3qCMY-Cg"],["INFINIX","TWSXE33","Audífonos Infinix XE33 TWS Bass","1kIedJgqL0xaJhim0j9romYtu-FW4TCa3"],["INFINIX","SMARTWATCH XW4L","Smartwatch Infinix XWatch N4 HD","13LeQ9TFmtvuX-9mr-Jr8T0YT0SBSQkPL"],["ANKER","A25MB","Cargador Magnético Anker MagGo 3 en 1 Qi2","173B7lENMUGPD-KQ4wXGfwvs_nA7FHqCr"],["ANKER","A2699","Cargador Anker Zolo 20W USB-C GaN","1YwWZCVFE-sd8m7TwMdWCfCFATYJpMUuN"],["ANKER","A8312","Adaptador Anker 310 USB-C a HDMI 4K","1FcPK0Ndoo60ja53U971Axvs5j39-rxZt"],["ANKER","A83D2","Hub Anker USB-C 7 en 1 HDMI 4K 100W","1Yc2qfJkHermMlU5y1dyxB2VD_zm60hwf"],["ANKER","A1641","Power Bank Magnética Anker 633 MagGo 10K","1vadZLqWDnd0cju_eL03eE1qWNJil4WE9"],["APPLE","A2794","Cable Original Apple USB-C a USB-C 240W (2m)","1vobZGjpFp_OyifygdyFHjDmN0_qo0R20"],["APPLE","A2795","Cable Original Apple USB-C a USB-C 60W (1m)","1MHe6wJd5cedMZTpZi-LHeSBlCPSbqTYW"],["APPLE","A2305","Cargador Original Apple 20W USB-C","15m8zo19FYjcm18bWjyt4i_XqCVn7Xhu5"],["APPLE","A3351","Cargador Original Apple Dynamic 40W/60W","1aKOdgWv5tj8nEdWu6H7FBVT-S6ll3LCu"],["HONOR","LZT-ME00","Audífonos Honor CuBuds Pantalla Táctil","1AxDLAISzWVf1ATRZJ9WpGE6_K5r-sCri"],["HONOR","PAK-T10","Audífonos Honor Earbuds A Pro ANC 49dB","1crIZHBIHAuiO1PGqlMrdAByOmMcE6GcE"],["HONOR","VLN-ME00","Audífonos Honor Choice Earbuds X8i ANC","1vtozHUaKOOK35c5pDhcH-zU_a02xv0jt"],["JBL","JBLQUANTUMT","Audífonos Gamer JBL Quantum TWS ANC","1unX1HyrDVottzGR12wb2QDvJ74pNvCgQ"],["JBL","JBLWBUDS2","Audífonos Inalámbricos JBL Wave Buds 2 ANC","1ITOupkmszXCsOGN2d5Eja5k0WcS4PfKv"],["SAMSUNG","SM-R410","Audífonos Samsung Galaxy Buds Core ANC","1ZBK50NYdQEuHqW2jvUwExTxClVE9bqxf"],["SAMSUNG","EP-T4511","Cargador Original Samsung 45W + Cable 5A","1sptmjKstRZMqa0dD2qYkQNRxQlMc1sMa"],["SAMSUNG","EP-TA800","Cargador Original Samsung 25W Super Fast","1XhhCe80C_lKk1PPZVQeg2x1mQ9WLESzc"],["SOUNDCORE","A3005","Audífonos Diadema Soundcore Q11i BassUp","1yERh81m45HoEvIIHX9PM1GN7Wp2PeAcN"],["UGREEN","25245","Mouse Pad Ergonómico Ugreen con Reposamuñecas","1d0U3DD54pJBmXhPxyzT4QFKfCnoUmUmR"],["UGREEN","35629","Micrófono Gamer Ugreen USB RGB Condensador","1i3Z_O6sV907s2_gQ4oDrATDrmq3VRHwZ"],["UGREEN","35995","Adaptador Bluetooth 5.3 USB Ugreen","14M1aqz4ftQAYzOYPaeim4FIvoZdqaojM"],["UGREEN","45275","Adaptadores Ugreen USB-A a USB-C 10Gbps (x2)","1Pw38rMnM1UaVSLbNNL66IUi6ts2HEeG3"],["UGREEN","50283","Adaptador OTG Ugreen USB-C a USB 3.0","1jjMcl2jkig4ulTI9wEdycrg_HuHAtUEZ"],["UGREEN","15512","Case Enclosure Ugreen SSD M.2 NVMe 10Gbps","1C-5mXg9pYCm1veCAnw6wF2hFcKFZsZp8"],["UGREEN","30847","Case Enclosure Ugreen Disco 2.5 SATA a USB 3.0","1mLmBNMAInSF5d_z_hy5jeelX5hIpf3Mx"],["UGREEN","50743","Case Enclosure Ugreen Disco 2.5 SATA a USB-C","1dul08JWLYrYzPihKEpdCQmSbvTpQpKiP"],["UGREEN","80191","Lector de Tarjetas 2 en 1 Ugreen USB-C y USB 3.0","1ntUfsTy-3sTLlN47KgNfMtUo86B8dqQh"],["UGREEN","35757","Audífonos Diadema Ugreen HiTune Max 5C ANC","1CYNs1u9sFpH8xPkMmYNQbFfyHYBMD_hH"],["UGREEN","45018","Audífonos Diadema Ugreen Studio Max2 (80h)","19d2KPwgbOM_5KH0P88VIbQ16l2Gsp1HK"],["UGREEN","45785","Audífonos Deportivos Ugreen HiTune S3 Open-Ear","1i1mLq-guG3nlL4i9Cik_Mv__404mfbFf"],["UGREEN","55136","Audífonos Ugreen ClipBuds Pantalla Táctil","12PnE-7X0_yShEMrGYsGDhArYjVL3CRtT"],["UGREEN","65655","Audífonos Ugreen FitBuds Open-Ear Espacial","1Z3oplxI9mp8bD3S7yFET-DBX6HvaSx2C"],["UGREEN","75627","Audífonos Ugreen Dots TWS Bluetooth 6.0 Blanco","1I8s5M8Yz9-bIY38T-6b-Tq7Mnwb6LV5g"],["UGREEN","75628","Audífonos Ugreen Dots TWS Bluetooth 6.0 Negro","1maggJoGE8FlS91-H4joFMSfV1_SUhH1e"],["UGREEN","35501","Cable Ugreen Uno USB-C a C 100W con Pantalla (1m)","1Y4-QOvdGDvFqNonjZYba7SPZJiSXuy9R"],["UGREEN","35512","Cable Ugreen Uno USB-C a C 100W con Pantalla (2m)","1Y4-QOvdGDvFqNonjZYba7SPZJiSXuy9R"],["UGREEN","35513","Cable Ugreen Uno USB-C a C 100W con Pantalla (3m)","1Y4-QOvdGDvFqNonjZYba7SPZJiSXuy9R"],["UGREEN","50152","Cable Ugreen USB-C a USB-C 60W Trenzado (2m)","19GiWNo9gpOWh2_z1cjhHNNlFHhL9x4Es"],["UGREEN","60116","Cable Ugreen USB-A a USB-C 3A Rápido (1m)","1NBI25u7u_JD4AFME4M1-vSZuGPWp-oVS"],["UGREEN","60118","Cable Ugreen USB-A a USB-C 3A Rápido (2m)","1NBI25u7u_JD4AFME4M1-vSZuGPWp-oVS"]].map(x => ({ marca: x[0], modelo: x[1], nombre: x[2], img: x[3].startsWith("http") ? x[3] : "https://drive.google.com/thumbnail?id=" + x[3] }));
+
+        function obtenerBancoImagenesCompleto() {
+            const mapa = new Map();
+            BANCO_IMAGENES_CATALOGO_2026.forEach(item => {
+                if (item && item.img) {
+                    const key = `${item.marca}_${item.modelo}_${item.nombre}`.toLowerCase();
+                    mapa.set(key, item);
+                }
+            });
+            if (Array.isArray(window.TODOS_EQUIPOS_EXCEL)) {
+                window.TODOS_EQUIPOS_EXCEL.forEach(eq => {
+                    const rawImg = String(eq.Imagen || "").trim();
+                    if (!rawImg) return;
+                    const marca = String(eq.Marca || "").trim();
+                    const modelo = String(eq.Modelo || "").trim();
+                    const nombre = String(eq["Nombre Comercial"] || eq.Titulo || eq.Nombre || (marca + " " + modelo)).trim();
+                    const key = `${marca}_${modelo}_${nombre}`.toLowerCase();
+                    if (!mapa.has(key)) {
+                        mapa.set(key, { marca, modelo, nombre, img: optimizarUrlDrive(rawImg, "w600") });
+                    }
+                });
+            }
+            if (Array.isArray(INVENTARIO_GLOBAL)) {
+                INVENTARIO_GLOBAL.forEach(it => {
+                    const eq = it.raw || {};
+                    const rawImg = String(eq.Imagen || "").trim();
+                    if (!rawImg) return;
+                    const marca = String(it.marca || eq.Marca || "").trim();
+                    const modelo = String(it.nombreModelo || eq.Modelo || "").trim();
+                    const nombre = String(it.info?.tituloLlamativo || eq["Nombre Comercial"] || eq.Titulo || "").trim();
+                    const key = `${marca}_${modelo}_${nombre}`.toLowerCase();
+                    if (!mapa.has(key)) {
+                        mapa.set(key, { marca, modelo, nombre, img: optimizarUrlDrive(rawImg, "w600") });
+                    }
+                });
+            }
+            return Array.from(mapa.values());
+        }
+
+        function normImgToken(s) {
+            return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+        }
+
+        function buscarCandidatosImagenCatalogo(idRaw, nombreRaw, marcaRaw, limite = 8) {
+            const banco = obtenerBancoImagenesCompleto();
+            const idStr = String(idRaw || "").trim();
+            const nombreStr = String(nombreRaw || "").trim();
+            const marcaStr = String(marcaRaw || "").trim();
+
+            if (!idStr && !nombreStr) return [];
+
+            const cleanId = idStr.replace(/^(ANK|UGR|JBL|XIA|APP|SAM|HON|HAY|Baseus)-/i, "").trim().toLowerCase();
+            const parenMatches = (nombreStr.match(/\(([a-z0-9-]+)\)/gi) || []).map(x => x.replace(/[()]/g, "").toLowerCase());
+            const qNorm = normImgToken(`${idStr} ${nombreStr} ${marcaStr}`);
+            const stop = new Set(['de','la','el','en','con','para','por','un','una','negro','blanco','gris','silver','black','white','ugr','ank']);
+            const tokens = qNorm.split(' ').filter(t => t.length >= 2 && !stop.has(t));
+            const brandNorm = normImgToken(marcaStr);
+
+            const resultados = [];
+
+            for (const item of banco) {
+                let score = 0;
+                let razon = '';
+                const modNorm = normImgToken(item.modelo);
+                const nomNorm = normImgToken(item.nombre);
+                const itemBrand = normImgToken(item.marca);
+                const fullText = `${itemBrand} ${modNorm} ${nomNorm}`;
+
+                if (cleanId && cleanId.length >= 4 && (modNorm.includes(cleanId) || cleanId.includes(modNorm.replace(/\s+/g, '')))) {
+                    score += 500;
+                    razon = `Código exacto (${item.modelo})`;
+                }
+
+                for (const pm of parenMatches) {
+                    if (pm.length >= 3 && (modNorm.includes(pm) || nomNorm.includes(pm))) {
+                        score += 350;
+                        if (!razon) razon = `Modelo ${pm.toUpperCase()}`;
+                    }
+                }
+
+                if (brandNorm && itemBrand && (itemBrand.includes(brandNorm) || brandNorm.includes(itemBrand))) {
+                    score += 35;
+                }
+
+                let matchedWords = [];
+                for (const tk of tokens) {
+                    if (tk === brandNorm) continue;
+                    if (modNorm.split(' ').includes(tk)) {
+                        score += 95;
+                        matchedWords.push(tk);
+                    } else if (fullText.split(' ').includes(tk)) {
+                        score += 50;
+                        matchedWords.push(tk);
+                    } else if (tk.length >= 4 && fullText.includes(tk)) {
+                        score += 30;
+                        matchedWords.push(tk);
+                    }
+                }
+
+                if (matchedWords.length >= 2) score += matchedWords.length * 25;
+
+                // Boost por tipo de accesorio coherente
+                const qIsCable = qNorm.includes('cable');
+                const itemIsCable = fullText.includes('cable');
+                const qIsCargador = qNorm.includes('cargador') || qNorm.includes('nano') || qNorm.includes('gan');
+                const itemIsCargador = fullText.includes('cargador') || fullText.includes('nano') || fullText.includes('gan');
+                if (qIsCable && itemIsCable) score += 45;
+                if (qIsCargador && itemIsCargador) score += 45;
+                if (qIsCable && !itemIsCable) score -= 70;
+                if (qIsCargador && itemIsCable) score -= 70;
+
+                if (score >= 60) {
+                    if (!razon) {
+                        razon = matchedWords.length > 0 ? `Coincidencia por «${matchedWords.slice(0, 4).join(' ')}»` : 'Coincidencia en Catálogo 2026';
+                    }
+                    resultados.push({ ...item, score, razon });
+                }
+            }
+
+            resultados.sort((a, b) => b.score - a.score);
+            // Evitar duplicados de URL de imagen
+            const vistos = new Set();
+            const unicos = [];
+            for (const r of resultados) {
+                if (!vistos.has(r.img)) {
+                    vistos.add(r.img);
+                    unicos.push(r);
+                    if (unicos.length >= limite) break;
+                }
+            }
+            return unicos;
+        }
+
+        function resolverFotoProducto(p) {
+            if (!p) return { url: '', esAuto: false, detalle: null };
+            const manual = String(p.photo || '').trim();
+            if (manual) {
+                return { url: optimizarUrlDrive(manual, 'w400'), esAuto: false, detalle: null };
+            }
+            const candidatos = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1);
+            if (candidatos.length > 0) {
+                return {
+                    url: optimizarUrlDrive(candidatos[0].img, 'w400'),
+                    esAuto: true,
+                    detalle: candidatos[0]
+                };
+            }
+            return { url: '', esAuto: false, detalle: null };
+        }
+
+        function hidratarFotosProductosDesdeCatalogo() {
+            let huboCambios = false;
+            products = products.map(p => {
+                if (p.photo && String(p.photo).trim() !== '') return p;
+                const mejor = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1)[0];
+                if (mejor && mejor.img) {
+                    huboCambios = true;
+                    return { ...p, photo: optimizarUrlDrive(mejor.img, 'w400') };
+                }
+                return p;
+            });
+            if (huboCambios) {
+                try { localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(products)); } catch (e) {}
+            }
+        }
 
         const STORAGE_PRODUCTS = 'amovil_html_products_v1';
         const STORAGE_SALES = 'amovil_html_sales_v1';
@@ -2350,6 +3354,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 sales = [];
             }
 
+            hidratarFotosProductosDesdeCatalogo();
             if (!teniamosProductosGuardados) {
                 syncPosFromGoogleSheets(false);
             }
@@ -2619,15 +3624,32 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const btnText = available <= 0 ? 'Sin Stock' : committed > 0 ? '+ Sumar otra u.' : cart.length >= 1 ? '+ Sumar al Combo' : '+ Agregar';
                 const safeId = String(p.id).replace(/'/g, "\\'");
 
+                const fotoInfo = resolverFotoProducto(p);
+                const imgUrl = fotoInfo.url;
+
                 return `
                     <div class="bg-white border ${committed > 0 ? 'border-slate-900 ring-1 ring-slate-900/10' : 'border-slate-200'} rounded-xl p-4 flex flex-col justify-between gap-3">
-                        <div>
-                            <div class="text-xs font-mono-num text-slate-500 flex items-center justify-between">
-                                <span>${p.id} · ${p.brand}</span>
-                                ${committed > 0 ? `<span class="font-bold text-slate-900">En venta: ${committed}x</span>` : ''}
+                        <div class="flex items-start gap-3.5">
+                            <div
+                                onclick="openPhotoModal('${safeId}')"
+                                title="Clic para cambiar imagen, buscar en Catálogo 2026 o subir archivo"
+                                class="relative w-16 h-16 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 cursor-pointer group p-1"
+                            >
+                                ${imgUrl
+                                    ? `<img src="${imgUrl}" alt="${p.name.replace(/"/g, '&quot;')}" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                                       <span style="display:none" class="text-[10px] text-slate-400 font-semibold text-center leading-tight">Sin foto</span>`
+                                    : `<span class="text-[10px] text-slate-400 font-semibold text-center leading-tight">+ Foto</span>`
+                                }
+                                <span class="absolute bottom-0.5 right-0.5 bg-slate-900/80 text-white text-[9px] px-1 py-0.5 rounded opacity-80 group-hover:opacity-100">📷</span>
                             </div>
-                            <div class="text-sm font-bold text-slate-900 mt-1">${p.name}</div>
-                            <div class="text-[11px] font-mono-num text-slate-500 mt-1">Cod: ${p.barcode} · Prov: ${p.supplier}</div>
+                            <div class="flex-1 min-w-0">
+                                <div class="text-xs font-mono-num text-slate-500 flex items-center justify-between gap-1">
+                                    <span class="truncate">${p.id} · ${p.brand}</span>
+                                    ${committed > 0 ? `<span class="font-bold text-slate-900 shrink-0">En venta: ${committed}x</span>` : ''}
+                                </div>
+                                <div class="text-sm font-bold text-slate-900 mt-1 leading-snug">${p.name}</div>
+                                <div class="text-[11px] font-mono-num text-slate-500 mt-1">Cod: ${p.barcode} · Prov: ${p.supplier}</div>
+                            </div>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-slate-100">
                             <div class="font-mono-num">
@@ -2695,16 +3717,20 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                         if (!p) return '';
                         const activeUnit = item.customUnitPrice !== null ? item.customUnitPrice : p.salePrice;
                         const safeId = String(p.id).replace(/'/g, "\\'");
+                        const fotoTicket = resolverFotoProducto(p).url;
                         return `
                             <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                                <div class="flex items-start justify-between gap-2">
-                                    <div>
-                                        <div class="text-[11px] font-mono-num text-slate-500">
-                                            <strong>${p.id}</strong> · Lista: $${p.salePrice.toFixed(2)} · Stock: ${p.stock} → <strong class="text-slate-900">${Math.max(0, p.stock - item.quantity)}</strong>
+                                <div class="flex items-start justify-between gap-2.5">
+                                    <div class="flex items-center gap-2.5 min-w-0">
+                                        ${fotoTicket ? `<img src="${fotoTicket}" alt="" class="w-10 h-10 rounded-lg bg-white border border-slate-200 object-contain p-0.5 shrink-0" />` : ''}
+                                        <div class="min-w-0">
+                                            <div class="text-[11px] font-mono-num text-slate-500">
+                                                <strong>${p.id}</strong> · Lista: ${p.salePrice.toFixed(2)} · Stock: ${p.stock} → <strong class="text-slate-900">${Math.max(0, p.stock - item.quantity)}</strong>
+                                            </div>
+                                            <div class="text-sm font-bold text-slate-900 truncate">${p.name}</div>
                                         </div>
-                                        <div class="text-sm font-bold text-slate-900">${p.name}</div>
                                     </div>
-                                    <button type="button" onclick="removeFromCart('${safeId}')" class="text-xs text-slate-400 hover:text-red-600 px-1">✕</button>
+                                    <button type="button" onclick="removeFromCart('${safeId}')" class="text-xs text-slate-400 hover:text-red-600 px-1 shrink-0">✕</button>
                                 </div>
                                 <div class="flex items-center justify-between pt-1">
                                     <div class="flex items-center gap-1.5">
@@ -2789,27 +3815,392 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             saveState();
         }
 
+        let newProductSelectedPhoto = '';
+        let newProductPhotoIsManual = false;
+        let photoModalTargetId = null; // productId or '__NEW__'
+        let photoModalTempUrl = '';
+
+        function irAAgregarProducto() {
+            switchTab('inventory');
+            const form = document.getElementById('new-product-form');
+            if (form && form.classList.contains('hidden')) {
+                toggleNewProductForm();
+            }
+            setTimeout(() => {
+                const nameInput = document.getElementById('new-name');
+                if (nameInput) nameInput.focus();
+            }, 80);
+        }
+
         function toggleNewProductForm() {
-            document.getElementById('new-product-form').classList.toggle('hidden');
+            const form = document.getElementById('new-product-form');
+            if (!form) return;
+            form.classList.toggle('hidden');
+            if (!form.classList.contains('hidden')) {
+                actualizarSugerenciaImagenNuevoProd();
+            }
+        }
+
+        function mostrarPreviewNuevoProd(url) {
+            const imgEl = document.getElementById('new-photo-preview');
+            const emptyEl = document.getElementById('new-photo-empty');
+            if (!imgEl || !emptyEl) return;
+            const limpia = optimizarUrlDrive(url, 'w400');
+            if (limpia) {
+                imgEl.src = limpia;
+                imgEl.classList.remove('hidden');
+                emptyEl.classList.add('hidden');
+            } else {
+                imgEl.src = '';
+                imgEl.classList.add('hidden');
+                emptyEl.classList.remove('hidden');
+            }
+        }
+
+        function actualizarSugerenciaImagenNuevoProd() {
+            const idVal = document.getElementById('new-id')?.value || '';
+            const nameVal = document.getElementById('new-name')?.value || '';
+            const brandVal = document.getElementById('new-brand')?.value || '';
+            const statusEl = document.getElementById('new-photo-status');
+            const candEl = document.getElementById('new-photo-candidates');
+            if (!statusEl || !candEl) return;
+
+            if (!idVal.trim() && !nameVal.trim()) {
+                if (!newProductPhotoIsManual) {
+                    newProductSelectedPhoto = '';
+                    mostrarPreviewNuevoProd('');
+                }
+                statusEl.className = 'text-xs font-semibold text-slate-600';
+                statusEl.innerHTML = '🔎 Escribe el nombre o código arriba (ej. <em>"nano anker"</em>) para buscar su imagen en <strong>Catalogo 2026-NO BORRAR</strong>...';
+                candEl.classList.add('hidden');
+                return;
+            }
+
+            const candidatos = buscarCandidatosImagenCatalogo(idVal, nameVal, brandVal, 6);
+            if (candidatos.length > 0) {
+                const mejor = candidatos[0];
+                if (!newProductPhotoIsManual) {
+                    newProductSelectedPhoto = optimizarUrlDrive(mejor.img, 'w400');
+                    mostrarPreviewNuevoProd(newProductSelectedPhoto);
+                }
+                statusEl.className = 'text-xs font-semibold text-emerald-700';
+                statusEl.innerHTML = `✨ ¡Imagen encontrada en Catálogo 2026! → <strong>${mejor.marca} ${mejor.modelo} · ${mejor.nombre}</strong> <span class="text-slate-500 font-normal">(${mejor.razon})</span>`;
+
+                candEl.classList.remove('hidden');
+                candEl.innerHTML = `<span class="text-[11px] text-slate-500 shrink-0">Sugerencias:</span>` + candidatos.map((c, idx) => {
+                    const thumbUrl = optimizarUrlDrive(c.img, 'w200');
+                    const safeUrl = thumbUrl.replace(/'/g, "\\'");
+                    const active = newProductSelectedPhoto === optimizarUrlDrive(c.img, 'w400');
+                    return `
+                        <button
+                            type="button"
+                            onclick="seleccionarCandidatoNuevoProd('${safeUrl}', ${idx})"
+                            title="${c.marca} ${c.modelo} - ${c.nombre}"
+                            class="flex items-center gap-1.5 px-2 py-1 rounded-lg border text-left shrink-0 transition-colors ${active ? 'border-slate-900 bg-white shadow-sm' : 'border-slate-200 bg-white/70 hover:bg-white'}"
+                        >
+                            <img src="${thumbUrl}" alt="" class="w-7 h-7 object-contain rounded" />
+                            <span class="text-[11px] font-medium text-slate-700 max-w-[130px] truncate">${c.nombre}</span>
+                        </button>
+                    `;
+                }).join('');
+            } else {
+                if (!newProductPhotoIsManual) {
+                    newProductSelectedPhoto = '';
+                    mostrarPreviewNuevoProd('');
+                }
+                statusEl.className = 'text-xs font-semibold text-amber-700';
+                statusEl.innerHTML = `🤔 No encontré coincidencia exacta para «<strong>${(nameVal || idVal).replace(/</g, '&lt;')}</strong>» en Catálogo 2026. Puedes subir la foto desde tu equipo, pegar el link abajo o explorar el catálogo.`;
+                candEl.classList.add('hidden');
+            }
+        }
+
+        function seleccionarCandidatoNuevoProd(url) {
+            newProductPhotoIsManual = true;
+            newProductSelectedPhoto = optimizarUrlDrive(url, 'w400');
+            mostrarPreviewNuevoProd(newProductSelectedPhoto);
+            const urlInput = document.getElementById('new-photo-url');
+            if (urlInput) urlInput.value = newProductSelectedPhoto;
+        }
+
+        function usarUrlManualNuevoProd(val) {
+            const url = String(val || '').trim();
+            if (url) {
+                newProductPhotoIsManual = true;
+                newProductSelectedPhoto = optimizarUrlDrive(url, 'w400');
+                mostrarPreviewNuevoProd(newProductSelectedPhoto);
+                const statusEl = document.getElementById('new-photo-status');
+                if (statusEl) {
+                    statusEl.className = 'text-xs font-semibold text-blue-700';
+                    statusEl.innerHTML = '🔗 Usando link de imagen personalizado.';
+                }
+            } else {
+                newProductPhotoIsManual = false;
+                actualizarSugerenciaImagenNuevoProd();
+            }
+        }
+
+        function comprimirArchivoImagenADataUrl(file, callback) {
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    const maxDim = 480;
+                    let w = img.width;
+                    let h = img.height;
+                    if (w > h && w > maxDim) {
+                        h = Math.round((h * maxDim) / w);
+                        w = maxDim;
+                    } else if (h > maxDim) {
+                        w = Math.round((w * maxDim) / h);
+                        h = maxDim;
+                    }
+                    canvas.width = w;
+                    canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, w, h);
+                    ctx.drawImage(img, 0, 0, w, h);
+                    callback(canvas.toDataURL('image/jpeg', 0.84));
+                };
+                img.onerror = function() {
+                    callback(ev.target.result);
+                };
+                img.src = ev.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function subirArchivoNuevoProd(e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            comprimirArchivoImagenADataUrl(file, (dataUrl) => {
+                newProductPhotoIsManual = true;
+                newProductSelectedPhoto = dataUrl;
+                mostrarPreviewNuevoProd(dataUrl);
+                const statusEl = document.getElementById('new-photo-status');
+                if (statusEl) {
+                    statusEl.className = 'text-xs font-semibold text-emerald-700';
+                    statusEl.innerHTML = `📁 Archivo cargado desde tu dispositivo: <strong>${file.name}</strong>`;
+                }
+            });
         }
 
         function saveNewProduct(e) {
             e.preventDefault();
+            const idVal = document.getElementById('new-id').value.trim();
+            const nameVal = document.getElementById('new-name').value.trim();
+            const brandVal = document.getElementById('new-brand').value.trim() || 'General';
+            let finalPhoto = newProductSelectedPhoto;
+            if (!finalPhoto) {
+                const autoMatch = buscarCandidatosImagenCatalogo(idVal, nameVal, brandVal, 1)[0];
+                if (autoMatch) finalPhoto = optimizarUrlDrive(autoMatch.img, 'w400');
+            }
             const newP = {
-                id: document.getElementById('new-id').value.trim(),
+                id: idVal,
                 barcode: document.getElementById('new-barcode').value.trim(),
-                name: document.getElementById('new-name').value.trim(),
-                brand: document.getElementById('new-brand').value.trim() || 'General',
+                name: nameVal,
+                brand: brandVal,
                 supplier: document.getElementById('new-supplier').value.trim() || 'Directo',
                 costPrice: parseNum(document.getElementById('new-cost').value),
                 salePrice: parseNum(document.getElementById('new-price').value),
                 stock: Math.max(0, Math.round(parseNum(document.getElementById('new-stock').value))),
-                photo: ''
+                photo: finalPhoto || ''
             };
             products.unshift(newP);
             e.target.reset();
+            newProductSelectedPhoto = '';
+            newProductPhotoIsManual = false;
+            mostrarPreviewNuevoProd('');
             toggleNewProductForm();
             saveState();
+        }
+
+        // ==================== MODAL SELECTOR DE IMAGEN ====================
+        function actualizarPreviewEnModal(url) {
+            const imgEl = document.getElementById('photo-modal-preview');
+            const emptyEl = document.getElementById('photo-modal-empty');
+            if (!imgEl || !emptyEl) return;
+            const limpia = optimizarUrlDrive(url, 'w400');
+            if (limpia) {
+                imgEl.src = limpia;
+                imgEl.classList.remove('hidden');
+                emptyEl.classList.add('hidden');
+            } else {
+                imgEl.src = '';
+                imgEl.classList.add('hidden');
+                emptyEl.classList.remove('hidden');
+            }
+        }
+
+        function openPhotoModal(productId) {
+            const p = products.find(x => x.id === productId);
+            if (!p) return;
+            photoModalTargetId = productId;
+            const resolved = resolverFotoProducto(p);
+            photoModalTempUrl = resolved.url || '';
+
+            document.getElementById('photo-modal-title').textContent = `Imagen de: ${p.name} (${p.id})`;
+            const urlInput = document.getElementById('photo-modal-url-input');
+            if (urlInput) urlInput.value = photoModalTempUrl.startsWith('data:') ? '' : photoModalTempUrl;
+
+            const autoCand = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1)[0];
+            const msgEl = document.getElementById('photo-modal-smart-msg');
+            if (msgEl) {
+                if (autoCand) {
+                    msgEl.className = 'text-xs font-semibold text-emerald-700';
+                    msgEl.innerHTML = `✨ Referencia detectada en Catálogo 2026: <strong>${autoCand.marca} ${autoCand.modelo} · ${autoCand.nombre}</strong> (${autoCand.razon})`;
+                } else {
+                    msgEl.className = 'text-xs font-semibold text-slate-600';
+                    msgEl.innerHTML = 'Puedes buscar en tu Catálogo 2026 abajo, pegar un link web o subir una imagen desde tu dispositivo.';
+                }
+            }
+
+            const searchEl = document.getElementById('photo-modal-search');
+            if (searchEl) searchEl.value = `${p.brand} ${p.name}`.trim();
+
+            actualizarPreviewEnModal(photoModalTempUrl);
+            renderPhotoModalCatalogGrid();
+            document.getElementById('photo-modal').classList.remove('hidden');
+        }
+
+        function openPhotoModalForNewProduct() {
+            photoModalTargetId = '__NEW__';
+            const idVal = document.getElementById('new-id')?.value || '';
+            const nameVal = document.getElementById('new-name')?.value || '';
+            const brandVal = document.getElementById('new-brand')?.value || '';
+            photoModalTempUrl = newProductSelectedPhoto || '';
+
+            document.getElementById('photo-modal-title').textContent = `Seleccionar imagen para nuevo producto`;
+            const urlInput = document.getElementById('photo-modal-url-input');
+            if (urlInput) urlInput.value = photoModalTempUrl.startsWith('data:') ? '' : photoModalTempUrl;
+
+            const searchEl = document.getElementById('photo-modal-search');
+            if (searchEl) searchEl.value = `${brandVal} ${nameVal} ${idVal}`.trim();
+
+            actualizarPreviewEnModal(photoModalTempUrl);
+            renderPhotoModalCatalogGrid();
+            document.getElementById('photo-modal').classList.remove('hidden');
+        }
+
+        function closePhotoModal() {
+            document.getElementById('photo-modal').classList.add('hidden');
+            photoModalTargetId = null;
+        }
+
+        function previewUrlInPhotoModal(val) {
+            photoModalTempUrl = optimizarUrlDrive(val, 'w400');
+            actualizarPreviewEnModal(photoModalTempUrl);
+        }
+
+        function handlePhotoModalFileUpload(e) {
+            const file = e.target.files && e.target.files[0];
+            if (!file) return;
+            comprimirArchivoImagenADataUrl(file, (dataUrl) => {
+                photoModalTempUrl = dataUrl;
+                actualizarPreviewEnModal(dataUrl);
+                const msgEl = document.getElementById('photo-modal-smart-msg');
+                if (msgEl) {
+                    msgEl.className = 'text-xs font-semibold text-emerald-700';
+                    msgEl.innerHTML = `📁 Imagen cargada desde tu dispositivo: <strong>${file.name}</strong> (Haz clic en Guardar Imagen)`;
+                }
+            });
+        }
+
+        function useAutoSuggestedPhotoInModal() {
+            if (photoModalTargetId === '__NEW__') {
+                const idVal = document.getElementById('new-id')?.value || '';
+                const nameVal = document.getElementById('new-name')?.value || '';
+                const brandVal = document.getElementById('new-brand')?.value || '';
+                const best = buscarCandidatosImagenCatalogo(idVal, nameVal, brandVal, 1)[0];
+                if (best) {
+                    photoModalTempUrl = optimizarUrlDrive(best.img, 'w400');
+                    actualizarPreviewEnModal(photoModalTempUrl);
+                    document.getElementById('photo-modal-url-input').value = photoModalTempUrl;
+                }
+                return;
+            }
+            const p = products.find(x => x.id === photoModalTargetId);
+            if (!p) return;
+            const best = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1)[0];
+            if (best) {
+                photoModalTempUrl = optimizarUrlDrive(best.img, 'w400');
+                actualizarPreviewEnModal(photoModalTempUrl);
+                document.getElementById('photo-modal-url-input').value = photoModalTempUrl;
+            }
+        }
+
+        function selectCatalogImageInModal(url) {
+            photoModalTempUrl = optimizarUrlDrive(url, 'w400');
+            actualizarPreviewEnModal(photoModalTempUrl);
+            const urlInput = document.getElementById('photo-modal-url-input');
+            if (urlInput) urlInput.value = photoModalTempUrl;
+            renderPhotoModalCatalogGrid();
+        }
+
+        function renderPhotoModalCatalogGrid() {
+            const grid = document.getElementById('photo-modal-grid');
+            const countEl = document.getElementById('photo-modal-count');
+            if (!grid) return;
+            const q = (document.getElementById('photo-modal-search')?.value || '').trim();
+            const banco = obtenerBancoImagenesCompleto();
+
+            let lista = [];
+            if (!q) {
+                lista = banco.slice(0, 40);
+            } else {
+                const candidatos = buscarCandidatosImagenCatalogo('', q, '', 24);
+                const qNorm = normImgToken(q);
+                const directMatches = banco.filter(item => {
+                    const txt = normImgToken(`${item.marca} ${item.modelo} ${item.nombre}`);
+                    return qNorm.split(' ').every(w => !w || txt.includes(w));
+                });
+                const mapUnico = new Map();
+                [...candidatos, ...directMatches].forEach(it => {
+                    if (it && it.img && !mapUnico.has(it.img)) mapUnico.set(it.img, it);
+                });
+                lista = Array.from(mapUnico.values()).slice(0, 36);
+                if (lista.length === 0) lista = banco.slice(0, 24);
+            }
+
+            if (countEl) countEl.textContent = `${banco.length} fotos en Catálogo 2026`;
+
+            grid.innerHTML = lista.map(item => {
+                const thumb = optimizarUrlDrive(item.img, 'w300');
+                const full = optimizarUrlDrive(item.img, 'w400');
+                const safeFull = full.replace(/'/g, "\\'");
+                const isSelected = photoModalTempUrl === full;
+                return `
+                    <button
+                        type="button"
+                        onclick="selectCatalogImageInModal('${safeFull}')"
+                        class="p-2 rounded-xl border text-left flex flex-col gap-1.5 transition-all ${isSelected ? 'border-slate-900 ring-2 ring-slate-900/15 bg-slate-50' : 'border-slate-200 hover:border-slate-400 bg-white'}"
+                    >
+                        <div class="w-full h-20 bg-slate-50 rounded-lg flex items-center justify-center overflow-hidden p-1">
+                            <img src="${thumb}" alt="" class="w-full h-full object-contain" loading="lazy" />
+                        </div>
+                        <div class="text-[10px] font-mono-num text-slate-500 truncate">${item.marca} · ${item.modelo}</div>
+                        <div class="text-[11px] font-bold text-slate-900 leading-tight line-clamp-2">${item.nombre}</div>
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function savePhotoModalSelection() {
+            if (photoModalTargetId === '__NEW__') {
+                newProductPhotoIsManual = true;
+                newProductSelectedPhoto = photoModalTempUrl;
+                mostrarPreviewNuevoProd(photoModalTempUrl);
+                const urlInput = document.getElementById('new-photo-url');
+                if (urlInput && !photoModalTempUrl.startsWith('data:')) urlInput.value = photoModalTempUrl;
+                closePhotoModal();
+                return;
+            }
+            if (photoModalTargetId) {
+                updateProductField(photoModalTargetId, 'photo', photoModalTempUrl);
+            }
+            closePhotoModal();
         }
 
         function renderInventoryTable() {
@@ -2853,11 +4244,26 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             tbodyEl.innerHTML = filtered.map(p => {
                 const profit = p.salePrice - p.costPrice;
                 const safeId = String(p.id).replace(/'/g, "\\'");
+                const fotoInv = resolverFotoProducto(p).url;
                 return `
                     <tr class="hover:bg-slate-50">
                         <td class="py-3 px-4">
-                            <div class="font-semibold text-slate-900">${p.name}</div>
-                            <div class="text-xs font-mono-num text-slate-500">${p.id}</div>
+                            <div class="flex items-center gap-3">
+                                <div
+                                    onclick="openPhotoModal('${safeId}')"
+                                    title="Cambiar foto del producto"
+                                    class="w-11 h-11 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 cursor-pointer p-0.5 hover:border-slate-900"
+                                >
+                                    ${fotoInv
+                                        ? `<img src="${fotoInv}" alt="" class="w-full h-full object-contain" />`
+                                        : `<span class="text-[9px] text-slate-400 font-semibold text-center">📷 Foto</span>`
+                                    }
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-slate-900">${p.name}</div>
+                                    <div class="text-xs font-mono-num text-slate-500">${p.id}</div>
+                                </div>
+                            </div>
                         </td>
                         <td class="py-3 px-3 font-mono-num text-xs text-slate-600">${p.barcode}</td>
                         <td class="py-3 px-3 text-xs text-slate-600">${p.brand} · ${p.supplier}</td>
@@ -3055,6 +4461,889 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 });
             }
         });
+
+        // =========================================================================
+        // MÓDULO UX/UI ESTILO SHOPIFY PREMIUM (VANILLA JS)
+        // 1. Galería Dinámica (Miniaturas abajo + Lupa Desktop + Swipe Móvil + Fotos Mismo Producto/Color)
+        // 2. Barra de Compra Flotante (Sticky Add-to-Cart al pasar el botón LO QUIERO)
+        // 3. Sección "También te puede interesar" Automática (4 productos misma categoría)
+        // 4. Acordeón Minimalista para Descripción y Ficha Técnica
+        // =========================================================================
+        const STORAGE_GALERIA_POR_MODELO = 'amovil_galeria_4fotos_modelo_v1';
+        const STORAGE_CACHE_WEB_SHOPIFY = 'amovil_shopify_web_gal_v2';
+        let MAPA_FOTOS_EXTRA_MODELO = {};
+        let CACHE_GALERIA_WEB_SHOPIFY = {};
+
+        let estadoShopifyDetalle = {
+            idProd: null,
+            itemActual: null,
+            colorActivo: '',
+            claveModelo: '',
+            imagenes: [],
+            indiceActivo: 0,
+            requestId: 0
+        };
+
+        let stickyObserverShopify = null;
+
+        function cargarMapaFotosExtraModelo() {
+            try {
+                const raw = localStorage.getItem(STORAGE_GALERIA_POR_MODELO);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed && typeof parsed === 'object') MAPA_FOTOS_EXTRA_MODELO = parsed;
+                }
+            } catch (e) {}
+            return MAPA_FOTOS_EXTRA_MODELO;
+        }
+
+        function guardarFotosExtraDeModelo(claveModelo, array4Urls) {
+            cargarMapaFotosExtraModelo();
+            MAPA_FOTOS_EXTRA_MODELO[claveModelo] = array4Urls.map(u => String(u || '').trim());
+            try {
+                localStorage.setItem(STORAGE_GALERIA_POR_MODELO, JSON.stringify(MAPA_FOTOS_EXTRA_MODELO));
+            } catch (e) {}
+        }
+
+        function cargarCacheWebShopify() {
+            try {
+                const raw = sessionStorage.getItem(STORAGE_CACHE_WEB_SHOPIFY) || localStorage.getItem(STORAGE_CACHE_WEB_SHOPIFY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (parsed && typeof parsed === 'object') CACHE_GALERIA_WEB_SHOPIFY = parsed;
+                }
+            } catch (e) {}
+            return CACHE_GALERIA_WEB_SHOPIFY;
+        }
+
+        function guardarEnCacheWebShopify(cacheKey, urls) {
+            cargarCacheWebShopify();
+            CACHE_GALERIA_WEB_SHOPIFY[cacheKey] = urls.slice(0, 6);
+            try {
+                const serialized = JSON.stringify(CACHE_GALERIA_WEB_SHOPIFY);
+                sessionStorage.setItem(STORAGE_CACHE_WEB_SHOPIFY, serialized);
+                localStorage.setItem(STORAGE_CACHE_WEB_SHOPIFY, serialized);
+            } catch (e) {}
+        }
+
+        function obtenerClaveGaleriaProducto(marca, modelo, titulo) {
+            return normImgToken(`${marca || ''}_${modelo || ''}_${titulo || ''}`);
+        }
+
+        // Extrae URLs extra explícitamente configuradas en el Excel o guardadas en POS para este mismo SKU
+        function obtener4UrlsMismoProducto(equipoRaw, claveModelo, imgPrincipal) {
+            cargarMapaFotosExtraModelo();
+            const guardadas = MAPA_FOTOS_EXTRA_MODELO[claveModelo];
+            if (Array.isArray(guardadas) && guardadas.some(Boolean)) {
+                return [guardadas[0] || '', guardadas[1] || '', guardadas[2] || '', guardadas[3] || ''];
+            }
+
+            const extrasExcel = [];
+            const principalLimpia = optimizarUrlDrive(imgPrincipal, 'w1000');
+            const rawImgCell = String(equipoRaw?.Imagen || '').trim();
+            if (rawImgCell.includes('|') || rawImgCell.includes('\n')) {
+                rawImgCell.split(/\s*\|\s*|\r?\n/).slice(1).forEach(u => {
+                    const l = optimizarUrlDrive(u.trim(), 'w1000');
+                    if (l && l !== principalLimpia && !extrasExcel.includes(l)) extrasExcel.push(l);
+                });
+            }
+
+            ['Imagen2', 'Imagen3', 'Imagen4', 'Imagen5', 'Foto2', 'Foto3', 'Foto4', 'Foto5'].forEach(col => {
+                if (equipoRaw && equipoRaw[col]) {
+                    const l = optimizarUrlDrive(String(equipoRaw[col]).trim(), 'w1000');
+                    if (l && l !== principalLimpia && !extrasExcel.includes(l)) extrasExcel.push(l);
+                }
+            });
+
+            return [
+                extrasExcel[0] || '',
+                extrasExcel[1] || '',
+                extrasExcel[2] || '',
+                extrasExcel[3] || ''
+            ];
+        }
+
+        // ==================== 4. ACORDEÓN MINIMALISTA ====================
+        function toggleAcordeonShopify(triggerBtn) {
+            if (!triggerBtn) return;
+            const accItem = triggerBtn.closest('.shopify-acc-item');
+            if (!accItem) return;
+            const abrir = !accItem.classList.contains('is-open');
+            accItem.classList.toggle('is-open', abrir);
+            triggerBtn.setAttribute('aria-expanded', abrir ? 'true' : 'false');
+        }
+
+        // ==================== 3. SECCIÓN "TAMBIÉN TE PUEDE INTERESAR" AUTOMÁTICA ====================
+        function obtenerProductosRelacionadosPorCategoria(itemActual, catalogoLista, limite = 4) {
+            if (!itemActual || !Array.isArray(catalogoLista)) return [];
+            const catActual = String(itemActual.categoria || '').trim().toUpperCase();
+            const marcaActual = String(itemActual.marca || '').trim().toUpperCase();
+
+            const esDisponible = (p) => {
+                const raw = p.raw || {};
+                const dispStr = String(raw.DISP || raw.Agotado || '').trim().toUpperCase();
+                return p.tieneOfertaColumnaL ? true : (dispStr !== 'NO' && dispStr !== 'AGOTADO');
+            };
+
+            // Filtrar estrictamente por la misma categoría del producto actual
+            const mismaCategoria = catalogoLista
+                .filter(p => p && p.id !== itemActual.id && String(p.categoria || '').trim().toUpperCase() === catActual)
+                .sort((a, b) => {
+                    const dispDiff = (esDisponible(b) ? 1 : 0) - (esDisponible(a) ? 1 : 0);
+                    if (dispDiff !== 0) return dispDiff;
+                    const imgDiff = (b.raw?.Imagen ? 1 : 0) - (a.raw?.Imagen ? 1 : 0);
+                    if (imgDiff !== 0) return imgDiff;
+                    const brandDiff = (String(b.marca || '').toUpperCase() === marcaActual ? 1 : 0) - (String(a.marca || '').toUpperCase() === marcaActual ? 1 : 0);
+                    return brandDiff;
+                });
+
+            let seleccionados = mismaCategoria.slice(0, limite);
+
+            // Respaldo solo si la categoría actual tiene menos de 4 productos en total
+            if (seleccionados.length < limite) {
+                const respaldo = catalogoLista
+                    .filter(p => p && p.id !== itemActual.id && !seleccionados.some(s => s.id === p.id) && esDisponible(p))
+                    .slice(0, limite - seleccionados.length);
+                seleccionados = seleccionados.concat(respaldo);
+            }
+
+            return seleccionados.slice(0, limite);
+        }
+
+        function renderizarRelacionadosAutomaticosShopify(itemActual) {
+            const relatedSection = document.getElementById('relatedProductsSection');
+            const relatedGrid = document.getElementById('relatedProductsGrid');
+            if (!relatedSection || !relatedGrid) return;
+
+            const recomendados = obtenerProductosRelacionadosPorCategoria(itemActual, INVENTARIO_GLOBAL, 4);
+            if (recomendados.length === 0) {
+                relatedSection.style.display = 'none';
+                relatedGrid.innerHTML = '';
+                return;
+            }
+
+            relatedSection.style.display = 'block';
+            relatedGrid.innerHTML = recomendados.map(prod => generarTarjetaResumenHtml(prod)).join('');
+            relatedGrid.scrollLeft = 0;
+        }
+
+        // ==================== 2. BARRA DE COMPRA FLOTANTE (STICKY ADD-TO-CART) ====================
+        function ocultarBarraFlotanteShopify() {
+            const stickyBar = document.getElementById('shopifyStickyCartBar');
+            if (stickyBar) {
+                stickyBar.classList.remove('is-visible');
+                stickyBar.setAttribute('aria-hidden', 'true');
+            }
+            document.body.classList.remove('sticky-cart-shown');
+        }
+
+        function verificarVisibilidadBarraFlotante() {
+            const stickyBar = document.getElementById('shopifyStickyCartBar');
+            const btnMain = document.getElementById('btnDetailWhatsapp');
+            if (!stickyBar) return;
+
+            const enVistaDetalle = vistaProductoDetalle && vistaProductoDetalle.style.display === 'block';
+            const enPosSecreto = document.body.classList.contains('pos-secret-active');
+
+            if (!enVistaDetalle || enPosSecreto || !btnMain) {
+                ocultarBarraFlotanteShopify();
+                return;
+            }
+
+            const rect = btnMain.getBoundingClientRect();
+            const pasoBotonPrincipal = rect.bottom < 0;
+
+            if (pasoBotonPrincipal) {
+                stickyBar.classList.add('is-visible');
+                stickyBar.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('sticky-cart-shown');
+            } else {
+                ocultarBarraFlotanteShopify();
+            }
+        }
+
+        function configurarBarraFlotanteShopify(item, colorActivo) {
+            if (!item) return;
+            const equipo = item.raw || {};
+            const titulo = item.info?.tituloLlamativo || item.nombreModelo || 'Producto';
+            const { precioEfectivoNum, precioTarjetaNum, esOfertaReal } = calcularDescuentoEquipo(equipo);
+            const precioTarjetaMostrar = precioTarjetaNum > 0
+                ? formatearPrecioSimple(precioTarjetaNum)
+                : (equipo.PrecioTarjeta ? `$${equipo.PrecioTarjeta}` : '');
+
+            const imgEl = document.getElementById('stickyProductImg');
+            const titleEl = document.getElementById('stickyProductTitle');
+            const cashEl = document.getElementById('stickyPriceCash');
+            const cardEl = document.getElementById('stickyPriceCard');
+            const ctaEl = document.getElementById('btnStickyWhatsapp');
+
+            const imgThumb = (estadoShopifyDetalle.imagenes && estadoShopifyDetalle.imagenes[0])
+                ? estadoShopifyDetalle.imagenes[0]
+                : optimizarUrlDrive(equipo.Imagen, 'w300');
+
+            if (imgEl) {
+                imgEl.src = imgThumb;
+                imgEl.alt = titulo;
+            }
+            if (titleEl) {
+                titleEl.textContent = colorActivo ? `${titulo} · ${colorActivo}` : titulo;
+            }
+            if (cashEl) {
+                cashEl.textContent = `Efectivo: ${formatearPrecioSimple(precioEfectivoNum)}`;
+                cashEl.classList.toggle('is-offer', Boolean(esOfertaReal));
+            }
+            if (cardEl) {
+                cardEl.textContent = precioTarjetaMostrar && precioTarjetaMostrar !== 'N/A'
+                    ? `Tarjeta: ${precioTarjetaMostrar}`
+                    : '';
+            }
+            if (ctaEl) {
+                const textoWpp = colorActivo
+                    ? `Hola A-MOVIL, me interesa el ${titulo} en color ${colorActivo}`
+                    : `Hola A-MOVIL, me interesa el ${titulo}`;
+                ctaEl.href = `https://wa.me/593982747634?text=${encodeURIComponent(textoWpp)}`;
+                ctaEl.onclick = function() {
+                    registrarInteraccionProducto(item.id, 2);
+                };
+            }
+
+            if (stickyObserverShopify) {
+                stickyObserverShopify.disconnect();
+                stickyObserverShopify = null;
+            }
+
+            const btnMain = document.getElementById('btnDetailWhatsapp');
+            if (btnMain && 'IntersectionObserver' in window) {
+                stickyObserverShopify = new IntersectionObserver(() => {
+                    verificarVisibilidadBarraFlotante();
+                }, { threshold: 0 });
+                stickyObserverShopify.observe(btnMain);
+            }
+
+            ocultarBarraFlotanteShopify();
+        }
+
+        window.addEventListener('scroll', verificarVisibilidadBarraFlotante, { passive: true });
+        window.addEventListener('resize', verificarVisibilidadBarraFlotante, { passive: true });
+
+        // ==================== 1. GALERÍA DINÁMICA SHOPIFY (LUPA + SWIPE + THUMBNAILS + MISMO PRODUCTO/COLOR) ====================
+        function seleccionarImagenGaleriaShopify(indice) {
+            const lista = estadoShopifyDetalle.imagenes || [];
+            if (!lista.length) return;
+
+            const total = lista.length;
+            const idx = ((indice % total) + total) % total;
+            estadoShopifyDetalle.indiceActivo = idx;
+
+            const stage = document.getElementById('shopifyMainStage');
+            const stageImg = document.getElementById('shopifyStageImg');
+            const counter = document.getElementById('shopifyStageCounter');
+
+            if (stage) {
+                stage.classList.remove('is-zooming');
+            }
+            if (stageImg) {
+                stageImg.style.transformOrigin = '50% 50%';
+                // Reiniciar micro-animación suave al cambiar de foto
+                stageImg.style.animation = 'none';
+                void stageImg.offsetWidth;
+                stageImg.style.animation = '';
+                stageImg.src = lista[idx];
+            }
+            if (counter) {
+                if (total > 1) {
+                    counter.style.display = 'inline-block';
+                    counter.textContent = `${idx + 1} / ${total}`;
+                } else {
+                    counter.style.display = 'none';
+                }
+            }
+
+            const thumbs = document.querySelectorAll('#shopifyThumbsTrack .shopify-thumb-btn');
+            thumbs.forEach((btn, i) => {
+                const isAct = i === idx;
+                btn.classList.toggle('active', isAct);
+                if (isAct && typeof btn.scrollIntoView === 'function') {
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+                }
+            });
+        }
+
+        function cambiarImagenGaleriaShopify(delta) {
+            seleccionarImagenGaleriaShopify((estadoShopifyDetalle.indiceActivo || 0) + delta);
+        }
+
+        function desplazarMiniaturasShopify(dir) {
+            const track = document.getElementById('shopifyThumbsTrack');
+            if (!track) return;
+            track.scrollBy({ left: dir * 220, behavior: 'smooth' });
+        }
+
+        function renderizarControlesGaleriaShopify() {
+            const track = document.getElementById('shopifyThumbsTrack');
+            const prevBtn = document.getElementById('shopifyPrevBtn');
+            const nextBtn = document.getElementById('shopifyNextBtn');
+            const thumbsNextBtn = document.getElementById('shopifyThumbsNextBtn');
+            const thumbsBar = document.getElementById('shopifyThumbsBar');
+            const lista = estadoShopifyDetalle.imagenes || [];
+
+            if (!track) return;
+
+            const hayVarias = lista.length > 1;
+            if (prevBtn) prevBtn.classList.toggle('is-hidden', !hayVarias);
+            if (nextBtn) nextBtn.classList.toggle('is-hidden', !hayVarias);
+            if (thumbsBar) thumbsBar.style.display = lista.length > 0 ? 'flex' : 'none';
+
+            track.innerHTML = lista.map((url, idx) => {
+                const urlMini = optimizarUrlDrive(url, 'w300');
+                return `
+                    <button
+                        type="button"
+                        class="shopify-thumb-btn ${idx === estadoShopifyDetalle.indiceActivo ? 'active' : ''}"
+                        onclick="seleccionarImagenGaleriaShopify(${idx})"
+                        onmouseenter="if(window.matchMedia('(hover: hover) and (pointer: fine)').matches) seleccionarImagenGaleriaShopify(${idx})"
+                        aria-label="Ver imagen ${idx + 1}"
+                    >
+                        <img src="${urlMini}" alt="Miniatura ${idx + 1}" onerror="removerImagenRotaGaleriaShopify('${url.replace(/'/g, "\\'")}')">
+                    </button>
+                `;
+            }).join('');
+
+            if (thumbsNextBtn) {
+                setTimeout(() => {
+                    const desborda = track.scrollWidth > track.clientWidth + 8;
+                    thumbsNextBtn.classList.toggle('visible', desborda);
+                }, 60);
+            }
+
+            seleccionarImagenGaleriaShopify(Math.min(estadoShopifyDetalle.indiceActivo || 0, Math.max(0, lista.length - 1)));
+        }
+
+        function removerImagenRotaGaleriaShopify(urlRota) {
+            if (!urlRota || !Array.isArray(estadoShopifyDetalle.imagenes)) return;
+            if (estadoShopifyDetalle.imagenes.length <= 1) return;
+            const filtradas = estadoShopifyDetalle.imagenes.filter((u, idx) => idx === 0 || u !== urlRota);
+            if (filtradas.length !== estadoShopifyDetalle.imagenes.length) {
+                estadoShopifyDetalle.imagenes = filtradas;
+                renderizarControlesGaleriaShopify();
+            }
+        }
+
+        function vincularInteraccionesVisorShopify() {
+            const stage = document.getElementById('shopifyMainStage');
+            const stageImg = document.getElementById('shopifyStageImg');
+            if (!stage || !stageImg) return;
+
+            // Efecto Lupa (Zoom siguiendo el cursor) en Computadora
+            stage.addEventListener('mousemove', function(e) {
+                if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+                if (e.target.closest('.shopify-stage-arrow')) {
+                    stage.classList.remove('is-zooming');
+                    stageImg.style.transformOrigin = '50% 50%';
+                    return;
+                }
+                const rect = stage.getBoundingClientRect();
+                const xPct = Math.max(0, Math.min(100, ((e.clientX - rect.left) / rect.width) * 100));
+                const yPct = Math.max(0, Math.min(100, ((e.clientY - rect.top) / rect.height) * 100));
+                stage.classList.add('is-zooming');
+                stageImg.style.transformOrigin = `${xPct.toFixed(1)}% ${yPct.toFixed(1)}%`;
+            });
+
+            stage.addEventListener('mouseleave', function() {
+                stage.classList.remove('is-zooming');
+                stageImg.style.transformOrigin = '50% 50%';
+            });
+
+            // Deslizamiento táctil (Swipe con el dedo) en Celular
+            let touchStartX = 0;
+            let touchStartY = 0;
+            stage.addEventListener('touchstart', function(e) {
+                if (!e.touches || !e.touches.length) return;
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+
+            stage.addEventListener('touchend', function(e) {
+                if (!e.changedTouches || !e.changedTouches.length) return;
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                const dy = e.changedTouches[0].clientY - touchStartY;
+                if (Math.abs(dx) > 38 && Math.abs(dx) > Math.abs(dy) * 1.15 && (estadoShopifyDetalle.imagenes || []).length > 1) {
+                    cambiarImagenGaleriaShopify(dx < 0 ? 1 : -1);
+                }
+            }, { passive: true });
+        }
+
+        // ==================== MOTOR INTELIGENTE: IMÁGENES ILUSTRADAS DEL MISMO PRODUCTO Y COLOR ====================
+        const DICCIONARIO_COLORES_GALERIA = {
+            'blanco': { pos: ['blanco', 'white', 'silver', 'plata', 'claro'], en: 'white' },
+            'negro': { pos: ['negro', 'black', 'dark', 'obsidiana', 'carbon', 'grafito'], en: 'black' },
+            'gris': { pos: ['gris', 'gray', 'grey', 'space gray', 'titanium', 'titanio'], en: 'gray' },
+            'azul': { pos: ['azul', 'blue', 'navy', 'celeste', 'cyan'], en: 'blue' },
+            'rosa': { pos: ['rosa', 'rosado', 'pink', 'rose'], en: 'pink' },
+            'morado': { pos: ['morado', 'lila', 'purple', 'violet', 'violeta', 'lavanda'], en: 'purple' },
+            'verde': { pos: ['verde', 'green', 'mint', 'menta', 'oliva'], en: 'green' },
+            'rojo': { pos: ['rojo', 'red'], en: 'red' },
+            'dorado': { pos: ['dorado', 'gold', 'beige', 'arena', 'champagne'], en: 'gold' }
+        };
+
+        const PALABRAS_GENERICAS_IGNORAR = new Set([
+            'cargador', 'cable', 'audifonos', 'audifono', 'auriculares', 'inalambricos', 'inalambrico',
+            'original', 'rapido', 'rapida', 'carga', 'trenzado', 'tipo', 'para', 'con', 'pantalla',
+            'display', 'bluetooth', 'smartwatch', 'reloj', 'inteligente', 'adaptador', 'bateria',
+            'portatil', 'power', 'bank', 'diadema', 'gamer', 'deportivos', 'estuche', 'disco',
+            'negro', 'blanco', 'azul', 'rosa', 'gris', 'verde', 'morado', 'rojo', 'dorado',
+            'usb', 'usbc', 'light', 'gris', 'pro', 'anc', 'tws', 'gan'
+        ]);
+
+        function normalizarTextoBusquedaProd(str) {
+            return String(str || '')
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/[^a-z0-9\s.-]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function obtenerPerfilColorBusqueda(colorRaw, tituloBaseNorm) {
+            const cNorm = normalizarTextoBusquedaProd(colorRaw);
+            if (!cNorm || cNorm === 'n a' || cNorm === 'unico') return null;
+
+            let claveDetectada = null;
+            for (const [clave, cfg] of Object.entries(DICCIONARIO_COLORES_GALERIA)) {
+                if (cNorm.includes(clave) || cfg.pos.some(p => cNorm === p)) {
+                    claveDetectada = clave;
+                    break;
+                }
+            }
+            if (!claveDetectada) {
+                return { pos: [cNorm], neg: [], en: cNorm };
+            }
+
+            const positivos = DICCIONARIO_COLORES_GALERIA[claveDetectada].pos;
+            const negativos = [];
+            for (const [otraClave, cfg] of Object.entries(DICCIONARIO_COLORES_GALERIA)) {
+                if (otraClave !== claveDetectada) {
+                    cfg.pos.forEach(tok => {
+                        if (!tituloBaseNorm.includes(tok)) negativos.push(tok);
+                    });
+                }
+            }
+            return {
+                pos: positivos,
+                neg: negativos,
+                en: DICCIONARIO_COLORES_GALERIA[claveDetectada].en
+            };
+        }
+
+        function extraerIdentificadoresEstrictosProducto(item) {
+            const marcaNorm = normalizarTextoBusquedaProd(item.marca !== 'OTRAS MARCAS' ? item.marca : '');
+            const skuRaw = String(item.nombreModelo || '').trim();
+            const tituloRaw = String(item.info?.tituloLlamativo || '').trim();
+            const tituloNorm = normalizarTextoBusquedaProd(tituloRaw);
+
+            // Variantes válidas del código SKU oficial (ej. A121DJ11 -> a121dj11, a121d | 65050B -> 65050b, 65050 | TWSXE33 -> twsxe33, xe33)
+            const codigosSku = [];
+            skuRaw.split(/[\s\/,]+/).forEach(part => {
+                const limpio = part.toLowerCase().replace(/[^a-z0-9-]/g, '');
+                if (limpio.length >= 4 && limpio !== marcaNorm && !['smartwatch', 'redmi', 'original'].includes(limpio)) {
+                    codigosSku.push(limpio);
+                    const sinPrefijoTws = limpio.replace(/^tws([a-z0-9]{3,})$/i, '$1');
+                    if (sinPrefijoTws !== limpio && sinPrefijoTws.length >= 3) codigosSku.push(sinPrefijoTws);
+                    const ankerBase = limpio.match(/^(a\d{3}[a-z0-9])[a-z]\d{2}$/i);
+                    if (ankerBase) codigosSku.push(ankerBase[1]);
+                    const ugreenBase = limpio.match(/^(\d{5})[a-z]$/i);
+                    if (ugreenBase) codigosSku.push(ugreenBase[1]);
+                }
+            });
+
+            // Especificaciones numéricas críticas (ej. 45w, 100w, 65w, 240w, 10000mah) para no mezclar potencias distintas
+            const specsExactas = [...new Set((tituloNorm.match(/\b\d+(?:w|mah|gbps|tb|gb)\b/g) || []))];
+
+            // Palabras distintivas del modelo (ej. nano, uno, hitune, max, clipbuds, wave, buds, q11i, xe33)
+            const palabrasModelo = tituloNorm
+                .split(' ')
+                .filter(w => w.length >= 2 && w !== marcaNorm && !PALABRAS_GENERICAS_IGNORAR.has(w) && !/^\d+m$/.test(w))
+                .slice(0, 4);
+
+            return {
+                marcaNorm,
+                skuRaw,
+                tituloRaw,
+                tituloNorm,
+                codigosSku: [...new Set(codigosSku)],
+                specsExactas,
+                palabrasModelo
+            };
+        }
+
+        // Si el banco del Catálogo 2026 tiene una variante exacta del MISMO modelo en el color elegido (ej. Ugreen Dots Blanco vs Negro), la prioriza como portada de ese color
+        function buscarFotoVarianteExactaEnBancoLocal(item, colorActivo) {
+            if (!colorActivo || typeof BANCO_IMAGENES_CATALOGO_2026 === 'undefined') return '';
+            const perfilColor = obtenerPerfilColorBusqueda(colorActivo, '');
+            if (!perfilColor) return '';
+
+            const marcaActual = normalizarTextoBusquedaProd(item.marca);
+            const quitarColores = (txt) => {
+                let t = normalizarTextoBusquedaProd(txt);
+                Object.values(DICCIONARIO_COLORES_GALERIA).forEach(cfg => {
+                    cfg.pos.forEach(c => {
+                        t = t.replace(new RegExp(`\\b${c}\\b`, 'g'), ' ');
+                    });
+                });
+                return t.replace(/\s+/g, ' ').trim();
+            };
+
+            const firmaProductoActual = quitarColores(item.info?.tituloLlamativo || '');
+            if (firmaProductoActual.length < 8) return '';
+
+            for (const entry of BANCO_IMAGENES_CATALOGO_2026) {
+                if (normalizarTextoBusquedaProd(entry.marca) !== marcaActual) continue;
+                const nombreEntryNorm = normalizarTextoBusquedaProd(entry.nombre);
+                const firmaEntry = quitarColores(entry.nombre);
+                if (firmaEntry === firmaProductoActual && perfilColor.pos.some(c => nombreEntryNorm.includes(c))) {
+                    return optimizarUrlDrive(entry.img, 'w1000');
+                }
+            }
+            return '';
+        }
+
+        async function fetchTextoConProxyCors(targetUrl, timeoutMs = 5500) {
+            const proxies = [
+                'https://api.allorigins.win/get?url=' + encodeURIComponent(targetUrl),
+                'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(targetUrl)
+            ];
+
+            for (const pUrl of proxies) {
+                const ctrl = new AbortController();
+                const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+                try {
+                    const resp = await fetch(pUrl, { signal: ctrl.signal });
+                    clearTimeout(timer);
+                    if (!resp.ok) continue;
+                    if (pUrl.includes('allorigins.win/get')) {
+                        const json = await resp.json();
+                        if (json && json.contents) return String(json.contents);
+                    } else {
+                        const txt = await resp.text();
+                        if (txt && txt.length > 50) return txt;
+                    }
+                } catch (e) {
+                    clearTimeout(timer);
+                }
+            }
+            return '';
+        }
+
+        function precargarImagenProductoValida(primaryUrl, fallbackUrl = '', timeoutMs = 4200) {
+            const probarUna = (url) => new Promise((resolve) => {
+                if (!url) return resolve('');
+                const img = new Image();
+                let listo = false;
+                const fin = (res) => {
+                    if (listo) return;
+                    listo = true;
+                    resolve(res);
+                };
+                const t = setTimeout(() => fin(''), timeoutMs);
+                img.onload = () => {
+                    clearTimeout(t);
+                    const w = img.naturalWidth || 0;
+                    const h = img.naturalHeight || 0;
+                    const ratio = h > 0 ? (w / h) : 0;
+                    // Solo fotos de galería de producto nítidas y proporción cuadrada/vertical estándar (descarta banners alargados o íconos)
+                    if (w >= 240 && h >= 240 && ratio >= 0.58 && ratio <= 1.62) {
+                        fin(url);
+                    } else {
+                        fin('');
+                    }
+                };
+                img.onerror = () => {
+                    clearTimeout(t);
+                    fin('');
+                };
+                img.src = url;
+            });
+
+            return probarUna(primaryUrl).then(okUrl => okUrl || (fallbackUrl ? probarUna(fallbackUrl) : ''));
+        }
+
+        function decodificarEntidadesBasicas(str) {
+            return String(str || '')
+                .replace(/&quot;/g, '"')
+                .replace(/&amp;/g, '&')
+                .replace(/&#39;/g, "'")
+                .replace(/&lt;/g, '<')
+                .replace(/&gt;/g, '>');
+        }
+
+        async function buscarGaleriaWebMismoProductoYColor(item, colorActivo) {
+            const idInfo = extraerIdentificadoresEstrictosProducto(item);
+            if (!idInfo.marcaNorm && idInfo.codigosSku.length === 0) return [];
+
+            const perfilColor = obtenerPerfilColorBusqueda(colorActivo, idInfo.tituloNorm);
+            const colorQueryWord = perfilColor ? perfilColor.en : '';
+
+            // Construir consultas quirúrgicas para encontrar únicamente la galería oficial del mismo modelo y color
+            const queries = [];
+            if (idInfo.codigosSku.length > 0) {
+                queries.push(`${idInfo.marcaNorm} "${idInfo.codigosSku[0]}" ${colorQueryWord} product`.trim());
+            }
+            const modeloFrase = idInfo.palabrasModelo.join(' ');
+            if (modeloFrase) {
+                const skuApoyo = idInfo.codigosSku[1] || idInfo.codigosSku[0] || '';
+                queries.push(`${idInfo.marcaNorm} ${skuApoyo} ${modeloFrase} ${colorQueryWord} official`.replace(/\s+/g, ' ').trim());
+            }
+
+            const candidatosPuntuados = [];
+            const urlsVistas = new Set();
+
+            for (const q of queries.slice(0, 2)) {
+                const bingUrl = `https://www.bing.com/images/search?q=${encodeURIComponent(q)}&qft=+filterui:aspect-square&form=HDRSC2`;
+                const html = await fetchTextoConProxyCors(bingUrl, 5200);
+                if (!html) continue;
+
+                const metaMatches = [...html.matchAll(/\bm="(\{[^"]+\})"/gi)];
+                for (const match of metaMatches) {
+                    let metaObj = null;
+                    try {
+                        metaObj = JSON.parse(decodificarEntidadesBasicas(match[1]));
+                    } catch (e) {
+                        continue;
+                    }
+                    if (!metaObj || (!metaObj.murl && !metaObj.turl)) continue;
+
+                    const murl = String(metaObj.murl || '').trim();
+                    const turl = metaObj.turl ? `${metaObj.turl}&w=800&h=800&c=7&pid=ImgDet` : '';
+                    const textoMeta = normalizarTextoBusquedaProd(`${metaObj.t || ''} ${metaObj.purl || ''} ${metaObj.desc || ''} ${murl}`);
+
+                    // Descartar redes sociales, videos o miniaturas no comerciales
+                    if (/(youtube|ytimg|tiktok|instagram|facebook|pinterest|reddit|vimeo|dailymotion)/.test(textoMeta)) {
+                        continue;
+                    }
+
+                    // 1. Validación obligatoria de Marca (incluye equivalencias como Xiaomi/Redmi o Anker/Soundcore)
+                    const marcasValidas = [idInfo.marcaNorm];
+                    if (idInfo.marcaNorm === 'xiaomi') marcasValidas.push('redmi');
+                    if (idInfo.marcaNorm === 'soundcore') marcasValidas.push('anker');
+                    if (idInfo.marcaNorm && !marcasValidas.some(m => m && textoMeta.includes(m))) {
+                        continue;
+                    }
+
+                    // 2. Validación anti-mezcla de potencias/capacidades (ej. si es 45W, rechaza 20W, 30W, 65W, 100W)
+                    const potenciasEnCandidato = textoMeta.match(/\b\d+(?:w|mah)\b/g) || [];
+                    if (idInfo.specsExactas.length > 0 && potenciasEnCandidato.length > 0) {
+                        const tienePotenciaConflicto = potenciasEnCandidato.some(pot => !idInfo.specsExactas.includes(pot));
+                        if (tienePotenciaConflicto && !idInfo.codigosSku.some(sku => textoMeta.includes(sku))) {
+                            continue;
+                        }
+                    }
+
+                    // 3. Validación estricta de MISMO MODELO / SKU
+                    const coincideSkuExacto = idInfo.codigosSku.some(sku => {
+                        const esc = sku.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                        return new RegExp(`\\b${esc}\\b`, 'i').test(textoMeta);
+                    });
+
+                    const palabrasClaveRequeridas = idInfo.palabrasModelo.slice(0, 3);
+                    const coincidenciasPalabras = palabrasClaveRequeridas.filter(w => textoMeta.includes(w)).length;
+                    const cumpleSpecsExactas = idInfo.specsExactas.every(sp => textoMeta.includes(sp));
+                    const coincideModeloCompleto = palabrasClaveRequeridas.length >= 1
+                        && coincidenciasPalabras >= Math.min(2, palabrasClaveRequeridas.length)
+                        && cumpleSpecsExactas;
+
+                    if (!coincideSkuExacto && !coincideModeloCompleto) {
+                        continue;
+                    }
+
+                    // 4. Validación de MISMO COLOR (si el producto tiene color seleccionado)
+                    let score = coincideSkuExacto ? 120 : 80;
+                    score += coincidenciasPalabras * 15;
+
+                    if (perfilColor) {
+                        const mencionaColorOpuesto = perfilColor.neg.some(neg => new RegExp(`\\b${neg}\\b`, 'i').test(textoMeta));
+                        const mencionaColorActivo = perfilColor.pos.some(pos => new RegExp(`\\b${pos}\\b`, 'i').test(textoMeta));
+                        if (mencionaColorOpuesto && !mencionaColorActivo) {
+                            continue;
+                        }
+                        if (mencionaColorActivo) score += 55;
+                    }
+
+                    // Priorizar CDNs oficiales estilo Shopify / tiendas oficiales de marca
+                    if (/(cdn\.shopify\.com|ugreen|anker|soundcore|media-amazon|mlstatic|apple\.com|samsung\.com|mi\.com|jbl\.com|kieslect|oraimo|infinix)/.test(murl + ' ' + (metaObj.purl || ''))) {
+                        score += 45;
+                    }
+
+                    const claveUnica = (murl || turl).split('?')[0].toLowerCase();
+                    if (urlsVistas.has(claveUnica)) continue;
+                    urlsVistas.add(claveUnica);
+
+                    candidatosPuntuados.push({ murl, turl, score });
+                }
+
+                if (candidatosPuntuados.length >= 10) break;
+            }
+
+            candidatosPuntuados.sort((a, b) => b.score - a.score);
+
+            const verificadas = [];
+            const lotes = candidatosPuntuados.slice(0, 9);
+            const resultadosCarga = await Promise.all(
+                lotes.map(c => precargarImagenProductoValida(c.murl, c.turl))
+            );
+
+            for (const urlOk of resultadosCarga) {
+                if (urlOk && !verificadas.includes(urlOk)) {
+                    verificadas.push(urlOk);
+                    if (verificadas.length >= 4) break;
+                }
+            }
+
+            return verificadas;
+        }
+
+        async function cargarGaleriaIlustradaMismoProducto(item, colorActivo) {
+            if (!item) return;
+            const reqActual = ++estadoShopifyDetalle.requestId;
+            const equipo = item.raw || {};
+            const marca = item.marca !== 'OTRAS MARCAS' ? item.marca : '';
+            const sku = item.nombreModelo || '';
+            const titulo = item.info?.tituloLlamativo || sku || 'Producto';
+            const claveModelo = obtenerClaveGaleriaProducto(marca, sku, titulo);
+
+            const imgBaseOriginal = optimizarUrlDrive(equipo.Imagen, 'w1000');
+            const imgVarianteColorLocal = buscarFotoVarianteExactaEnBancoLocal(item, colorActivo);
+            const primeraImagen = imgVarianteColorLocal || imgBaseOriginal;
+
+            const extrasManuales = obtener4UrlsMismoProducto(equipo, claveModelo, primeraImagen).filter(Boolean);
+            const iniciales = [primeraImagen];
+            if (imgVarianteColorLocal && imgBaseOriginal && imgBaseOriginal !== imgVarianteColorLocal) {
+                iniciales.push(imgBaseOriginal);
+            }
+            extrasManuales.forEach(u => {
+                if (u && !iniciales.includes(u)) iniciales.push(u);
+            });
+
+            estadoShopifyDetalle.idProd = item.id;
+            estadoShopifyDetalle.itemActual = item;
+            estadoShopifyDetalle.colorActivo = colorActivo || '';
+            estadoShopifyDetalle.claveModelo = claveModelo;
+            estadoShopifyDetalle.imagenes = iniciales.slice(0, 6);
+            estadoShopifyDetalle.indiceActivo = 0;
+
+            renderizarControlesGaleriaShopify();
+
+            // Actualizar miniatura de la barra flotante si cambió el color
+            const stickyImg = document.getElementById('stickyProductImg');
+            if (stickyImg && primeraImagen) stickyImg.src = optimizarUrlDrive(primeraImagen, 'w300');
+
+            // Si ya tiene 5 o más imágenes propias en Excel/POS, no necesita buscar más
+            if (estadoShopifyDetalle.imagenes.length >= 5) return;
+
+            const cacheKey = `${claveModelo}__${normalizarTextoBusquedaProd(colorActivo || 'default')}`;
+            cargarCacheWebShopify();
+            const enCache = CACHE_GALERIA_WEB_SHOPIFY[cacheKey];
+            if (Array.isArray(enCache) && enCache.length > 0) {
+                if (reqActual !== estadoShopifyDetalle.requestId) return;
+                enCache.forEach(u => {
+                    if (u && !estadoShopifyDetalle.imagenes.includes(u) && estadoShopifyDetalle.imagenes.length < 5) {
+                        estadoShopifyDetalle.imagenes.push(u);
+                    }
+                });
+                renderizarControlesGaleriaShopify();
+                return;
+            }
+
+            const halladasWeb = await buscarGaleriaWebMismoProductoYColor(item, colorActivo);
+            if (reqActual !== estadoShopifyDetalle.requestId) return;
+
+            if (halladasWeb.length > 0) {
+                guardarEnCacheWebShopify(cacheKey, halladasWeb);
+                halladasWeb.forEach(u => {
+                    if (u && !estadoShopifyDetalle.imagenes.includes(u) && estadoShopifyDetalle.imagenes.length < 5) {
+                        estadoShopifyDetalle.imagenes.push(u);
+                    }
+                });
+                renderizarControlesGaleriaShopify();
+            }
+        }
+
+        function inicializarExperienciaShopifyProducto(item, colorInicial) {
+            vincularInteraccionesVisorShopify();
+            cargarGaleriaIlustradaMismoProducto(item, colorInicial);
+            configurarBarraFlotanteShopify(item, colorInicial);
+        }
+
+        function sincronizarColorEnShopifyUX(nombreColor, tituloProducto) {
+            const item = estadoShopifyDetalle.itemActual;
+            const titleEl = document.getElementById('stickyProductTitle');
+            const ctaEl = document.getElementById('btnStickyWhatsapp');
+
+            if (titleEl) {
+                titleEl.textContent = nombreColor ? `${tituloProducto} · ${nombreColor}` : tituloProducto;
+            }
+            if (ctaEl) {
+                const msg = encodeURIComponent(`Hola A-MOVIL, me interesa el ${tituloProducto} en color ${nombreColor}`);
+                ctaEl.href = `https://wa.me/593982747634?text=${msg}`;
+            }
+            if (item) {
+                cargarGaleriaIlustradaMismoProducto(item, nombreColor);
+            }
+        }
+
+        // ==================== CONEXIÓN CON EL MODAL DE FOTOS DEL PUNTO DE VENTA SECRETO ====================
+        const _actualizarPreviewEnModalOriginal = actualizarPreviewEnModal;
+        actualizarPreviewEnModal = function(url) {
+            _actualizarPreviewEnModalOriginal(url);
+            renderizar4ExtrasEnPhotoModal(url);
+        };
+
+        function renderizar4ExtrasEnPhotoModal(urlPrincipal) {
+            const grid4 = document.getElementById('photo-modal-extra4-grid');
+            const status4 = document.getElementById('photo-modal-extra4-status');
+            if (!grid4) return;
+
+            const limpia = optimizarUrlDrive(urlPrincipal, 'w400');
+            const p = products.find(x => x.id === photoModalTargetId);
+            const marca = p?.brand || (document.getElementById('new-brand')?.value || 'A-MOVIL');
+            const sku = p?.id || (document.getElementById('new-id')?.value || '');
+            const nombre = p?.name || (document.getElementById('new-name')?.value || 'Producto');
+            const claveMod = obtenerClaveGaleriaProducto(marca, sku, nombre);
+            const cuatro = obtener4UrlsMismoProducto({}, claveMod, limpia);
+
+            if (status4) {
+                status4.innerHTML = `Modelo / Serie: <strong>${marca} · ${sku} — ${nombre}</strong>`;
+            }
+
+            grid4.innerHTML = [0, 1, 2, 3].map(idx => `
+                <div class="bg-white border border-slate-200 rounded-lg p-2 flex flex-col gap-1.5 shadow-sm">
+                    <div class="w-full h-14 bg-slate-50 rounded flex items-center justify-center overflow-hidden p-1">
+                        <img src="${cuatro[idx] ? optimizarUrlDrive(cuatro[idx], 'w300') : limpia}" alt="Foto ${idx + 2}" class="max-h-full max-w-full object-contain" />
+                    </div>
+                    <input
+                        id="modal-extra-input-${idx + 1}"
+                        type="text"
+                        value="${(cuatro[idx] || '').replace(/"/g, '&quot;')}"
+                        oninput="guardar4ExtrasDesdeModalPOS('${claveMod}')"
+                        placeholder="Pegar link Foto ${idx + 2}..."
+                        class="w-full px-2 py-1 text-[10px] bg-slate-50 border border-slate-200 rounded focus:bg-white focus:border-slate-900 focus:outline-none"
+                    />
+                </div>
+            `).join('');
+        }
+
+        function guardar4ExtrasDesdeModalPOS(claveMod) {
+            const urls4 = [1, 2, 3, 4].map(i => (document.getElementById('modal-extra-input-' + i)?.value || '').trim());
+            guardarFotosExtraDeModelo(claveMod, urls4);
+        }
+
+        function abrirBusquedaGoogleImagenesModal() {
+            const p = products.find(x => x.id === photoModalTargetId);
+            const q = p
+                ? `${p.brand} ${p.id} ${p.name}`
+                : `${document.getElementById('new-brand')?.value || ''} ${document.getElementById('new-id')?.value || ''} ${document.getElementById('new-name')?.value || ''}`.trim() || 'Anker Ugreen';
+            window.open(`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}`, '_blank');
+        }
     </script>
 </body>
 </html>
