@@ -370,6 +370,36 @@
         #vista-secreta-pos-wrapper input[type="number"] {
             -moz-appearance: textfield;
         }
+
+        /* GALERÍA AUTOMÁTICA DE 4 IMÁGENES ADICIONALES (POSICIONES Y BENEFICIOS) */
+        .detail-image-frame { position: relative; overflow: hidden; transition: all 0.3s ease; }
+        .detail-stage-badge { position: absolute; top: 12px; left: 12px; background: rgba(15,23,42,0.85); color: #fff; font-size: 10.5px; font-weight: 800; padding: 4px 10px; border-radius: 20px; z-index: 6; letter-spacing: 0.4px; backdrop-filter: blur(4px); }
+        .detail-stage-nav { position: absolute; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; border-radius: 50%; background: rgba(15,23,42,0.75); color: #fff; border: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 6; font-size: 16px; font-weight: 900; transition: all 0.2s; user-select: none; }
+        .detail-stage-nav:hover { background: var(--secondary-color); transform: translateY(-50%) scale(1.08); }
+        .detail-stage-nav.prev { left: 10px; }
+        .detail-stage-nav.next { right: 10px; }
+        .detail-auto-gallery-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; }
+        .detail-gallery-thumb { position: relative; height: 68px; border-radius: 10px; border: 2px solid #e2e8f0; background: #fff; overflow: hidden; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4px; transition: all 0.2s ease; }
+        .detail-gallery-thumb:hover { border-color: #94a3b8; transform: translateY(-2px); }
+        .detail-gallery-thumb.active { border-color: var(--secondary-color); background: #f0f7ff; box-shadow: 0 4px 12px rgba(0,136,255,0.2); }
+        .detail-gallery-thumb img { max-width: 100%; max-height: 42px; object-fit: contain; transition: transform 0.25s ease; }
+        .detail-gallery-thumb-label { font-size: 8.5px; font-weight: 800; color: #334155; text-transform: uppercase; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+        .detail-gallery-thumb.active .detail-gallery-thumb-label { color: var(--secondary-color); }
+        /* Efectos visuales para posiciones y beneficios basados en la imagen principal */
+        .stage-mode-angle img { transform: perspective(600px) rotateY(-14deg) rotateX(4deg) scale(1.06); filter: drop-shadow(12px 14px 18px rgba(15,23,42,0.22)); transition: all 0.35s ease; }
+        .stage-mode-zoom img { transform: scale(1.42); transform-origin: center center; transition: all 0.35s ease; }
+        .stage-infographic-wrap { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1.15fr; gap: 14px; align-items: center; padding: 6px; background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%); border-radius: 10px; }
+        .stage-infographic-img-box { display: flex; align-items: center; justify-content: center; height: 100%; background: #fff; border-radius: 10px; padding: 10px; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(15,23,42,0.05); }
+        .stage-infographic-img-box img { max-width: 100%; max-height: 220px; object-fit: contain; }
+        .stage-infographic-list { display: flex; flex-direction: column; gap: 8px; text-align: left; }
+        .stage-infographic-title { font-size: 11px; font-weight: 900; color: var(--secondary-color); text-transform: uppercase; letter-spacing: 0.6px; }
+        .stage-benefit-item { background: #fff; border: 1px solid #dbeafe; border-left: 3.5px solid var(--secondary-color); border-radius: 8px; padding: 7px 9px; font-size: 11px; font-weight: 700; color: #0f172a; line-height: 1.3; box-shadow: 0 2px 6px rgba(15,23,42,0.03); }
+        @media (max-width: 768px) {
+            .detail-auto-gallery-strip { gap: 5px; }
+            .detail-gallery-thumb { height: 58px; }
+            .stage-infographic-wrap { grid-template-columns: 1fr; gap: 8px; overflow-y: auto; }
+            .stage-infographic-img-box img { max-height: 110px; }
+        }
     </style>
 </head>
 <body>
@@ -1098,6 +1128,24 @@
                 </label>
               </div>
             </div>
+          </div>
+
+          <!-- 4 Imágenes Adicionales Automáticas (Posiciones y Beneficios) -->
+          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2.5">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div>
+                <div class="text-xs font-bold text-slate-900">📸 +4 Imágenes Adicionales Automáticas (Posiciones y Beneficios)</div>
+                <p id="photo-modal-extra4-status" class="text-[11px] text-slate-500">Basadas en la 1ª imagen principal + búsqueda automática en repositorios web.</p>
+              </div>
+              <button
+                type="button"
+                onclick="abrirBusquedaGoogleImagenesModal()"
+                class="px-2.5 py-1 text-[11px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100"
+              >
+                🔎 Buscar ángulos en Google Imágenes
+              </button>
+            </div>
+            <div id="photo-modal-extra4-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
           </div>
 
           <!-- Buscador en el Banco de Imágenes de Catalogo 2026-NO BORRAR -->
@@ -3741,6 +3789,326 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 });
             }
         });
+
+        // =========================================================================
+        // NUEVA FUNCIÓN AL FINAL: BÚSQUEDA Y GENERACIÓN AUTOMÁTICA DE 4 IMÁGENES
+        // ADICIONALES (DIFERENTES POSICIONES DEL PRODUCTO Y SUS BENEFICIOS)
+        // BASADAS EN LA 1ª IMAGEN PRINCIPAL + REPOSITORIOS WEB / GOOGLE
+        // =========================================================================
+        const CACHE_GALERIA_4_EXTRAS = {};
+        let estadoGaleriaDetalleActual = {
+            idProd: null,
+            indiceActivo: 0,
+            vistas: []
+        };
+
+        function extraerBeneficiosClaveProducto(titulo, marca, listaVinetas, listaChips) {
+            const beneficios = [];
+            (listaVinetas || []).forEach(v => {
+                const limpio = String(v || '').replace(/<[^>]+>/g, '').replace(/^[-•*]+\s*/, '').trim();
+                if (limpio && limpio.length > 6 && beneficios.length < 4) {
+                    beneficios.push(limpio.length > 68 ? limpio.slice(0, 65) + '...' : limpio);
+                }
+            });
+            (listaChips || []).forEach(c => {
+                if (beneficios.length < 4 && c && !beneficios.some(b => b.toLowerCase().includes(c.toLowerCase()))) {
+                    beneficios.push(`Especificación destacada: ${c}`);
+                }
+            });
+            const defaults = [
+                `Diseño original ${marca || 'A-MOVIL'} de alta resistencia y durabilidad.`,
+                `Rendimiento verificado con protección inteligente de energía y temperatura.`,
+                `Compatibilidad universal plug & play lista para uso diario.`,
+                `Garantía local directa y soporte técnico en A-MOVIL STORE.`
+            ];
+            let i = 0;
+            while (beneficios.length < 4) {
+                beneficios.push(defaults[i % defaults.length]);
+                i++;
+            }
+            return beneficios.slice(0, 4);
+        }
+
+        function construir4VistasAdicionalesBase(imgPrincipal, infoProd) {
+            const urlBase = optimizarUrlDrive(imgPrincipal, 'w800');
+            const titulo = infoProd?.titulo || 'Producto Oficial';
+            const marca = infoProd?.marca || 'A-MOVIL';
+            const sku = infoProd?.sku || '';
+            const beneficios = extraerBeneficiosClaveProducto(titulo, marca, infoProd?.vinetas, infoProd?.chips);
+
+            return [
+                {
+                    tipo: 'principal',
+                    etiqueta: '1. Principal',
+                    subtitulo: 'Vista Frontal Oficial',
+                    imgUrl: urlBase,
+                    modoCss: 'normal',
+                    beneficios: []
+                },
+                {
+                    tipo: 'posicion_angulo',
+                    etiqueta: '2. Posición / Ángulo',
+                    subtitulo: `Perspectiva Lateral · ${marca} ${sku}`.trim(),
+                    imgUrl: infoProd?.imgExtra1 || urlBase,
+                    esFotoRealExterna: Boolean(infoProd?.imgExtra1),
+                    modoCss: infoProd?.imgExtra1 ? 'normal' : 'angle',
+                    beneficios: []
+                },
+                {
+                    tipo: 'posicion_zoom',
+                    etiqueta: '3. Detalle Macro',
+                    subtitulo: 'Acercamiento de Acabado y Conectores',
+                    imgUrl: infoProd?.imgExtra2 || urlBase,
+                    esFotoRealExterna: Boolean(infoProd?.imgExtra2),
+                    modoCss: infoProd?.imgExtra2 ? 'normal' : 'zoom',
+                    beneficios: []
+                },
+                {
+                    tipo: 'beneficios_clave',
+                    etiqueta: '4. Beneficios',
+                    subtitulo: 'Ventajas Principales del Producto',
+                    imgUrl: infoProd?.imgExtra3 || urlBase,
+                    esFotoRealExterna: Boolean(infoProd?.imgExtra3),
+                    modoCss: 'infografia_beneficios',
+                    beneficios: beneficios.slice(0, 3)
+                },
+                {
+                    tipo: 'ficha_uso',
+                    etiqueta: '5. Ficha / Uso',
+                    subtitulo: 'Especificaciones y Respaldo Garantizado',
+                    imgUrl: infoProd?.imgExtra4 || urlBase,
+                    esFotoRealExterna: Boolean(infoProd?.imgExtra4),
+                    modoCss: 'infografia_ficha',
+                    beneficios: [
+                        beneficios[3] || `Calidad certificada ${marca}`,
+                        `Modelo / Referencia: ${sku || titulo}`,
+                        `Envíos rápidos a todo el Ecuador y retiro inmediato.`
+                    ]
+                }
+            ];
+        }
+
+        // Busca automáticamente imágenes adicionales en el Excel (Imagen2..Imagen5), variantes del catálogo y repositorios abiertos (Wikimedia Commons API)
+        async function buscar4ImagenesRepositorioAutomatico(queryProducto, imgPrincipal, equipoRaw = {}) {
+            const claveCache = String(queryProducto || imgPrincipal || '').toLowerCase().trim();
+            if (CACHE_GALERIA_4_EXTRAS[claveCache]) {
+                return CACHE_GALERIA_4_EXTRAS[claveCache];
+            }
+
+            const urlsEncontradas = [];
+            const principalNorm = optimizarUrlDrive(imgPrincipal, 'w600');
+
+            // 1. Revisar si el Excel tiene columnas Imagen2, Imagen3, Imagen4, Imagen5 o Galeria
+            ['Imagen2', 'Imagen3', 'Imagen4', 'Imagen5', 'Foto2', 'Foto3', 'Foto4', 'Galeria'].forEach(col => {
+                if (equipoRaw && equipoRaw[col]) {
+                    String(equipoRaw[col]).split(/[,;|\s]+/).forEach(u => {
+                        const limpia = optimizarUrlDrive(u.trim(), 'w800');
+                        if (limpia && limpia.startsWith('http') && limpia !== principalNorm && !urlsEncontradas.includes(limpia)) {
+                            urlsEncontradas.push(limpia);
+                        }
+                    });
+                }
+            });
+
+            // 2. Buscar en el banco del Catálogo 2026 otras fotos de la misma familia/modelo (ej. otros colores o ángulos subidos)
+            const candidatosLocal = buscarCandidatosImagenCatalogo('', queryProducto, '', 6);
+            candidatosLocal.forEach(c => {
+                const u = optimizarUrlDrive(c.img, 'w800');
+                if (u && u !== principalNorm && !urlsEncontradas.includes(u) && c.score >= 160) {
+                    urlsEncontradas.push(u);
+                }
+            });
+
+            // 3. Consultar repositorio abierto de imágenes (Wikimedia Commons API con CORS '*') si faltan ángulos externos
+            if (urlsEncontradas.length < 2 && queryProducto) {
+                try {
+                    const tokensLimpios = normImgToken(queryProducto).split(' ').slice(0, 3).join(' ');
+                    if (tokensLimpios.length >= 3) {
+                        const apiUrl = `https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=filetype:bitmap|${encodeURIComponent(tokensLimpios)}&gsrlimit=4&prop=imageinfo&iiprop=url&iiurlwidth=600&format=json&origin=*`;
+                        const resp = await fetch(apiUrl);
+                        if (resp.ok) {
+                            const data = await resp.json();
+                            const pages = data?.query?.pages ? Object.values(data.query.pages) : [];
+                            pages.forEach(pg => {
+                                const thumb = pg?.imageinfo?.[0]?.thumburl || pg?.imageinfo?.[0]?.url;
+                                if (thumb && !urlsEncontradas.includes(thumb)) {
+                                    urlsEncontradas.push(thumb);
+                                }
+                            });
+                        }
+                    }
+                } catch (e) {}
+            }
+
+            CACHE_GALERIA_4_EXTRAS[claveCache] = urlsEncontradas.slice(0, 4);
+            return CACHE_GALERIA_4_EXTRAS[claveCache];
+        }
+
+        function renderizarEscenarioGaleriaDetalle(indice) {
+            const frame = document.querySelector('#detalle-producto-inyectado .detail-image-frame');
+            if (!frame || !estadoGaleriaDetalleActual.vistas.length) return;
+
+            const total = estadoGaleriaDetalleActual.vistas.length;
+            const idx = ((indice % total) + total) % total;
+            estadoGaleriaDetalleActual.indiceActivo = idx;
+            const vista = estadoGaleriaDetalleActual.vistas[idx];
+
+            frame.classList.remove('stage-mode-angle', 'stage-mode-zoom');
+            if (vista.modoCss === 'angle') frame.classList.add('stage-mode-angle');
+            if (vista.modoCss === 'zoom') frame.classList.add('stage-mode-zoom');
+
+            let contenidoCentral = '';
+            if (vista.modoCss === 'infografia_beneficios' || vista.modoCss === 'infografia_ficha') {
+                contenidoCentral = `
+                    <div class="stage-infographic-wrap">
+                        <div class="stage-infographic-img-box">
+                            <img src="${vista.imgUrl}" alt="${vista.etiqueta}">
+                        </div>
+                        <div class="stage-infographic-list">
+                            <div class="stage-infographic-title">${vista.modoCss === 'infografia_beneficios' ? '✨ Beneficios Destacados' : '🛡️ Ficha y Garantía'}</div>
+                            ${vista.beneficios.map(b => `<div class="stage-benefit-item">✓ ${b}</div>`).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                contenidoCentral = `<img src="${vista.imgUrl}" alt="${vista.subtitulo}">`;
+            }
+
+            frame.innerHTML = `
+                <span class="detail-stage-badge">${vista.etiqueta} · ${vista.subtitulo}</span>
+                <button type="button" class="detail-stage-nav prev" onclick="cambiarVistaGaleriaDetalle(-1)" title="Vista anterior">&#10094;</button>
+                ${contenidoCentral}
+                <button type="button" class="detail-stage-nav next" onclick="cambiarVistaGaleriaDetalle(1)" title="Siguiente vista">&#10095;</button>
+            `;
+
+            document.querySelectorAll('#detailAutoGalleryStrip .detail-gallery-thumb').forEach((el, i) => {
+                el.classList.toggle('active', i === idx);
+            });
+        }
+
+        function seleccionarVistaGaleriaDetalle(indice) {
+            renderizarEscenarioGaleriaDetalle(indice);
+        }
+
+        function cambiarVistaGaleriaDetalle(delta) {
+            renderizarEscenarioGaleriaDetalle(estadoGaleriaDetalleActual.indiceActivo + delta);
+        }
+
+        // Envuelve abrirDetalleProducto para inyectar automáticamente las 4 imágenes adicionales (posiciones y beneficios)
+        const _abrirDetalleProductoOriginal = abrirDetalleProducto;
+        abrirDetalleProducto = function(idProd, pushHistory = true) {
+            _abrirDetalleProductoOriginal(idProd, pushHistory);
+
+            const item = INVENTARIO_GLOBAL.find(p => p.id === idProd);
+            if (!item) return;
+
+            const equipo = item.raw || {};
+            const imgPrincipal = optimizarUrlDrive(equipo.Imagen, 'w800');
+            const infoBase = {
+                titulo: item.info?.tituloLlamativo || item.nombreModelo || 'Producto',
+                marca: item.marca || 'A-MOVIL',
+                sku: item.nombreModelo || '',
+                vinetas: item.info?.listaVinetas || [],
+                chips: item.info?.listaChips || []
+            };
+
+            const vistasIniciales = construir4VistasAdicionalesBase(imgPrincipal, infoBase);
+            estadoGaleriaDetalleActual = {
+                idProd,
+                indiceActivo: 0,
+                vistas: vistasIniciales
+            };
+
+            const leftCol = document.querySelector('#detalle-producto-inyectado .detail-left-col');
+            const frame = document.querySelector('#detalle-producto-inyectado .detail-image-frame');
+            if (leftCol && frame) {
+                const stripExistente = document.getElementById('detailAutoGalleryStrip');
+                if (stripExistente) stripExistente.remove();
+
+                const strip = document.createElement('div');
+                strip.id = 'detailAutoGalleryStrip';
+                strip.className = 'detail-auto-gallery-strip';
+                strip.innerHTML = vistasIniciales.map((v, idx) => `
+                    <div class="detail-gallery-thumb ${idx === 0 ? 'active' : ''}" onclick="seleccionarVistaGaleriaDetalle(${idx})" title="${v.subtitulo}">
+                        <img src="${v.imgUrl}" alt="${v.etiqueta}" style="${v.modoCss === 'angle' ? 'transform:rotate(-8deg) scale(1.05);' : v.modoCss === 'zoom' ? 'transform:scale(1.35);' : ''}">
+                        <span class="detail-gallery-thumb-label">${v.etiqueta.replace(/^\d+\.\s*/, '')}</span>
+                    </div>
+                `).join('');
+
+                frame.insertAdjacentElement('afterend', strip);
+                renderizarEscenarioGaleriaDetalle(0);
+            }
+
+            // Buscar en repositorios en segundo plano para enriquecer ángulos si existen
+            buscar4ImagenesRepositorioAutomatico(`${item.marca} ${item.nombreModelo} ${infoBase.titulo}`, imgPrincipal, equipo).then(extras => {
+                if (estadoGaleriaDetalleActual.idProd !== idProd || !extras || !extras.length) return;
+                if (extras[0]) infoBase.imgExtra1 = extras[0];
+                if (extras[1]) infoBase.imgExtra2 = extras[1];
+                estadoGaleriaDetalleActual.vistas = construir4VistasAdicionalesBase(imgPrincipal, infoBase);
+                const thumbs = document.querySelectorAll('#detailAutoGalleryStrip .detail-gallery-thumb img');
+                estadoGaleriaDetalleActual.vistas.forEach((v, i) => {
+                    if (thumbs[i]) thumbs[i].src = v.imgUrl;
+                });
+            });
+        };
+
+        // Envuelve actualizarPreviewEnModal para mostrar también las 4 imágenes adicionales en el Punto de Venta / Inventario
+        const _actualizarPreviewEnModalOriginal = actualizarPreviewEnModal;
+        actualizarPreviewEnModal = function(url) {
+            _actualizarPreviewEnModalOriginal(url);
+            renderizar4ExtrasEnPhotoModal(url);
+        };
+
+        function renderizar4ExtrasEnPhotoModal(urlPrincipal) {
+            const grid4 = document.getElementById('photo-modal-extra4-grid');
+            const status4 = document.getElementById('photo-modal-extra4-status');
+            if (!grid4) return;
+
+            const limpia = optimizarUrlDrive(urlPrincipal, 'w400');
+            const p = products.find(x => x.id === photoModalTargetId);
+            const nombreProd = p ? `${p.brand} ${p.name}` : (document.getElementById('new-name')?.value || 'Producto');
+            const skuProd = p ? p.id : (document.getElementById('new-id')?.value || '');
+
+            if (!limpia) {
+                grid4.innerHTML = '<div class="col-span-4 text-[11px] text-slate-400 py-2">Selecciona primero la 1ª imagen principal arriba para generar automáticamente sus 4 vistas de posiciones y beneficios.</div>';
+                return;
+            }
+
+            const vistas5 = construir4VistasAdicionalesBase(limpia, {
+                titulo: nombreProd,
+                marca: p?.brand || 'A-MOVIL',
+                sku: skuProd,
+                vinetas: [
+                    `Accesorio original garantizado (${nombreProd})`,
+                    'Máxima velocidad y eficiencia energética comprobada',
+                    'Construcción reforzada de larga vida útil'
+                ],
+                chips: [skuProd || 'Original']
+            });
+            const cuatroExtras = vistas5.slice(1);
+
+            if (status4) {
+                status4.textContent = `✓ 4 vistas generadas automáticamente a partir de la imagen principal para "${nombreProd}".`;
+            }
+
+            grid4.innerHTML = cuatroExtras.map((v, i) => `
+                <div class="bg-white border border-slate-200 rounded-lg p-2 flex flex-col items-center text-center gap-1 shadow-sm">
+                    <div class="w-full h-14 bg-slate-50 rounded flex items-center justify-center overflow-hidden p-1">
+                        <img src="${v.imgUrl}" alt="${v.etiqueta}" class="max-h-full max-w-full object-contain" style="${v.modoCss === 'angle' ? 'transform:perspective(300px) rotateY(-15deg) scale(1.08);' : v.modoCss === 'zoom' ? 'transform:scale(1.38);' : ''}" />
+                    </div>
+                    <div class="text-[10px] font-bold text-slate-800">${v.etiqueta}</div>
+                    <div class="text-[9px] text-slate-500 leading-tight line-clamp-1">${v.subtitulo}</div>
+                </div>
+            `).join('');
+        }
+
+        function abrirBusquedaGoogleImagenesModal() {
+            const p = products.find(x => x.id === photoModalTargetId);
+            const q = p
+                ? `${p.brand} ${p.id} ${p.name} product angles`
+                : `${document.getElementById('new-brand')?.value || ''} ${document.getElementById('new-name')?.value || ''} ${document.getElementById('new-id')?.value || ''}`.trim() || 'Anker Ugreen accesorio';
+            window.open(`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}`, '_blank');
+        }
     </script>
 </body>
 </html>
