@@ -686,48 +686,6 @@
                 transition: transform 0.08s ease-out;
             }
         }
-        /* FILTRO GLOBAL DE NITIDEZ Y SUPER-RESOLUCIÓN IA */
-        img.shopify-stage-img,
-        .product-image,
-        .slider-icon-img,
-        .stream-poster-card img,
-        .shopify-zoom-modal-img {
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
-            filter: contrast(104%) saturate(102%) brightness(101%);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            transform: translateZ(0);
-        }
-
-        /* BADGE NITIDEZ IA */
-        .shopify-hd-badge {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(8px);
-            color: #38bdf8;
-            font-size: 10px;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            z-index: 6;
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
-            pointer-events: none;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-        }
-        .shopify-hd-badge svg {
-            width: 11px;
-            height: 11px;
-            fill: #38bdf8;
-        }
-
         /* BOTÓN LUPA FLOTANTE (ESTILO SHOPIFY PREMIUM - VISIBLE EN PC, TABLET Y CELULAR) */
         .shopify-btn-lupa {
             position: absolute;
@@ -855,16 +813,6 @@
             gap: 10px;
             overflow: hidden;
             flex: 1;
-        }
-        .shopify-zoom-modal-badge {
-            background: linear-gradient(90deg, #0088ff, #00d2ff);
-            color: #ffffff;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 3px 10px;
-            border-radius: 12px;
-            white-space: nowrap;
-            letter-spacing: 0.4px;
         }
         .shopify-zoom-modal-title {
             font-size: 14px;
@@ -1461,12 +1409,6 @@
                 padding: 6px 12px;
                 font-size: 11px;
             }
-            .shopify-hd-badge {
-                top: 10px;
-                left: 10px;
-                font-size: 9px;
-                padding: 3px 8px;
-            }
             .shopify-zoom-modal-header {
                 padding: 10px 12px;
             }
@@ -1904,7 +1846,6 @@
             <!-- Barra Superior del Visor HD -->
             <div class="shopify-zoom-modal-header">
                 <div class="shopify-zoom-modal-title-box">
-                    <span class="shopify-zoom-modal-badge">✨ Máxima Resolución IA (Ultra HD)</span>
                     <h3 id="shopifyZoomModalTitle" class="shopify-zoom-modal-title">Detalle del Producto</h3>
                     <span id="shopifyZoomModalCounter" class="shopify-zoom-modal-count">1 de 1</span>
                 </div>
@@ -2411,7 +2352,7 @@
             "ACCESORIOS": "Hubs multipuerto USB-C, adaptadores HDMI 4K, carcasas externas para discos SSD/HDD y periféricos garantizados."
         };
 
-        // ==================== MOTOR IA DE SÚPER-RESOLUCIÓN Y NITIDEZ AUTOMÁTICA ====================
+        // ==================== OPTIMIZACIÓN SILENCIOSA DE RESOLUCIÓN DE IMÁGENES ====================
         function optimizarUrlDrive(urlRaw, ancho = "w1600") {
             let url = String(urlRaw || "").split(/\s*\|\s*|\r?\n/)[0].trim();
             if (!url) return "";
@@ -3220,12 +3161,6 @@
                     <div class="detail-left-col">
                         <div class="shopify-gallery-wrapper" id="shopifyGalleryWrapper">
                             <div class="shopify-main-stage" id="shopifyMainStage" onclick="abrirModalZoomHD()">
-                                <!-- BADGE DE NITIDEZ IA -->
-                                <div class="shopify-hd-badge" title="Super-resolución y nitidez automática activa">
-                                    <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4h7.6l-6.2 4.5 2.4 7.4-6.2-4.5-6.2 4.5 2.4-7.4-6.2-4.5h7.6z"/></svg>
-                                    <span>✨ Nitidez IA</span>
-                                </div>
-
                                 <button type="button" class="shopify-stage-arrow prev is-hidden" id="shopifyPrevBtn" onclick="event.stopPropagation(); cambiarImagenGaleriaShopify(-1)" aria-label="Imagen anterior">
                                     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                                 </button>
@@ -3236,14 +3171,14 @@
                                 <span id="shopifyStageCounter" class="shopify-stage-counter" style="display:none;">1 / 1</span>
 
                                 <!-- BOTÓN LUPA FLOTANTE (ESTILO SHOPIFY PREMIUM - VISIBLE EN CELULAR, TABLET Y PC) -->
-                                <button type="button" class="shopify-btn-lupa" onclick="event.stopPropagation(); abrirModalZoomHD()" aria-label="Ver con Lupa en Pantalla Completa" title="Abrir Lupa HD">
+                                <button type="button" class="shopify-btn-lupa" onclick="event.stopPropagation(); abrirModalZoomHD()" aria-label="Ver con Lupa" title="Ampliar imagen">
                                     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
                                         <circle cx="11" cy="11" r="8"></circle>
                                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                         <line x1="11" y1="8" x2="11" y2="14"></line>
                                         <line x1="8" y1="11" x2="14" y2="11"></line>
                                     </svg>
-                                    <span class="lupa-text">Lupa HD</span>
+                                    <span class="lupa-text">Lupa</span>
                                 </button>
 
                                 <span class="shopify-zoom-hint">
@@ -4618,7 +4553,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                     mostrarPreviewNuevoProd(newProductSelectedPhoto);
                 }
                 statusEl.className = 'text-xs font-semibold text-emerald-700';
-                statusEl.innerHTML = `✨ ¡Imagen encontrada en Catálogo 2026! → <strong>${mejor.marca} ${mejor.modelo} · ${mejor.nombre}</strong> <span class="text-slate-500 font-normal">(${mejor.razon}) · Resolución IA Ultra HD</span>`;
+                statusEl.innerHTML = `✨ ¡Imagen encontrada en Catálogo 2026! → <strong>${mejor.marca} ${mejor.modelo} · ${mejor.nombre}</strong> <span class="text-slate-500 font-normal">(${mejor.razon})</span>`;
 
                 candEl.classList.remove('hidden');
                 candEl.innerHTML = `<span class="text-[11px] text-slate-500 shrink-0">Sugerencias:</span>` + candidatos.map((c, idx) => {
@@ -4665,7 +4600,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const statusEl = document.getElementById('new-photo-status');
                 if (statusEl) {
                     statusEl.className = 'text-xs font-semibold text-blue-700';
-                    statusEl.innerHTML = '🔗 Link procesado con IA en Ultra HD (1600px).';
+                    statusEl.innerHTML = '🔗 Usando link de imagen personalizado.';
                 }
             } else {
                 newProductPhotoIsManual = false;
@@ -4718,7 +4653,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const statusEl = document.getElementById('new-photo-status');
                 if (statusEl) {
                     statusEl.className = 'text-xs font-semibold text-emerald-700';
-                    statusEl.innerHTML = `📁 Archivo optimizado en Ultra HD: <strong>${file.name}</strong>`;
+                    statusEl.innerHTML = `📁 Imagen cargada desde tu dispositivo: <strong>${file.name}</strong>`;
                 }
             });
         }
@@ -4788,7 +4723,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             if (msgEl) {
                 if (autoCand) {
                     msgEl.className = 'text-xs font-semibold text-emerald-700';
-                    msgEl.innerHTML = `✨ Referencia detectada en Catálogo 2026: <strong>${autoCand.marca} ${autoCand.modelo} · ${autoCand.nombre}</strong> (${autoCand.razon}) · Resolución IA Ultra HD`;
+                    msgEl.innerHTML = `✨ Referencia detectada en Catálogo 2026: <strong>${autoCand.marca} ${autoCand.modelo} · ${autoCand.nombre}</strong> (${autoCand.razon})`;
                 } else {
                     msgEl.className = 'text-xs font-semibold text-slate-600';
                     msgEl.innerHTML = 'Puedes buscar en tu Catálogo 2026 abajo, pegar un link web o subir una imagen desde tu dispositivo.';
@@ -4841,7 +4776,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const msgEl = document.getElementById('photo-modal-smart-msg');
                 if (msgEl) {
                     msgEl.className = 'text-xs font-semibold text-emerald-700';
-                    msgEl.innerHTML = `📁 Imagen cargada en Ultra HD: <strong>${file.name}</strong> (Haz clic en Guardar Imagen)`;
+                    msgEl.innerHTML = `📁 Imagen cargada desde tu dispositivo: <strong>${file.name}</strong> (Haz clic en Guardar Imagen)`;
                 }
             });
         }
