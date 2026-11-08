@@ -686,16 +686,97 @@
                 transition: transform 0.08s ease-out;
             }
         }
-        .shopify-zoom-hint {
+        /* FILTRO GLOBAL DE NITIDEZ Y SUPER-RESOLUCIÓN IA */
+        img.shopify-stage-img,
+        .product-image,
+        .slider-icon-img,
+        .stream-poster-card img,
+        .shopify-zoom-modal-img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            filter: contrast(104%) saturate(102%) brightness(101%);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+        }
+
+        /* BADGE NITIDEZ IA */
+        .shopify-hd-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(8px);
+            color: #38bdf8;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 6;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.12);
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .shopify-hd-badge svg {
+            width: 11px;
+            height: 11px;
+            fill: #38bdf8;
+        }
+
+        /* BOTÓN LUPA FLOTANTE (ESTILO SHOPIFY PREMIUM - VISIBLE EN PC, TABLET Y CELULAR) */
+        .shopify-btn-lupa {
             position: absolute;
             bottom: 12px;
             right: 12px;
+            background: rgba(15, 23, 42, 0.90);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 7px 14px;
+            border-radius: 22px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 16px rgba(15, 23, 42, 0.28);
+            z-index: 7;
+            transition: all 0.22s ease;
+        }
+        .shopify-btn-lupa:hover {
+            background: var(--secondary-color);
+            border-color: #ffffff;
+            transform: scale(1.06);
+            box-shadow: 0 8px 22px rgba(0, 136, 255, 0.45);
+        }
+        .shopify-btn-lupa svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            stroke-width: 2.4;
+            fill: none;
+        }
+        .shopify-btn-lupa .lupa-text {
+            letter-spacing: 0.3px;
+        }
+
+        .shopify-zoom-hint {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
             background: rgba(15, 23, 42, 0.72);
             backdrop-filter: blur(6px);
             color: #ffffff;
             font-size: 10.5px;
             font-weight: 700;
-            padding: 5px 10px;
+            padding: 5px 12px;
             border-radius: 20px;
             display: inline-flex;
             align-items: center;
@@ -704,6 +785,7 @@
             opacity: 0.88;
             transition: opacity 0.2s ease;
             z-index: 4;
+            white-space: nowrap;
         }
         .shopify-zoom-hint svg {
             width: 13px;
@@ -712,8 +794,10 @@
             stroke-width: 2.3;
             fill: none;
         }
-        .shopify-main-stage.is-zooming .shopify-zoom-hint {
+        .shopify-main-stage.is-zooming .shopify-zoom-hint,
+        .shopify-main-stage.is-zooming .shopify-btn-lupa {
             opacity: 0;
+            pointer-events: none;
         }
         .shopify-stage-counter {
             position: absolute;
@@ -728,6 +812,249 @@
             border-radius: 20px;
             pointer-events: none;
             z-index: 4;
+        }
+
+        /* MODAL VISOR HD CON LUPA INTERACTIVA (PANTALLA COMPLETA) */
+        .shopify-zoom-modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: rgba(8, 12, 22, 0.96);
+            backdrop-filter: blur(14px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            animation: shopifyModalFadeIn 0.22s ease;
+        }
+        @keyframes shopifyModalFadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .shopify-zoom-modal-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            color: #ffffff;
+        }
+        .shopify-zoom-modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            background: rgba(15, 23, 42, 0.85);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            gap: 12px;
+            z-index: 20;
+        }
+        .shopify-zoom-modal-title-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+            flex: 1;
+        }
+        .shopify-zoom-modal-badge {
+            background: linear-gradient(90deg, #0088ff, #00d2ff);
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 3px 10px;
+            border-radius: 12px;
+            white-space: nowrap;
+            letter-spacing: 0.4px;
+        }
+        .shopify-zoom-modal-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: #ffffff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 450px;
+        }
+        .shopify-zoom-modal-count {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 3px 8px;
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+        .shopify-zoom-modal-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .shopify-zoom-ctrl-btn {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.20);
+            color: #ffffff;
+            height: 36px;
+            padding: 0 12px;
+            border-radius: 18px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .shopify-zoom-ctrl-btn:hover {
+            background: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+        .shopify-zoom-ctrl-btn svg {
+            width: 14px;
+            height: 14px;
+            stroke: currentColor;
+            stroke-width: 2.3;
+            fill: none;
+        }
+        .shopify-zoom-ctrl-btn.close-btn {
+            width: 36px;
+            padding: 0;
+            border-radius: 50%;
+            font-size: 16px;
+            background: rgba(239, 68, 68, 0.85);
+            border-color: rgba(239, 68, 68, 0.95);
+        }
+        .shopify-zoom-ctrl-btn.close-btn:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
+        .shopify-zoom-stage-wrap {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            touch-action: none;
+            user-select: none;
+        }
+        .shopify-zoom-img-viewport {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: grab;
+        }
+        .shopify-zoom-img-viewport.is-dragging {
+            cursor: grabbing;
+        }
+        .shopify-zoom-modal-img {
+            max-width: 85%;
+            max-height: 75vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            transform-origin: center center;
+            transition: transform 0.12s ease-out;
+            pointer-events: auto;
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .shopify-zoom-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.80);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 15;
+            transition: all 0.2s ease;
+        }
+        .shopify-zoom-nav:hover {
+            background: var(--secondary-color);
+            border-color: #ffffff;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .shopify-zoom-nav.prev { left: 16px; }
+        .shopify-zoom-nav.next { right: 16px; }
+        .shopify-zoom-nav svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            fill: none;
+        }
+        .shopify-zoom-hint-bottom {
+            position: absolute;
+            bottom: 84px;
+            background: rgba(15, 23, 42, 0.80);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #cbd5e1;
+            font-weight: 600;
+            pointer-events: none;
+            z-index: 12;
+            text-align: center;
+        }
+        .shopify-zoom-thumbs-strip {
+            height: 76px;
+            background: rgba(15, 23, 42, 0.90);
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 8px 16px;
+            overflow-x: auto;
+            z-index: 20;
+            scrollbar-width: none;
+        }
+        .shopify-zoom-thumbs-strip::-webkit-scrollbar { display: none; }
+        .shopify-zoom-thumb-card {
+            width: 58px;
+            height: 58px;
+            flex-shrink: 0;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: #ffffff;
+            padding: 3px;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .shopify-zoom-thumb-card:hover {
+            border-color: #38bdf8;
+            transform: scale(1.08);
+        }
+        .shopify-zoom-thumb-card.active {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 14px rgba(0, 136, 255, 0.6);
+            transform: scale(1.08);
+        }
+        .shopify-zoom-thumb-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         .shopify-stage-arrow {
             position: absolute;
@@ -1123,10 +1450,57 @@
         }
         @media (max-width: 768px) {
             .shopify-main-stage {
-                height: 305px;
+                height: 310px;
             }
             .shopify-zoom-hint {
                 display: none;
+            }
+            .shopify-btn-lupa {
+                bottom: 10px;
+                right: 10px;
+                padding: 6px 12px;
+                font-size: 11px;
+            }
+            .shopify-hd-badge {
+                top: 10px;
+                left: 10px;
+                font-size: 9px;
+                padding: 3px 8px;
+            }
+            .shopify-zoom-modal-header {
+                padding: 10px 12px;
+            }
+            .shopify-zoom-modal-title {
+                max-width: 160px;
+                font-size: 12px;
+            }
+            .shopify-zoom-ctrl-btn {
+                height: 32px;
+                padding: 0 9px;
+                font-size: 11px;
+            }
+            .shopify-zoom-ctrl-btn.close-btn {
+                width: 32px;
+            }
+            .shopify-zoom-nav {
+                width: 38px;
+                height: 38px;
+            }
+            .shopify-zoom-nav.prev { left: 8px; }
+            .shopify-zoom-nav.next { right: 8px; }
+            .shopify-zoom-hint-bottom {
+                bottom: 76px;
+                font-size: 9.5px;
+                padding: 4px 10px;
+            }
+            .shopify-zoom-thumbs-strip {
+                height: 66px;
+                padding: 6px 10px;
+                justify-content: flex-start;
+            }
+            .shopify-zoom-thumb-card {
+                width: 50px;
+                height: 50px;
             }
             .shopify-thumb-btn {
                 width: 60px;
@@ -1522,6 +1896,50 @@
                 <button type="button" class="stream-modal-close" onclick="cerrarModalStreaming()">&times;</button>
             </div>
             <div class="stream-plans-grid" id="modalStreamPlansGrid"></div>
+    </div>
+
+    <!-- ==================== MODAL VISOR HD CON LUPA INTERACTIVA (PANTALLA COMPLETA) ==================== -->
+    <div id="shopifyZoomModal" class="shopify-zoom-modal-backdrop" style="display:none;" onclick="cerrarModalZoomHD()">
+        <div class="shopify-zoom-modal-container" onclick="event.stopPropagation()">
+            <!-- Barra Superior del Visor HD -->
+            <div class="shopify-zoom-modal-header">
+                <div class="shopify-zoom-modal-title-box">
+                    <span class="shopify-zoom-modal-badge">✨ Máxima Resolución IA (Ultra HD)</span>
+                    <h3 id="shopifyZoomModalTitle" class="shopify-zoom-modal-title">Detalle del Producto</h3>
+                    <span id="shopifyZoomModalCounter" class="shopify-zoom-modal-count">1 de 1</span>
+                </div>
+                <div class="shopify-zoom-modal-actions">
+                    <button type="button" class="shopify-zoom-ctrl-btn" onclick="toggleZoomModalLupa()" id="btnToggleZoomLupa" title="Alternar Lupa (2.5x / 1x)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                        <span id="lblZoomLupa">Lupa 2.5x</span>
+                    </button>
+                    <button type="button" class="shopify-zoom-ctrl-btn" onclick="ajustarEscalaModal(0.35)" title="Acercar (+)">＋</button>
+                    <button type="button" class="shopify-zoom-ctrl-btn" onclick="ajustarEscalaModal(-0.35)" title="Alejar (-)">－</button>
+                    <button type="button" class="shopify-zoom-ctrl-btn close-btn" onclick="cerrarModalZoomHD()" title="Cerrar (Esc)">✕</button>
+                </div>
+            </div>
+
+            <!-- Área Principal con soporte para arrastre y gestos táctiles -->
+            <div class="shopify-zoom-stage-wrap" id="shopifyZoomStageWrap">
+                <button type="button" class="shopify-zoom-nav prev" onclick="cambiarFotoModalZoom(-1)" id="btnZoomModalPrev" aria-label="Foto anterior">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+
+                <div class="shopify-zoom-img-viewport" id="shopifyZoomImgViewport">
+                    <img id="shopifyZoomModalImg" src="" alt="Vista previa en alta resolución" class="shopify-zoom-modal-img" />
+                </div>
+
+                <button type="button" class="shopify-zoom-nav next" onclick="cambiarFotoModalZoom(1)" id="btnZoomModalNext" aria-label="Siguiente foto">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <div class="shopify-zoom-hint-bottom">
+                    🔍 Toca dos veces o usa la rueda para acercar con Lupa • Desliza para mover
+                </div>
+            </div>
+
+            <!-- Carrusel de Miniaturas inferiores dentro del modal -->
+            <div class="shopify-zoom-thumbs-strip" id="shopifyZoomModalThumbs"></div>
         </div>
     </div>
 
@@ -1993,17 +2411,52 @@
             "ACCESORIOS": "Hubs multipuerto USB-C, adaptadores HDMI 4K, carcasas externas para discos SSD/HDD y periféricos garantizados."
         };
 
-        function optimizarUrlDrive(urlRaw, ancho = "w600") {
+        // ==================== MOTOR IA DE SÚPER-RESOLUCIÓN Y NITIDEZ AUTOMÁTICA ====================
+        function optimizarUrlDrive(urlRaw, ancho = "w1600") {
             let url = String(urlRaw || "").split(/\s*\|\s*|\r?\n/)[0].trim();
             if (!url) return "";
+
+            // 1. Google Drive /file/d/ID
             const matchFile = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (matchFile && matchFile[1]) {
                 return `https://drive.google.com/thumbnail?id=${matchFile[1]}&sz=${ancho}`;
             }
-            if (url.includes("drive.google.com/thumbnail") && !url.includes("&sz=")) {
-                return `${url}&sz=${ancho}`;
+
+            // 2. Google Drive /open?id=ID o /uc?id=ID o export=view
+            const matchId = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+            if (url.includes("drive.google.com") && matchId && matchId[1]) {
+                return `https://drive.google.com/thumbnail?id=${matchId[1]}&sz=${ancho}`;
             }
+
+            // 3. Si ya es drive thumbnail, forzar SIEMPRE la resolución máxima (eliminar sz=w... anterior)
+            if (url.includes("drive.google.com/thumbnail")) {
+                if (url.includes("&sz=") || url.includes("?sz=")) {
+                    return url.replace(/([?&]sz=)[^&]*/, `$1${ancho}`);
+                }
+                return `${url}${url.includes('?') ? '&' : '?'}sz=${ancho}`;
+            }
+
+            // 4. Googleusercontent / Google Photos / Blogger
+            if (url.includes("googleusercontent.com") || url.includes("ggpht.com") || url.includes("blogger.com")) {
+                if (/=[sw]\d+/.test(url)) {
+                    return url.replace(/=[sw]\d+[^/]*$/, `=${ancho}`);
+                }
+                if (/\/(s|w)\d+(-c)?\//.test(url)) {
+                    return url.replace(/\/(s|w)\d+(-c)?\//, `/${ancho}/`);
+                }
+            }
+
+            // 5. Unsplash
+            if (url.includes("unsplash.com") && url.includes("w=")) {
+                return url.replace(/w=\d+/, `w=1600&q=90`);
+            }
+
             return url;
+        }
+
+        function mejorarResolucionImagenIA(urlRaw, modo = 'hd') {
+            const tamano = modo === 'zoom' ? 'w2400' : (modo === 'card' ? 'w800' : 'w1600');
+            return optimizarUrlDrive(urlRaw, tamano);
         }
 
         const BANNERS_RESPALDO = [
@@ -2587,8 +3040,7 @@
             const codigoSKU = item.nombreModelo;
 
             const dispStr = String(equipo.DISP || equipo.Agotado || "").trim().toUpperCase();
-            const estaAgotado = item.tieneOfertaColumnaL ? false : (dispStr === "NO" || dispStr === "AGOTADO");
-            const imagenURL = optimizarUrlDrive(equipo.Imagen, "w500");
+            const imagenURL = mejorarResolucionImagenIA(equipo.Imagen, "card");
             const imgClase = estaAgotado ? 'product-image agotado-img' : 'product-image';
             const badgeAgotado = estaAgotado ? '<div class="agotado-badge">AGOTADO</div>' : '';
             
@@ -2761,24 +3213,42 @@
                 </div>
             `).join('');
 
-            const imgDetalle = optimizarUrlDrive(equipo.Imagen, "w1000");
+            const imgDetalle = mejorarResolucionImagenIA(equipo.Imagen, "hd");
 
             document.getElementById('detalle-producto-inyectado').innerHTML = `
                 <div class="detail-hero-card">
                     <div class="detail-left-col">
                         <div class="shopify-gallery-wrapper" id="shopifyGalleryWrapper">
-                            <div class="shopify-main-stage" id="shopifyMainStage">
-                                <button type="button" class="shopify-stage-arrow prev is-hidden" id="shopifyPrevBtn" onclick="cambiarImagenGaleriaShopify(-1)" aria-label="Imagen anterior">
+                            <div class="shopify-main-stage" id="shopifyMainStage" onclick="abrirModalZoomHD()">
+                                <!-- BADGE DE NITIDEZ IA -->
+                                <div class="shopify-hd-badge" title="Super-resolución y nitidez automática activa">
+                                    <svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4h7.6l-6.2 4.5 2.4 7.4-6.2-4.5-6.2 4.5 2.4-7.4-6.2-4.5h7.6z"/></svg>
+                                    <span>✨ Nitidez IA</span>
+                                </div>
+
+                                <button type="button" class="shopify-stage-arrow prev is-hidden" id="shopifyPrevBtn" onclick="event.stopPropagation(); cambiarImagenGaleriaShopify(-1)" aria-label="Imagen anterior">
                                     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                                 </button>
                                 <img id="shopifyStageImg" src="${imgDetalle}" alt="${tituloLlamativo}" class="shopify-stage-img">
-                                <button type="button" class="shopify-stage-arrow next is-hidden" id="shopifyNextBtn" onclick="cambiarImagenGaleriaShopify(1)" aria-label="Siguiente imagen">
+                                <button type="button" class="shopify-stage-arrow next is-hidden" id="shopifyNextBtn" onclick="event.stopPropagation(); cambiarImagenGaleriaShopify(1)" aria-label="Siguiente imagen">
                                     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                                 </button>
                                 <span id="shopifyStageCounter" class="shopify-stage-counter" style="display:none;">1 / 1</span>
+
+                                <!-- BOTÓN LUPA FLOTANTE (ESTILO SHOPIFY PREMIUM - VISIBLE EN CELULAR, TABLET Y PC) -->
+                                <button type="button" class="shopify-btn-lupa" onclick="event.stopPropagation(); abrirModalZoomHD()" aria-label="Ver con Lupa en Pantalla Completa" title="Abrir Lupa HD">
+                                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"></circle>
+                                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                        <line x1="11" y1="8" x2="11" y2="14"></line>
+                                        <line x1="8" y1="11" x2="14" y2="11"></line>
+                                    </svg>
+                                    <span class="lupa-text">Lupa HD</span>
+                                </button>
+
                                 <span class="shopify-zoom-hint">
                                     <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-                                    Pasa el cursor para zoom
+                                    Toca o pasa el cursor para Lupa
                                 </span>
                             </div>
                             <div class="shopify-thumbs-bar" id="shopifyThumbsBar">
@@ -3430,12 +3900,12 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             if (!p) return { url: '', esAuto: false, detalle: null };
             const manual = String(p.photo || '').trim();
             if (manual) {
-                return { url: optimizarUrlDrive(manual, 'w400'), esAuto: false, detalle: null };
+                return { url: optimizarUrlDrive(manual, 'w1600'), esAuto: false, detalle: null };
             }
             const candidatos = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1);
             if (candidatos.length > 0) {
                 return {
-                    url: optimizarUrlDrive(candidatos[0].img, 'w400'),
+                    url: optimizarUrlDrive(candidatos[0].img, 'w1600'),
                     esAuto: true,
                     detalle: candidatos[0]
                 };
@@ -3450,7 +3920,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const mejor = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1)[0];
                 if (mejor && mejor.img) {
                     huboCambios = true;
-                    return { ...p, photo: optimizarUrlDrive(mejor.img, 'w400') };
+                    return { ...p, photo: optimizarUrlDrive(mejor.img, 'w1600') };
                 }
                 return p;
             });
@@ -4109,7 +4579,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             const imgEl = document.getElementById('new-photo-preview');
             const emptyEl = document.getElementById('new-photo-empty');
             if (!imgEl || !emptyEl) return;
-            const limpia = optimizarUrlDrive(url, 'w400');
+            const limpia = optimizarUrlDrive(url, 'w1600');
             if (limpia) {
                 imgEl.src = limpia;
                 imgEl.classList.remove('hidden');
@@ -4144,17 +4614,17 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             if (candidatos.length > 0) {
                 const mejor = candidatos[0];
                 if (!newProductPhotoIsManual) {
-                    newProductSelectedPhoto = optimizarUrlDrive(mejor.img, 'w400');
+                    newProductSelectedPhoto = optimizarUrlDrive(mejor.img, 'w1600');
                     mostrarPreviewNuevoProd(newProductSelectedPhoto);
                 }
                 statusEl.className = 'text-xs font-semibold text-emerald-700';
-                statusEl.innerHTML = `✨ ¡Imagen encontrada en Catálogo 2026! → <strong>${mejor.marca} ${mejor.modelo} · ${mejor.nombre}</strong> <span class="text-slate-500 font-normal">(${mejor.razon})</span>`;
+                statusEl.innerHTML = `✨ ¡Imagen encontrada en Catálogo 2026! → <strong>${mejor.marca} ${mejor.modelo} · ${mejor.nombre}</strong> <span class="text-slate-500 font-normal">(${mejor.razon}) · Resolución IA Ultra HD</span>`;
 
                 candEl.classList.remove('hidden');
                 candEl.innerHTML = `<span class="text-[11px] text-slate-500 shrink-0">Sugerencias:</span>` + candidatos.map((c, idx) => {
-                    const thumbUrl = optimizarUrlDrive(c.img, 'w200');
+                    const thumbUrl = optimizarUrlDrive(c.img, 'w300');
                     const safeUrl = thumbUrl.replace(/'/g, "\\'");
-                    const active = newProductSelectedPhoto === optimizarUrlDrive(c.img, 'w400');
+                    const active = newProductSelectedPhoto === optimizarUrlDrive(c.img, 'w1600');
                     return `
                         <button
                             type="button"
@@ -4180,7 +4650,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
 
         function seleccionarCandidatoNuevoProd(url) {
             newProductPhotoIsManual = true;
-            newProductSelectedPhoto = optimizarUrlDrive(url, 'w400');
+            newProductSelectedPhoto = optimizarUrlDrive(url, 'w1600');
             mostrarPreviewNuevoProd(newProductSelectedPhoto);
             const urlInput = document.getElementById('new-photo-url');
             if (urlInput) urlInput.value = newProductSelectedPhoto;
@@ -4190,12 +4660,12 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             const url = String(val || '').trim();
             if (url) {
                 newProductPhotoIsManual = true;
-                newProductSelectedPhoto = optimizarUrlDrive(url, 'w400');
+                newProductSelectedPhoto = optimizarUrlDrive(url, 'w1600');
                 mostrarPreviewNuevoProd(newProductSelectedPhoto);
                 const statusEl = document.getElementById('new-photo-status');
                 if (statusEl) {
                     statusEl.className = 'text-xs font-semibold text-blue-700';
-                    statusEl.innerHTML = '🔗 Usando link de imagen personalizado.';
+                    statusEl.innerHTML = '🔗 Link procesado con IA en Ultra HD (1600px).';
                 }
             } else {
                 newProductPhotoIsManual = false;
@@ -4210,7 +4680,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const img = new Image();
                 img.onload = function() {
                     const canvas = document.createElement('canvas');
-                    const maxDim = 480;
+                    const maxDim = 1600;
                     let w = img.width;
                     let h = img.height;
                     if (w > h && w > maxDim) {
@@ -4223,10 +4693,12 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                     canvas.width = w;
                     canvas.height = h;
                     const ctx = canvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, 0, w, h);
                     ctx.drawImage(img, 0, 0, w, h);
-                    callback(canvas.toDataURL('image/jpeg', 0.84));
+                    callback(canvas.toDataURL('image/jpeg', 0.90));
                 };
                 img.onerror = function() {
                     callback(ev.target.result);
@@ -4246,7 +4718,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const statusEl = document.getElementById('new-photo-status');
                 if (statusEl) {
                     statusEl.className = 'text-xs font-semibold text-emerald-700';
-                    statusEl.innerHTML = `📁 Archivo cargado desde tu dispositivo: <strong>${file.name}</strong>`;
+                    statusEl.innerHTML = `📁 Archivo optimizado en Ultra HD: <strong>${file.name}</strong>`;
                 }
             });
         }
@@ -4259,7 +4731,9 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             let finalPhoto = newProductSelectedPhoto;
             if (!finalPhoto) {
                 const autoMatch = buscarCandidatosImagenCatalogo(idVal, nameVal, brandVal, 1)[0];
-                if (autoMatch) finalPhoto = optimizarUrlDrive(autoMatch.img, 'w400');
+                if (autoMatch) finalPhoto = optimizarUrlDrive(autoMatch.img, 'w1600');
+            } else {
+                finalPhoto = optimizarUrlDrive(finalPhoto, 'w1600');
             }
             const newP = {
                 id: idVal,
@@ -4286,7 +4760,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             const imgEl = document.getElementById('photo-modal-preview');
             const emptyEl = document.getElementById('photo-modal-empty');
             if (!imgEl || !emptyEl) return;
-            const limpia = optimizarUrlDrive(url, 'w400');
+            const limpia = optimizarUrlDrive(url, 'w1600');
             if (limpia) {
                 imgEl.src = limpia;
                 imgEl.classList.remove('hidden');
@@ -4314,7 +4788,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             if (msgEl) {
                 if (autoCand) {
                     msgEl.className = 'text-xs font-semibold text-emerald-700';
-                    msgEl.innerHTML = `✨ Referencia detectada en Catálogo 2026: <strong>${autoCand.marca} ${autoCand.modelo} · ${autoCand.nombre}</strong> (${autoCand.razon})`;
+                    msgEl.innerHTML = `✨ Referencia detectada en Catálogo 2026: <strong>${autoCand.marca} ${autoCand.modelo} · ${autoCand.nombre}</strong> (${autoCand.razon}) · Resolución IA Ultra HD`;
                 } else {
                     msgEl.className = 'text-xs font-semibold text-slate-600';
                     msgEl.innerHTML = 'Puedes buscar en tu Catálogo 2026 abajo, pegar un link web o subir una imagen desde tu dispositivo.';
@@ -4354,7 +4828,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
         }
 
         function previewUrlInPhotoModal(val) {
-            photoModalTempUrl = optimizarUrlDrive(val, 'w400');
+            photoModalTempUrl = optimizarUrlDrive(val, 'w1600');
             actualizarPreviewEnModal(photoModalTempUrl);
         }
 
@@ -4367,7 +4841,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const msgEl = document.getElementById('photo-modal-smart-msg');
                 if (msgEl) {
                     msgEl.className = 'text-xs font-semibold text-emerald-700';
-                    msgEl.innerHTML = `📁 Imagen cargada desde tu dispositivo: <strong>${file.name}</strong> (Haz clic en Guardar Imagen)`;
+                    msgEl.innerHTML = `📁 Imagen cargada en Ultra HD: <strong>${file.name}</strong> (Haz clic en Guardar Imagen)`;
                 }
             });
         }
@@ -4379,7 +4853,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const brandVal = document.getElementById('new-brand')?.value || '';
                 const best = buscarCandidatosImagenCatalogo(idVal, nameVal, brandVal, 1)[0];
                 if (best) {
-                    photoModalTempUrl = optimizarUrlDrive(best.img, 'w400');
+                    photoModalTempUrl = optimizarUrlDrive(best.img, 'w1600');
                     actualizarPreviewEnModal(photoModalTempUrl);
                     document.getElementById('photo-modal-url-input').value = photoModalTempUrl;
                 }
@@ -4389,14 +4863,14 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             if (!p) return;
             const best = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1)[0];
             if (best) {
-                photoModalTempUrl = optimizarUrlDrive(best.img, 'w400');
+                photoModalTempUrl = optimizarUrlDrive(best.img, 'w1600');
                 actualizarPreviewEnModal(photoModalTempUrl);
                 document.getElementById('photo-modal-url-input').value = photoModalTempUrl;
             }
         }
 
         function selectCatalogImageInModal(url) {
-            photoModalTempUrl = optimizarUrlDrive(url, 'w400');
+            photoModalTempUrl = optimizarUrlDrive(url, 'w1600');
             actualizarPreviewEnModal(photoModalTempUrl);
             const urlInput = document.getElementById('photo-modal-url-input');
             if (urlInput) urlInput.value = photoModalTempUrl;
@@ -4432,7 +4906,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
 
             grid.innerHTML = lista.map(item => {
                 const thumb = optimizarUrlDrive(item.img, 'w300');
-                const full = optimizarUrlDrive(item.img, 'w400');
+                const full = optimizarUrlDrive(item.img, 'w1600');
                 const safeFull = full.replace(/'/g, "\\'");
                 const isSelected = photoModalTempUrl === full;
                 return `
@@ -4452,17 +4926,18 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
         }
 
         function savePhotoModalSelection() {
+            const finalPhotoUrl = optimizarUrlDrive(photoModalTempUrl, 'w1600');
             if (photoModalTargetId === '__NEW__') {
                 newProductPhotoIsManual = true;
-                newProductSelectedPhoto = photoModalTempUrl;
-                mostrarPreviewNuevoProd(photoModalTempUrl);
+                newProductSelectedPhoto = finalPhotoUrl;
+                mostrarPreviewNuevoProd(finalPhotoUrl);
                 const urlInput = document.getElementById('new-photo-url');
-                if (urlInput && !photoModalTempUrl.startsWith('data:')) urlInput.value = photoModalTempUrl;
+                if (urlInput && !finalPhotoUrl.startsWith('data:')) urlInput.value = finalPhotoUrl;
                 closePhotoModal();
                 return;
             }
             if (photoModalTargetId) {
-                updateProductField(photoModalTargetId, 'photo', photoModalTempUrl);
+                updateProductField(photoModalTargetId, 'photo', finalPhotoUrl);
             }
             closePhotoModal();
         }
@@ -5093,15 +5568,277 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             }
         }
 
+        // ==================== VISOR HD CON LUPA INTERACTIVA (PANTALLA COMPLETA) ====================
+        let estadoZoomModal = {
+            activo: false,
+            indice: 0,
+            escala: 1,
+            posX: 0,
+            posY: 0,
+            isDragging: false,
+            startX: 0,
+            startY: 0,
+            initialDistance: 0
+        };
+
+        function abrirModalZoomHD(indice = null) {
+            const modal = document.getElementById('shopifyZoomModal');
+            if (!modal) return;
+            const lista = estadoShopifyDetalle.imagenes || [];
+            if (lista.length === 0) return;
+
+            inicializarEventosZoomModal();
+
+            estadoZoomModal.activo = true;
+            estadoZoomModal.indice = (indice !== null && indice >= 0) ? indice : (estadoShopifyDetalle.indiceActivo || 0);
+            estadoZoomModal.escala = 1;
+            estadoZoomModal.posX = 0;
+            estadoZoomModal.posY = 0;
+
+            const item = estadoShopifyDetalle.itemActual;
+            const titulo = item?.info?.tituloLlamativo || item?.name || 'Producto';
+            const titleEl = document.getElementById('shopifyZoomModalTitle');
+            if (titleEl) titleEl.textContent = titulo;
+
+            renderizarVistaZoomModal();
+            renderizarThumbsZoomModal();
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function cerrarModalZoomHD() {
+            const modal = document.getElementById('shopifyZoomModal');
+            if (!modal) return;
+            modal.style.display = 'none';
+            document.body.style.overflow = '';
+            estadoZoomModal.activo = false;
+            estadoZoomModal.escala = 1;
+            // Sincronizar la galería principal con la foto en la que quedó el usuario
+            if (typeof seleccionarImagenGaleriaShopify === 'function') {
+                seleccionarImagenGaleriaShopify(estadoZoomModal.indice);
+            }
+        }
+
+        function renderizarVistaZoomModal() {
+            const lista = estadoShopifyDetalle.imagenes || [];
+            const total = lista.length;
+            if (total === 0) return;
+
+            const idx = Math.max(0, Math.min(total - 1, estadoZoomModal.indice));
+            estadoZoomModal.indice = idx;
+
+            const imgEl = document.getElementById('shopifyZoomModalImg');
+            const counterEl = document.getElementById('shopifyZoomModalCounter');
+            const btnPrev = document.getElementById('btnZoomModalPrev');
+            const btnNext = document.getElementById('btnZoomModalNext');
+
+            if (counterEl) counterEl.textContent = `${idx + 1} de ${total}`;
+            if (btnPrev) btnPrev.style.display = total > 1 ? 'flex' : 'none';
+            if (btnNext) btnNext.style.display = total > 1 ? 'flex' : 'none';
+
+            if (imgEl) {
+                // Solicitar imagen en resolución máxima para zoom (w2400)
+                imgEl.src = optimizarUrlDrive(lista[idx], 'w2400');
+                aplicarTransformZoomModal();
+            }
+
+            actualizarThumbsActivasZoomModal();
+            actualizarBotonLupaTexto();
+        }
+
+        function renderizarThumbsZoomModal() {
+            const strip = document.getElementById('shopifyZoomModalThumbs');
+            if (!strip) return;
+            const lista = estadoShopifyDetalle.imagenes || [];
+            if (lista.length <= 1) {
+                strip.style.display = 'none';
+                return;
+            }
+            strip.style.display = 'flex';
+            strip.innerHTML = lista.map((url, i) => {
+                const mini = optimizarUrlDrive(url, 'w200');
+                return `
+                    <div class="shopify-zoom-thumb-card ${i === estadoZoomModal.indice ? 'active' : ''}" onclick="cambiarFotoModalZoomDirecto(${i})">
+                        <img src="${mini}" alt="Foto ${i + 1}" />
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function actualizarThumbsActivasZoomModal() {
+            const thumbs = document.querySelectorAll('#shopifyZoomModalThumbs .shopify-zoom-thumb-card');
+            thumbs.forEach((t, i) => t.classList.toggle('active', i === estadoZoomModal.indice));
+        }
+
+        function cambiarFotoModalZoom(delta) {
+            const lista = estadoShopifyDetalle.imagenes || [];
+            if (lista.length <= 1) return;
+            estadoZoomModal.indice = (estadoZoomModal.indice + delta + lista.length) % lista.length;
+            estadoZoomModal.escala = 1;
+            estadoZoomModal.posX = 0;
+            estadoZoomModal.posY = 0;
+            renderizarVistaZoomModal();
+        }
+
+        function cambiarFotoModalZoomDirecto(i) {
+            estadoZoomModal.indice = i;
+            estadoZoomModal.escala = 1;
+            estadoZoomModal.posX = 0;
+            estadoZoomModal.posY = 0;
+            renderizarVistaZoomModal();
+        }
+
+        function toggleZoomModalLupa() {
+            if (estadoZoomModal.escala > 1.2) {
+                estadoZoomModal.escala = 1;
+                estadoZoomModal.posX = 0;
+                estadoZoomModal.posY = 0;
+            } else {
+                estadoZoomModal.escala = 2.5;
+            }
+            aplicarTransformZoomModal();
+            actualizarBotonLupaTexto();
+        }
+
+        function ajustarEscalaModal(delta) {
+            estadoZoomModal.escala = Math.max(1, Math.min(4, estadoZoomModal.escala + delta));
+            if (estadoZoomModal.escala === 1) {
+                estadoZoomModal.posX = 0;
+                estadoZoomModal.posY = 0;
+            }
+            aplicarTransformZoomModal();
+            actualizarBotonLupaTexto();
+        }
+
+        function actualizarBotonLupaTexto() {
+            const lbl = document.getElementById('lblZoomLupa');
+            if (lbl) {
+                lbl.textContent = estadoZoomModal.escala > 1.2 ? 'Lupa 1x' : 'Lupa 2.5x';
+            }
+        }
+
+        function aplicarTransformZoomModal() {
+            const imgEl = document.getElementById('shopifyZoomModalImg');
+            if (!imgEl) return;
+            imgEl.style.transform = `translate(${estadoZoomModal.posX}px, ${estadoZoomModal.posY}px) scale(${estadoZoomModal.escala})`;
+            const viewport = document.getElementById('shopifyZoomImgViewport');
+            if (viewport) {
+                viewport.style.cursor = estadoZoomModal.escala > 1.05 ? 'grab' : 'zoom-in';
+            }
+        }
+
+        function inicializarEventosZoomModal() {
+            const viewport = document.getElementById('shopifyZoomImgViewport');
+            if (!viewport || viewport.dataset.inited) return;
+            viewport.dataset.inited = 'true';
+
+            // Clic para alternar Lupa
+            let ultimoTap = 0;
+            viewport.addEventListener('click', function(e) {
+                if (e.target.closest('.shopify-zoom-nav')) return;
+                toggleZoomModalLupa();
+            });
+
+            // Rueda del ratón para zoom fluido
+            viewport.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                const delta = e.deltaY < 0 ? 0.25 : -0.25;
+                ajustarEscalaModal(delta);
+            }, { passive: false });
+
+            // Arrastre con ratón (Pan)
+            viewport.addEventListener('mousedown', function(e) {
+                if (estadoZoomModal.escala <= 1.05) return;
+                estadoZoomModal.isDragging = true;
+                estadoZoomModal.startX = e.clientX - estadoZoomModal.posX;
+                estadoZoomModal.startY = e.clientY - estadoZoomModal.posY;
+                viewport.classList.add('is-dragging');
+            });
+
+            window.addEventListener('mousemove', function(e) {
+                if (!estadoZoomModal.isDragging || !estadoZoomModal.activo) return;
+                estadoZoomModal.posX = e.clientX - estadoZoomModal.startX;
+                estadoZoomModal.posY = e.clientY - estadoZoomModal.startY;
+                aplicarTransformZoomModal();
+            });
+
+            window.addEventListener('mouseup', function() {
+                if (estadoZoomModal.isDragging) {
+                    estadoZoomModal.isDragging = false;
+                    viewport.classList.remove('is-dragging');
+                }
+            });
+
+            // Gestos táctiles en celulares y tablets (doble tap, arrastre y pellizco)
+            let touchDistInicial = 0;
+            viewport.addEventListener('touchstart', function(e) {
+                if (e.touches.length === 1) {
+                    const ahora = Date.now();
+                    if (ahora - ultimoTap < 300) {
+                        toggleZoomModalLupa();
+                        ultimoTap = 0;
+                        return;
+                    }
+                    ultimoTap = ahora;
+
+                    if (estadoZoomModal.escala > 1.05) {
+                        estadoZoomModal.isDragging = true;
+                        estadoZoomModal.startX = e.touches[0].clientX - estadoZoomModal.posX;
+                        estadoZoomModal.startY = e.touches[0].clientY - estadoZoomModal.posY;
+                    }
+                } else if (e.touches.length === 2) {
+                    estadoZoomModal.isDragging = false;
+                    const dx = e.touches[0].clientX - e.touches[1].clientX;
+                    const dy = e.touches[0].clientY - e.touches[1].clientY;
+                    touchDistInicial = Math.hypot(dx, dy);
+                }
+            }, { passive: true });
+
+            viewport.addEventListener('touchmove', function(e) {
+                if (e.touches.length === 1 && estadoZoomModal.isDragging && estadoZoomModal.escala > 1.05) {
+                    estadoZoomModal.posX = e.touches[0].clientX - estadoZoomModal.startX;
+                    estadoZoomModal.posY = e.touches[0].clientY - estadoZoomModal.startY;
+                    aplicarTransformZoomModal();
+                } else if (e.touches.length === 2 && touchDistInicial > 0) {
+                    const dx = e.touches[0].clientX - e.touches[1].clientX;
+                    const dy = e.touches[0].clientY - e.touches[1].clientY;
+                    const distActual = Math.hypot(dx, dy);
+                    const ratio = distActual / touchDistInicial;
+                    if (Math.abs(ratio - 1) > 0.05) {
+                        estadoZoomModal.escala = Math.max(1, Math.min(4, estadoZoomModal.escala * ratio));
+                        touchDistInicial = distActual;
+                        aplicarTransformZoomModal();
+                        actualizarBotonLupaTexto();
+                    }
+                }
+            }, { passive: true });
+
+            viewport.addEventListener('touchend', function() {
+                estadoZoomModal.isDragging = false;
+                touchDistInicial = 0;
+            }, { passive: true });
+
+            // Teclas de acceso rápido (ESC para salir, Flechas para navegar)
+            window.addEventListener('keydown', function(e) {
+                if (!estadoZoomModal.activo) return;
+                if (e.key === 'Escape') cerrarModalZoomHD();
+                else if (e.key === 'ArrowLeft') cambiarFotoModalZoom(-1);
+                else if (e.key === 'ArrowRight') cambiarFotoModalZoom(1);
+            });
+        }
+
         function vincularInteraccionesVisorShopify() {
             const stage = document.getElementById('shopifyMainStage');
             const stageImg = document.getElementById('shopifyStageImg');
             if (!stage || !stageImg) return;
 
+            inicializarEventosZoomModal();
+
             // Efecto Lupa (Zoom siguiendo el cursor) en Computadora
             stage.addEventListener('mousemove', function(e) {
                 if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
-                if (e.target.closest('.shopify-stage-arrow')) {
+                if (e.target.closest('.shopify-stage-arrow') || e.target.closest('.shopify-btn-lupa')) {
                     stage.classList.remove('is-zooming');
                     stageImg.style.transformOrigin = '50% 50%';
                     return;
@@ -5121,16 +5858,21 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             // Deslizamiento táctil (Swipe con el dedo) en Celular
             let touchStartX = 0;
             let touchStartY = 0;
+            let touchStartTime = 0;
             stage.addEventListener('touchstart', function(e) {
                 if (!e.touches || !e.touches.length) return;
                 touchStartX = e.touches[0].clientX;
                 touchStartY = e.touches[0].clientY;
+                touchStartTime = Date.now();
             }, { passive: true });
 
             stage.addEventListener('touchend', function(e) {
                 if (!e.changedTouches || !e.changedTouches.length) return;
                 const dx = e.changedTouches[0].clientX - touchStartX;
                 const dy = e.changedTouches[0].clientY - touchStartY;
+                const dt = Date.now() - touchStartTime;
+
+                // Si fue un swipe horizontal claro, cambiar foto
                 if (Math.abs(dx) > 38 && Math.abs(dx) > Math.abs(dy) * 1.15 && (estadoShopifyDetalle.imagenes || []).length > 1) {
                     cambiarImagenGaleriaShopify(dx < 0 ? 1 : -1);
                 }
@@ -5475,7 +6217,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             const titulo = item.info?.tituloLlamativo || sku || 'Producto';
             const claveModelo = obtenerClaveGaleriaProducto(marca, sku, titulo);
 
-            const imgBaseOriginal = optimizarUrlDrive(equipo.Imagen, 'w1000');
+            const imgBaseOriginal = optimizarUrlDrive(equipo.Imagen, 'w1600');
             const imgVarianteColorLocal = buscarFotoVarianteExactaEnBancoLocal(item, colorActivo);
             const primeraImagen = imgVarianteColorLocal || imgBaseOriginal;
 
