@@ -339,14 +339,14 @@
             padding-bottom: 0 !important;
             background-color: #f8fafc !important;
         }
-        :where(#vista-secreta-pos-wrapper, #vista-secreta-pos-wrapper *, #csv-modal, #csv-modal *, #photo-modal, #photo-modal *) {
+        :where(#vista-secreta-pos-wrapper, #vista-secreta-pos-wrapper *, #csv-modal, #csv-modal *) {
             box-sizing: border-box;
             border-width: 0;
             border-style: solid;
             border-color: #e2e8f0;
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        :where(#vista-secreta-pos-wrapper button, #csv-modal button, #photo-modal button) {
+        :where(#vista-secreta-pos-wrapper button, #csv-modal button) {
             cursor: pointer;
             background-color: transparent;
             color: inherit;
@@ -357,8 +357,7 @@
         }
         #vista-secreta-pos-wrapper .font-mono-num,
         #vista-secreta-pos-wrapper .font-mono-num *,
-        #csv-modal .font-mono-num,
-        #photo-modal .font-mono-num {
+        #csv-modal .font-mono-num {
             font-family: 'JetBrains Mono', monospace !important;
             font-variant-numeric: tabular-nums;
         }
@@ -369,58 +368,6 @@
         }
         #vista-secreta-pos-wrapper input[type="number"] {
             -moz-appearance: textfield;
-        }
-
-        /* GALERÍA ESTILO MERCADO LIBRE (COLUMNA VERTICAL IZQUIERDA + VISOR CUADRADO + BUSCADOR POR MODELO/SERIE) */
-        .ml-gallery-layout { display: flex; flex-direction: row; gap: 14px; align-items: flex-start; margin-bottom: 14px; width: 100%; }
-        .ml-thumbs-column { display: flex; flex-direction: column; gap: 10px; width: 64px; flex-shrink: 0; }
-        .ml-thumb-item { width: 60px; height: 60px; border-radius: 6px; border: 1.5px solid #cbd5e1; background: #fff; padding: 3px; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; transition: all 0.15s ease; }
-        .ml-thumb-item:hover, .ml-thumb-item.active { border: 2px solid #3483fa; box-shadow: 0 0 0 2px rgba(52, 131, 250, 0.18); }
-        .ml-thumb-item img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; }
-        .ml-thumb-item.thumb-poster-blue { background: linear-gradient(135deg, #4338ca 0%, #3b82f6 100%); padding: 4px; }
-        .ml-thumb-item.thumb-poster-dark { background: linear-gradient(135deg, #1e1b4b 0%, #2563eb 100%); padding: 4px; }
-        .ml-thumb-mini-tag { position: absolute; top: 2px; left: 2px; right: 2px; font-size: 5.5px; font-weight: 900; color: #7dd3fc; text-align: center; text-transform: uppercase; line-height: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .detail-image-frame { flex: 1; height: 390px !important; margin-bottom: 0 !important; padding: 0 !important; position: relative; overflow: hidden; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-        .detail-image-frame > img.ml-main-clean-img { max-width: 90%; max-height: 90%; object-fit: contain; transition: transform 0.3s ease; }
-        .detail-image-frame:hover > img.ml-main-clean-img { transform: scale(1.04); }
-        /* Póster Azul/Violeta Estilo Mercado Libre (como captura Logitech) */
-        .ml-slide-poster-blue { width: 100%; height: 100%; background: linear-gradient(145deg, #4f46e5 0%, #3b82f6 55%, #2563eb 100%); display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: 22px 20px; text-align: center; color: #fff; position: relative; }
-        .ml-poster-headline { font-size: 21px; font-weight: 900; color: #7dd3fc; text-transform: uppercase; letter-spacing: 0.6px; line-height: 1.15; max-width: 92%; z-index: 2; }
-        .ml-poster-center { position: relative; width: 100%; flex: 1; display: flex; align-items: center; justify-content: center; my: 6px; min-height: 0; }
-        .ml-poster-center img.ml-same-prod-img { max-width: 66%; max-height: 220px; object-fit: contain; filter: drop-shadow(0 18px 24px rgba(9, 11, 16, 0.45)); z-index: 2; }
-        .ml-poster-side-icons { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 3; }
-        .ml-poster-icon-circle { width: 38px; height: 38px; border-radius: 50%; border: 1.8px solid rgba(186, 230, 253, 0.8); background: rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; font-size: 15px; color: #fff; backdrop-filter: blur(4px); }
-        .ml-poster-badge-right { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); width: 64px; height: 64px; border-radius: 50%; background: #e0f2fe; color: #1d4ed8; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 900; font-size: 10px; line-height: 1.1; box-shadow: 0 8px 20px rgba(0,0,0,0.25); padding: 4px; z-index: 3; }
-        .ml-poster-footer-text { font-size: 12px; font-weight: 800; color: #bae6fd; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1.3; max-width: 94%; z-index: 2; }
-        /* Guía Técnica Blanca Estilo Ugreen / Mercado Libre (como captura Ugreen Charging Guide) */
-        .ml-slide-tech-guide { width: 100%; height: 100%; background: #f8fafc; display: grid; grid-template-columns: 0.95fr 1.15fr; align-items: center; gap: 12px; padding: 20px; text-align: left; }
-        .ml-guide-left { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; height: 100%; }
-        .ml-guide-left img { max-width: 100%; max-height: 185px; object-fit: contain; margin-bottom: 10px; }
-        .ml-guide-brand-title { font-size: 13px; font-weight: 900; color: #0f172a; line-height: 1.25; }
-        .ml-guide-sub { font-size: 10.5px; font-weight: 700; color: #64748b; margin-top: 3px; }
-        .ml-guide-right { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
-        .ml-guide-spec-row { display: flex; align-items: center; gap: 8px; }
-        .ml-guide-port-pill { background: #fff; border: 1.8px solid #334155; border-radius: 8px; padding: 5px 8px; font-size: 10px; font-weight: 900; color: #0f172a; min-width: 58px; text-align: center; shrink: 0; }
-        .ml-guide-line { width: 22px; height: 1.5px; background: #94a3b8; flex-shrink: 0; }
-        .ml-guide-spec-text { font-size: 11.5px; font-weight: 700; color: #1e293b; line-height: 1.3; background: #fff; padding: 7px 10px; border-radius: 8px; border: 1px solid #e2e8f0; flex: 1; }
-        /* Póster Zoom Detalle Macro (mismo producto) */
-        .ml-slide-zoom-card { width: 100%; height: 100%; background: linear-gradient(160deg, #1e293b 0%, #1d4ed8 100%); display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 20px; text-align: center; color: #fff; overflow: hidden; }
-        .ml-zoom-img-circle { width: 220px; height: 220px; border-radius: 50%; background: #fff; border: 4px solid #60a5fa; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 14px 30px rgba(0,0,0,0.4); }
-        .ml-zoom-img-circle img { width: 88%; height: 88%; object-fit: contain; transform: scale(1.38); }
-        /* Buscador y Pegador de las 4 imágenes por Modelo / Número de Serie */
-        .ml-finder-bar { margin-bottom: 12px; }
-        .ml-finder-toggle-btn { width: 100%; background: #f0f7ff; border: 1.5px dashed #3b82f6; color: #1d4ed8; border-radius: 10px; padding: 9px 12px; font-size: 11.5px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s; }
-        .ml-finder-toggle-btn:hover { background: #e0f2fe; border-style: solid; }
-        .ml-finder-panel { display: none; background: #fff; border: 1.5px solid #bfdbfe; border-radius: 12px; padding: 14px; margin-top: 8px; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08); }
-        .ml-finder-panel.open { display: block; }
-        @media (max-width: 768px) {
-            .ml-gallery-layout { flex-direction: column-reverse; gap: 10px; }
-            .ml-thumbs-column { flex-direction: row; width: 100%; justify-content: center; overflow-x: auto; }
-            .detail-image-frame { width: 100%; height: 320px !important; }
-            .ml-slide-tech-guide { grid-template-columns: 1fr; padding: 12px; overflow-y: auto; }
-            .ml-guide-left img { max-height: 100px; }
-            .ml-poster-headline { font-size: 16px; }
-            .ml-zoom-img-circle { width: 165px; height: 165px; }
         }
     </style>
 </head>
@@ -802,22 +749,13 @@
           <!-- Catálogo de Productos -->
           <div class="lg:col-span-7 space-y-4">
             <div class="bg-white border border-slate-200 rounded-xl p-4 space-y-3">
-              <div class="flex flex-wrap items-start justify-between gap-2">
-                <div>
-                  <h2 class="text-sm font-bold text-slate-900">
-                    Selecciona 1 Producto o Combina 2 o Más para Armar un Combo
-                  </h2>
-                  <p class="text-xs text-slate-500 mt-0.5">
-                    Imágenes sincronizadas con <strong>Catálogo 2026-NO BORRAR</strong>. Haz clic en la foto 📷 de cualquier producto para cambiarla, subir archivo o pegar link.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onclick="irAAgregarProducto()"
-                  class="px-3 py-1.5 text-xs font-semibold text-slate-800 bg-slate-100 hover:bg-slate-900 hover:text-white rounded-lg transition-colors whitespace-nowrap shrink-0"
-                >
-                  + Agregar Producto
-                </button>
+              <div>
+                <h2 class="text-sm font-bold text-slate-900">
+                  Selecciona 1 Producto o Combina 2 o Más para Armar un Combo
+                </h2>
+                <p class="text-xs text-slate-500 mt-0.5">
+                  Agrega los productos al ticket de la derecha, decide tú mismo a cómo venderlos y confirma para descontar del stock.
+                </p>
               </div>
 
               <div class="relative">
@@ -970,60 +908,24 @@
             </div>
           </div>
 
-          <!-- Formulario Nuevo Producto con Detector Inteligente de Imágenes (Catálogo 2026) -->
-          <form id="new-product-form" onsubmit="saveNewProduct(event)" class="hidden bg-white border border-slate-300 rounded-xl p-5 space-y-4 shadow-sm">
+          <!-- Formulario Nuevo Producto -->
+          <form id="new-product-form" onsubmit="saveNewProduct(event)" class="hidden bg-white border border-slate-300 rounded-xl p-5 space-y-4">
             <div class="flex items-center justify-between">
-              <div>
-                <h3 class="text-sm font-bold text-slate-900">Agregar Nuevo Producto Físico</h3>
-                <p class="text-xs text-slate-500 mt-0.5">Escribe el nombre o código (ej. <em>"nano anker"</em>, <em>"ugreen 65w"</em>) y el sistema buscará su foto en <strong>Catalogo 2026-NO BORRAR</strong> automáticamente.</p>
-              </div>
+              <h3 class="text-sm font-bold text-slate-900">Agregar Nuevo Producto Físico</h3>
               <button type="button" onclick="toggleNewProductForm()" class="text-xs text-slate-500 hover:text-slate-900">Cancelar</button>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              <input id="new-id" type="text" required oninput="actualizarSugerenciaImagenNuevoProd()" placeholder="ID_Producto (Ej. ANK-A121DJ11)" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
-              <input id="new-barcode" type="text" placeholder="Codigo_Barras" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
-              <input id="new-name" type="text" required oninput="actualizarSugerenciaImagenNuevoProd()" placeholder="Nombre (Ej. Cargador Nano Anker 45W)" class="sm:col-span-2 px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
-              <input id="new-brand" type="text" value="UGREEN" oninput="actualizarSugerenciaImagenNuevoProd()" placeholder="Marca" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
-              <input id="new-supplier" type="text" value="Nuretic" placeholder="Proveedor" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
-              <input id="new-cost" type="number" step="0.01" required placeholder="Costo_Compra ($)" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
+              <input id="new-id" type="text" required placeholder="ID_Producto (Ej. UGR-90112)" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
+              <input id="new-barcode" type="text" placeholder="Codigo_Barras" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
+              <input id="new-name" type="text" required placeholder="Nombre del Producto" class="sm:col-span-2 px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
+              <input id="new-brand" type="text" value="UGREEN" placeholder="Marca" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
+              <input id="new-supplier" type="text" value="Nuretic" placeholder="Proveedor" class="px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg" />
+              <input id="new-cost" type="number" step="0.01" required placeholder="Costo_Compra ($)" class="px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
               <div class="flex gap-2">
-                <input id="new-price" type="number" step="0.01" required placeholder="Precio_Venta ($)" class="w-full px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
-                <input id="new-stock" type="number" step="1" value="1" required placeholder="Stock" class="w-24 px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg focus:bg-white focus:border-slate-900 focus:outline-none" />
+                <input id="new-price" type="number" step="0.01" required placeholder="Precio_Venta ($)" class="w-full px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
+                <input id="new-stock" type="number" step="1" value="1" required placeholder="Stock" class="w-24 px-3 py-2 text-xs font-mono-num bg-slate-50 border border-slate-200 rounded-lg" />
               </div>
             </div>
-
-            <!-- Asistente Inteligente de Imagen (Catálogo 2026 + Subir Foto + Link) -->
-            <div class="p-4 bg-slate-50 border border-slate-200 rounded-xl space-y-3">
-              <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-                <div class="w-20 h-20 rounded-xl bg-white border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 p-1 shadow-sm">
-                  <img id="new-photo-preview" src="" alt="Vista previa" class="w-full h-full object-contain hidden" />
-                  <span id="new-photo-empty" class="text-[11px] text-slate-400 text-center leading-tight px-1">Sin foto</span>
-                </div>
-                <div class="flex-1 space-y-2 w-full">
-                  <div id="new-photo-status" class="text-xs font-semibold text-slate-700">
-                    🔎 Escribe el nombre o código arriba para buscar la imagen en <strong>Catalogo 2026-NO BORRAR</strong>...
-                  </div>
-                  <div id="new-photo-candidates" class="flex items-center gap-2 overflow-x-auto pb-1 hidden"></div>
-                  <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 pt-1">
-                    <input
-                      id="new-photo-url"
-                      type="text"
-                      oninput="usarUrlManualNuevoProd(this.value)"
-                      placeholder="¿No está o prefieres otra? Pega aquí el link de imagen de tu catálogo web o Drive..."
-                      class="flex-1 px-3 py-1.5 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-slate-900"
-                    />
-                    <label class="px-3 py-1.5 text-xs font-semibold text-slate-700 bg-white border border-slate-200 rounded-lg hover:bg-slate-100 cursor-pointer text-center whitespace-nowrap shrink-0">
-                      📁 Subir archivo
-                      <input id="new-photo-file" type="file" accept="image/*" onchange="subirArchivoNuevoProd(event)" class="hidden" />
-                    </label>
-                    <button type="button" onclick="openPhotoModalForNewProduct()" class="px-3 py-1.5 text-xs font-semibold text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 whitespace-nowrap shrink-0">
-                      📚 Explorar Catálogo 2026
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <div class="flex justify-end">
               <button type="submit" class="px-4 py-2 text-xs font-semibold text-white bg-slate-900 rounded-lg hover:bg-slate-800">
                 Guardar en Tabla
@@ -1116,91 +1018,6 @@
       </div>
     </div>
 
-    <!-- ==================== MODAL SELECTOR DE IMAGEN (CATÁLOGO 2026 / SUBIR / LINK) ==================== -->
-    <div id="photo-modal" class="hidden fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
-      <div class="bg-white border border-slate-200 rounded-xl w-full max-w-3xl max-h-[90vh] flex flex-col overflow-hidden shadow-xl">
-        <div class="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50">
-          <div>
-            <h2 id="photo-modal-title" class="text-base font-bold text-slate-900">Imagen del Producto</h2>
-            <p class="text-xs text-slate-500 mt-0.5">Elige una imagen de referencia de tu Excel <strong>Catalogo 2026-NO BORRAR</strong>, sube una foto desde tu equipo o pega el link de tu catálogo web.</p>
-          </div>
-          <button type="button" onclick="closePhotoModal()" class="text-sm font-bold text-slate-500 hover:text-slate-900 px-2 py-1">✕</button>
-        </div>
-
-        <div class="p-6 flex-1 overflow-y-auto space-y-5">
-          <!-- Vista previa actual y detección inteligente -->
-          <div class="flex flex-col sm:flex-row items-center gap-4 p-4 bg-slate-50 border border-slate-200 rounded-xl">
-            <div class="w-24 h-24 rounded-xl bg-white border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 p-1.5 shadow-sm">
-              <img id="photo-modal-preview" src="" alt="Preview" class="w-full h-full object-contain hidden" />
-              <span id="photo-modal-empty" class="text-xs text-slate-400 text-center">Sin imagen</span>
-            </div>
-            <div class="flex-1 space-y-2 w-full">
-              <div id="photo-modal-smart-msg" class="text-xs font-semibold text-emerald-700"></div>
-              <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
-                <input
-                  id="photo-modal-url-input"
-                  type="text"
-                  oninput="previewUrlInPhotoModal(this.value)"
-                  placeholder="Pegar link de imagen de tu catálogo web o Google Drive..."
-                  class="flex-1 px-3 py-2 text-xs bg-white border border-slate-200 rounded-lg focus:outline-none focus:border-slate-900"
-                />
-                <label class="px-3.5 py-2 text-xs font-semibold text-slate-800 bg-white border border-slate-200 rounded-lg hover:bg-slate-100 cursor-pointer text-center whitespace-nowrap shrink-0">
-                  📁 Subir desde mi equipo
-                  <input id="photo-modal-file-input" type="file" accept="image/*" onchange="handlePhotoModalFileUpload(event)" class="hidden" />
-                </label>
-              </div>
-            </div>
-          </div>
-
-          <!-- 4 Imágenes Adicionales Automáticas (Posiciones y Beneficios) -->
-          <div class="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2.5">
-            <div class="flex flex-wrap items-center justify-between gap-2">
-              <div>
-                <div class="text-xs font-bold text-slate-900">📸 +4 Imágenes Adicionales Automáticas (Posiciones y Beneficios)</div>
-                <p id="photo-modal-extra4-status" class="text-[11px] text-slate-500">Basadas en la 1ª imagen principal + búsqueda automática en repositorios web.</p>
-              </div>
-              <button
-                type="button"
-                onclick="abrirBusquedaGoogleImagenesModal()"
-                class="px-2.5 py-1 text-[11px] font-semibold text-blue-700 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100"
-              >
-                🔎 Buscar ángulos en Google Imágenes
-              </button>
-            </div>
-            <div id="photo-modal-extra4-grid" class="grid grid-cols-2 sm:grid-cols-4 gap-2.5"></div>
-          </div>
-
-          <!-- Buscador en el Banco de Imágenes de Catalogo 2026-NO BORRAR -->
-          <div class="space-y-3">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <label class="text-xs font-bold text-slate-800">
-                📚 Buscar en banco de imágenes de "Catalogo 2026-NO BORRAR"
-              </label>
-              <span id="photo-modal-count" class="text-[11px] font-mono-num text-slate-500"></span>
-            </div>
-            <input
-              id="photo-modal-search"
-              type="text"
-              oninput="renderPhotoModalCatalogGrid()"
-              placeholder="Escribe palabras clave: ej. 'nano anker', 'ugreen 65w', 'cable lightning', 'reloj'..."
-              class="w-full px-3.5 py-2 text-xs bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:bg-white focus:border-slate-900"
-            />
-            <div id="photo-modal-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2.5 max-h-[280px] overflow-y-auto p-1"></div>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between gap-2 px-6 py-4 border-t border-slate-200 bg-slate-50">
-          <button type="button" onclick="useAutoSuggestedPhotoInModal()" class="px-3.5 py-2 text-xs font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 rounded-lg hover:bg-emerald-100">
-            ✨ Usar sugerencia automática del Catálogo 2026
-          </button>
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="closePhotoModal()" class="px-4 py-2 text-xs font-medium text-slate-700 bg-white border border-slate-200 rounded-lg">Cancelar</button>
-            <button type="button" onclick="savePhotoModalSelection()" class="px-4 py-2 text-xs font-semibold text-white bg-slate-900 rounded-lg hover:bg-slate-800">Guardar Imagen</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <script>
         const CATEGORIAS_OCULTAS = ["CELULARES", "SMARTPHONES", "TABLETS", "SMART TV"];
 
@@ -1212,7 +1029,7 @@
         };
 
         function optimizarUrlDrive(urlRaw, ancho = "w600") {
-            let url = String(urlRaw || "").split(/\s*\|\s*|\r?\n/)[0].trim();
+            let url = String(urlRaw || "").trim();
             if (!url) return "";
             const matchFile = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
             if (matchFile && matchFile[1]) {
@@ -2306,7 +2123,6 @@
             inicializarBannersHero();
 
             const todosLosEquipos = resultadosHojas[0].concat(resultadosHojas[1] || []);
-            window.TODOS_EQUIPOS_EXCEL = todosLosEquipos;
 
             const equiposFiltrados = todosLosEquipos.filter(equipo => {
                 const modeloStr = String(equipo.Modelo || equipo["Nombre Comercial"] || equipo.Titulo || equipo.Nombre || "").trim();
@@ -2344,8 +2160,6 @@
 
             renderizarSeccionPortadaDinamica();
             renderizarImagenesStreaming();
-            hidratarFotosProductosDesdeCatalogo();
-            renderAll();
         }).catch(err => {
             console.error(err);
             globalLoader.innerHTML = "<div style='color:#ef4444; font-weight:800; text-align:center;'>Error al cargar el inventario. Verifica tu conexión a internet o el archivo Google Sheets.</div>";
@@ -2368,182 +2182,14 @@
         const POS_GOOGLE_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT3mriUBce_e0x4eCtgHcMOiPo7KD7xu6SH6A9coDVAkNpsOGExiy1R7jhyvHnG5yP6ev_ejsfhssj0/pub?output=csv";
 
         const INITIAL_CSV = `ID_Producto,Codigo_Barras,Nombre,Marca,Proveedor,Costo_Compra,Precio_Venta,Stock_Actual,Foto
-ANK-A121DJ11,194644388904,Cargador Nano GaN 45W Smart Display,Anker,DIRESA,$29.47,$45.00,2,https://drive.google.com/thumbnail?id=1HKgc-0vwzyXeyKqCdqxm2-gC59F7s7fT
-ANK-A8060H11,0194644209247,Cable Zolo USB-C a USB-C 240W 1m,Anker,DIRESA,$7.19,$20.00,2,https://drive.google.com/thumbnail?id=1kwJsns-mTykCugMKoM3eB-VcaA9U5cT9
-UGR-15570,6941876215706,Cargador Rápido UNO RG 65W Negro (CD361),UGREEN,Nuretic,$35.60,$55.00,1,https://drive.google.com/thumbnail?id=1C-zyX2rI2a2GKjfLP7xap2xHloL3oEir
-UGR-15550,6941876215508,Cargador Rápido UNO RG 30W Negro (CD359),UGREEN,Nuretic,$20.29,$35.00,3,https://drive.google.com/thumbnail?id=1JYW0qmgJqWW6iyWAmwW8GOklu9k17Bql
-UGR-65050B,6941876263288,Cargador Rápido 45W GaN (X524),UGREEN,Nuretic,$13.02,$30.00,2,https://drive.google.com/thumbnail?id=1AQw-djF-Z94v08vqcE8CgUB63H76n93w
-UGR-70427,6957303874279,Cable Tipo C a Tipo C 100W 1m Negro (US316),UGREEN,Nuretic,$6.64,$15.00,4,https://drive.google.com/thumbnail?id=1v1vMdIPBm0qFqFVwRFOa9yKIbcIdZ7hg
-UGR-70523,6957303875238,Cable Tipo C a Lightning 20W 1m Silver (US304),UGREEN,Nuretic,$19.21,$35.00,1,https://drive.google.com/thumbnail?id=1MSe32m3-J6XxA5gvy-On_hGIoF6qbJVX
-UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nuretic,$19.14,$35.00,1,https://drive.google.com/thumbnail?id=1MSe32m3-J6XxA5gvy-On_hGIoF6qbJVX`;
-
-        // Banco de imágenes extraído directamente de "Catalogo 2026-NO BORRAR.xlsx"
-        const BANCO_IMAGENES_CATALOGO_2026 = [["APPLE","A2561","Cable Original Apple USB-C a Lightning (1m)","1MSe32m3-J6XxA5gvy-On_hGIoF6qbJVX"],["UGREEN","70429","Cable Ugreen USB-C a USB-C 100W 5A Trenzado (2m)","1v1vMdIPBm0qFqFVwRFOa9yKIbcIdZ7hg"],["UGREEN","15550","Cargador Robot Ugreen Uno 30W GaN Gris","1JYW0qmgJqWW6iyWAmwW8GOklu9k17Bql"],["UGREEN","65050B","Cargador Ugreen 45W GaN USB-C","1AQw-djF-Z94v08vqcE8CgUB63H76n93w"],["ANKER","A121DJ11","Cargador Anker Nano GaN 45W con Pantalla Display","1HKgc-0vwzyXeyKqCdqxm2wQFW6RnQV6v"],["ANKER","A8060H11","Cable Anker USB-C a USB-C 240W Trenzado (1m)","1kwJsns-mTykCugMKoM3eBs4qQXGjMcyT"],["UGREEN","CD361 15570","CARGADOR UNO RG  65W  UGREEN","1C-zyX2rI2a2GKjfLP7xaplNX9-4CdxFU"],["XIAOMI","REDMI","Audífonos Redmi Buds 6 ANC","1TSYxty2k__eleZNFBQX8LdPy3qCMY-Cg"],["INFINIX","TWSXE33","Audífonos Infinix XE33 TWS Bass","1kIedJgqL0xaJhim0j9romYtu-FW4TCa3"],["INFINIX","SMARTWATCH XW4L","Smartwatch Infinix XWatch N4 HD","13LeQ9TFmtvuX-9mr-Jr8T0YT0SBSQkPL"],["ANKER","A25MB","Cargador Magnético Anker MagGo 3 en 1 Qi2","173B7lENMUGPD-KQ4wXGfwvs_nA7FHqCr"],["ANKER","A2699","Cargador Anker Zolo 20W USB-C GaN","1YwWZCVFE-sd8m7TwMdWCfCFATYJpMUuN"],["ANKER","A8312","Adaptador Anker 310 USB-C a HDMI 4K","1FcPK0Ndoo60ja53U971Axvs5j39-rxZt"],["ANKER","A83D2","Hub Anker USB-C 7 en 1 HDMI 4K 100W","1Yc2qfJkHermMlU5y1dyxB2VD_zm60hwf"],["ANKER","A1641","Power Bank Magnética Anker 633 MagGo 10K","1vadZLqWDnd0cju_eL03eE1qWNJil4WE9"],["APPLE","A2794","Cable Original Apple USB-C a USB-C 240W (2m)","1vobZGjpFp_OyifygdyFHjDmN0_qo0R20"],["APPLE","A2795","Cable Original Apple USB-C a USB-C 60W (1m)","1MHe6wJd5cedMZTpZi-LHeSBlCPSbqTYW"],["APPLE","A2305","Cargador Original Apple 20W USB-C","15m8zo19FYjcm18bWjyt4i_XqCVn7Xhu5"],["APPLE","A3351","Cargador Original Apple Dynamic 40W/60W","1aKOdgWv5tj8nEdWu6H7FBVT-S6ll3LCu"],["HONOR","LZT-ME00","Audífonos Honor CuBuds Pantalla Táctil","1AxDLAISzWVf1ATRZJ9WpGE6_K5r-sCri"],["HONOR","PAK-T10","Audífonos Honor Earbuds A Pro ANC 49dB","1crIZHBIHAuiO1PGqlMrdAByOmMcE6GcE"],["HONOR","VLN-ME00","Audífonos Honor Choice Earbuds X8i ANC","1vtozHUaKOOK35c5pDhcH-zU_a02xv0jt"],["JBL","JBLQUANTUMT","Audífonos Gamer JBL Quantum TWS ANC","1unX1HyrDVottzGR12wb2QDvJ74pNvCgQ"],["JBL","JBLWBUDS2","Audífonos Inalámbricos JBL Wave Buds 2 ANC","1ITOupkmszXCsOGN2d5Eja5k0WcS4PfKv"],["SAMSUNG","SM-R410","Audífonos Samsung Galaxy Buds Core ANC","1ZBK50NYdQEuHqW2jvUwExTxClVE9bqxf"],["SAMSUNG","EP-T4511","Cargador Original Samsung 45W + Cable 5A","1sptmjKstRZMqa0dD2qYkQNRxQlMc1sMa"],["SAMSUNG","EP-TA800","Cargador Original Samsung 25W Super Fast","1XhhCe80C_lKk1PPZVQeg2x1mQ9WLESzc"],["SOUNDCORE","A3005","Audífonos Diadema Soundcore Q11i BassUp","1yERh81m45HoEvIIHX9PM1GN7Wp2PeAcN"],["UGREEN","25245","Mouse Pad Ergonómico Ugreen con Reposamuñecas","1d0U3DD54pJBmXhPxyzT4QFKfCnoUmUmR"],["UGREEN","35629","Micrófono Gamer Ugreen USB RGB Condensador","1i3Z_O6sV907s2_gQ4oDrATDrmq3VRHwZ"],["UGREEN","35995","Adaptador Bluetooth 5.3 USB Ugreen","14M1aqz4ftQAYzOYPaeim4FIvoZdqaojM"],["UGREEN","45275","Adaptadores Ugreen USB-A a USB-C 10Gbps (x2)","1Pw38rMnM1UaVSLbNNL66IUi6ts2HEeG3"],["UGREEN","50283","Adaptador OTG Ugreen USB-C a USB 3.0","1jjMcl2jkig4ulTI9wEdycrg_HuHAtUEZ"],["UGREEN","15512","Case Enclosure Ugreen SSD M.2 NVMe 10Gbps","1C-5mXg9pYCm1veCAnw6wF2hFcKFZsZp8"],["UGREEN","30847","Case Enclosure Ugreen Disco 2.5 SATA a USB 3.0","1mLmBNMAInSF5d_z_hy5jeelX5hIpf3Mx"],["UGREEN","50743","Case Enclosure Ugreen Disco 2.5 SATA a USB-C","1dul08JWLYrYzPihKEpdCQmSbvTpQpKiP"],["UGREEN","80191","Lector de Tarjetas 2 en 1 Ugreen USB-C y USB 3.0","1ntUfsTy-3sTLlN47KgNfMtUo86B8dqQh"],["UGREEN","35757","Audífonos Diadema Ugreen HiTune Max 5C ANC","1CYNs1u9sFpH8xPkMmYNQbFfyHYBMD_hH"],["UGREEN","45018","Audífonos Diadema Ugreen Studio Max2 (80h)","19d2KPwgbOM_5KH0P88VIbQ16l2Gsp1HK"],["UGREEN","45785","Audífonos Deportivos Ugreen HiTune S3 Open-Ear","1i1mLq-guG3nlL4i9Cik_Mv__404mfbFf"],["UGREEN","55136","Audífonos Ugreen ClipBuds Pantalla Táctil","12PnE-7X0_yShEMrGYsGDhArYjVL3CRtT"],["UGREEN","65655","Audífonos Ugreen FitBuds Open-Ear Espacial","1Z3oplxI9mp8bD3S7yFET-DBX6HvaSx2C"],["UGREEN","75627","Audífonos Ugreen Dots TWS Bluetooth 6.0 Blanco","1I8s5M8Yz9-bIY38T-6b-Tq7Mnwb6LV5g"],["UGREEN","75628","Audífonos Ugreen Dots TWS Bluetooth 6.0 Negro","1maggJoGE8FlS91-H4joFMSfV1_SUhH1e"],["UGREEN","35501","Cable Ugreen Uno USB-C a C 100W con Pantalla (1m)","1Y4-QOvdGDvFqNonjZYba7SPZJiSXuy9R"],["UGREEN","35512","Cable Ugreen Uno USB-C a C 100W con Pantalla (2m)","1Y4-QOvdGDvFqNonjZYba7SPZJiSXuy9R"],["UGREEN","35513","Cable Ugreen Uno USB-C a C 100W con Pantalla (3m)","1Y4-QOvdGDvFqNonjZYba7SPZJiSXuy9R"],["UGREEN","50152","Cable Ugreen USB-C a USB-C 60W Trenzado (2m)","19GiWNo9gpOWh2_z1cjhHNNlFHhL9x4Es"],["UGREEN","60116","Cable Ugreen USB-A a USB-C 3A Rápido (1m)","1NBI25u7u_JD4AFME4M1-vSZuGPWp-oVS"],["UGREEN","60118","Cable Ugreen USB-A a USB-C 3A Rápido (2m)","1NBI25u7u_JD4AFME4M1-vSZuGPWp-oVS"]].map(x => ({ marca: x[0], modelo: x[1], nombre: x[2], img: x[3].startsWith("http") ? x[3] : "https://drive.google.com/thumbnail?id=" + x[3] }));
-
-        function obtenerBancoImagenesCompleto() {
-            const mapa = new Map();
-            BANCO_IMAGENES_CATALOGO_2026.forEach(item => {
-                if (item && item.img) {
-                    const key = `${item.marca}_${item.modelo}_${item.nombre}`.toLowerCase();
-                    mapa.set(key, item);
-                }
-            });
-            if (Array.isArray(window.TODOS_EQUIPOS_EXCEL)) {
-                window.TODOS_EQUIPOS_EXCEL.forEach(eq => {
-                    const rawImg = String(eq.Imagen || "").trim();
-                    if (!rawImg) return;
-                    const marca = String(eq.Marca || "").trim();
-                    const modelo = String(eq.Modelo || "").trim();
-                    const nombre = String(eq["Nombre Comercial"] || eq.Titulo || eq.Nombre || (marca + " " + modelo)).trim();
-                    const key = `${marca}_${modelo}_${nombre}`.toLowerCase();
-                    if (!mapa.has(key)) {
-                        mapa.set(key, { marca, modelo, nombre, img: optimizarUrlDrive(rawImg, "w600") });
-                    }
-                });
-            }
-            if (Array.isArray(INVENTARIO_GLOBAL)) {
-                INVENTARIO_GLOBAL.forEach(it => {
-                    const eq = it.raw || {};
-                    const rawImg = String(eq.Imagen || "").trim();
-                    if (!rawImg) return;
-                    const marca = String(it.marca || eq.Marca || "").trim();
-                    const modelo = String(it.nombreModelo || eq.Modelo || "").trim();
-                    const nombre = String(it.info?.tituloLlamativo || eq["Nombre Comercial"] || eq.Titulo || "").trim();
-                    const key = `${marca}_${modelo}_${nombre}`.toLowerCase();
-                    if (!mapa.has(key)) {
-                        mapa.set(key, { marca, modelo, nombre, img: optimizarUrlDrive(rawImg, "w600") });
-                    }
-                });
-            }
-            return Array.from(mapa.values());
-        }
-
-        function normImgToken(s) {
-            return String(s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
-        }
-
-        function buscarCandidatosImagenCatalogo(idRaw, nombreRaw, marcaRaw, limite = 8) {
-            const banco = obtenerBancoImagenesCompleto();
-            const idStr = String(idRaw || "").trim();
-            const nombreStr = String(nombreRaw || "").trim();
-            const marcaStr = String(marcaRaw || "").trim();
-
-            if (!idStr && !nombreStr) return [];
-
-            const cleanId = idStr.replace(/^(ANK|UGR|JBL|XIA|APP|SAM|HON|HAY|Baseus)-/i, "").trim().toLowerCase();
-            const parenMatches = (nombreStr.match(/\(([a-z0-9-]+)\)/gi) || []).map(x => x.replace(/[()]/g, "").toLowerCase());
-            const qNorm = normImgToken(`${idStr} ${nombreStr} ${marcaStr}`);
-            const stop = new Set(['de','la','el','en','con','para','por','un','una','negro','blanco','gris','silver','black','white','ugr','ank']);
-            const tokens = qNorm.split(' ').filter(t => t.length >= 2 && !stop.has(t));
-            const brandNorm = normImgToken(marcaStr);
-
-            const resultados = [];
-
-            for (const item of banco) {
-                let score = 0;
-                let razon = '';
-                const modNorm = normImgToken(item.modelo);
-                const nomNorm = normImgToken(item.nombre);
-                const itemBrand = normImgToken(item.marca);
-                const fullText = `${itemBrand} ${modNorm} ${nomNorm}`;
-
-                if (cleanId && cleanId.length >= 4 && (modNorm.includes(cleanId) || cleanId.includes(modNorm.replace(/\s+/g, '')))) {
-                    score += 500;
-                    razon = `Código exacto (${item.modelo})`;
-                }
-
-                for (const pm of parenMatches) {
-                    if (pm.length >= 3 && (modNorm.includes(pm) || nomNorm.includes(pm))) {
-                        score += 350;
-                        if (!razon) razon = `Modelo ${pm.toUpperCase()}`;
-                    }
-                }
-
-                if (brandNorm && itemBrand && (itemBrand.includes(brandNorm) || brandNorm.includes(itemBrand))) {
-                    score += 35;
-                }
-
-                let matchedWords = [];
-                for (const tk of tokens) {
-                    if (tk === brandNorm) continue;
-                    if (modNorm.split(' ').includes(tk)) {
-                        score += 95;
-                        matchedWords.push(tk);
-                    } else if (fullText.split(' ').includes(tk)) {
-                        score += 50;
-                        matchedWords.push(tk);
-                    } else if (tk.length >= 4 && fullText.includes(tk)) {
-                        score += 30;
-                        matchedWords.push(tk);
-                    }
-                }
-
-                if (matchedWords.length >= 2) score += matchedWords.length * 25;
-
-                // Boost por tipo de accesorio coherente
-                const qIsCable = qNorm.includes('cable');
-                const itemIsCable = fullText.includes('cable');
-                const qIsCargador = qNorm.includes('cargador') || qNorm.includes('nano') || qNorm.includes('gan');
-                const itemIsCargador = fullText.includes('cargador') || fullText.includes('nano') || fullText.includes('gan');
-                if (qIsCable && itemIsCable) score += 45;
-                if (qIsCargador && itemIsCargador) score += 45;
-                if (qIsCable && !itemIsCable) score -= 70;
-                if (qIsCargador && itemIsCable) score -= 70;
-
-                if (score >= 60) {
-                    if (!razon) {
-                        razon = matchedWords.length > 0 ? `Coincidencia por «${matchedWords.slice(0, 4).join(' ')}»` : 'Coincidencia en Catálogo 2026';
-                    }
-                    resultados.push({ ...item, score, razon });
-                }
-            }
-
-            resultados.sort((a, b) => b.score - a.score);
-            // Evitar duplicados de URL de imagen
-            const vistos = new Set();
-            const unicos = [];
-            for (const r of resultados) {
-                if (!vistos.has(r.img)) {
-                    vistos.add(r.img);
-                    unicos.push(r);
-                    if (unicos.length >= limite) break;
-                }
-            }
-            return unicos;
-        }
-
-        function resolverFotoProducto(p) {
-            if (!p) return { url: '', esAuto: false, detalle: null };
-            const manual = String(p.photo || '').trim();
-            if (manual) {
-                return { url: optimizarUrlDrive(manual, 'w400'), esAuto: false, detalle: null };
-            }
-            const candidatos = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1);
-            if (candidatos.length > 0) {
-                return {
-                    url: optimizarUrlDrive(candidatos[0].img, 'w400'),
-                    esAuto: true,
-                    detalle: candidatos[0]
-                };
-            }
-            return { url: '', esAuto: false, detalle: null };
-        }
-
-        function hidratarFotosProductosDesdeCatalogo() {
-            let huboCambios = false;
-            products = products.map(p => {
-                if (p.photo && String(p.photo).trim() !== '') return p;
-                const mejor = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1)[0];
-                if (mejor && mejor.img) {
-                    huboCambios = true;
-                    return { ...p, photo: optimizarUrlDrive(mejor.img, 'w400') };
-                }
-                return p;
-            });
-            if (huboCambios) {
-                try { localStorage.setItem(STORAGE_PRODUCTS, JSON.stringify(products)); } catch (e) {}
-            }
-        }
+ANK-A121DJ11,194644388904,Cargador Nano GaN 45W Smart Display,Anker,DIRESA,$29.47,$45.00,2,
+ANK-A8060H11,0194644209247,Cable Zolo USB-C a USB-C 240W 1m,Anker,DIRESA,$7.19,$20.00,2,
+UGR-15570,6941876215706,Cargador Rápido UNO RG 65W Negro (CD361),UGREEN,Nuretic,$35.60,$55.00,1,
+UGR-15550,6941876215508,Cargador Rápido UNO RG 30W Negro (CD359),UGREEN,Nuretic,$20.29,$35.00,3,
+UGR-65050B,6941876263288,Cargador Rápido 45W GaN (X524),UGREEN,Nuretic,$13.02,$30.00,2,
+UGR-70427,6957303874279,Cable Tipo C a Tipo C 100W 1m Negro (US316),UGREEN,Nuretic,$6.64,$15.00,4,
+UGR-70523,6957303875238,Cable Tipo C a Lightning 20W 1m Silver (US304),UGREEN,Nuretic,$19.21,$35.00,1,
+UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nuretic,$19.14,$35.00,1,`;
 
         const STORAGE_PRODUCTS = 'amovil_html_products_v1';
         const STORAGE_SALES = 'amovil_html_sales_v1';
@@ -2704,7 +2350,6 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 sales = [];
             }
 
-            hidratarFotosProductosDesdeCatalogo();
             if (!teniamosProductosGuardados) {
                 syncPosFromGoogleSheets(false);
             }
@@ -2974,32 +2619,15 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 const btnText = available <= 0 ? 'Sin Stock' : committed > 0 ? '+ Sumar otra u.' : cart.length >= 1 ? '+ Sumar al Combo' : '+ Agregar';
                 const safeId = String(p.id).replace(/'/g, "\\'");
 
-                const fotoInfo = resolverFotoProducto(p);
-                const imgUrl = fotoInfo.url;
-
                 return `
                     <div class="bg-white border ${committed > 0 ? 'border-slate-900 ring-1 ring-slate-900/10' : 'border-slate-200'} rounded-xl p-4 flex flex-col justify-between gap-3">
-                        <div class="flex items-start gap-3.5">
-                            <div
-                                onclick="openPhotoModal('${safeId}')"
-                                title="Clic para cambiar imagen, buscar en Catálogo 2026 o subir archivo"
-                                class="relative w-16 h-16 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 cursor-pointer group p-1"
-                            >
-                                ${imgUrl
-                                    ? `<img src="${imgUrl}" alt="${p.name.replace(/"/g, '&quot;')}" class="w-full h-full object-contain" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-                                       <span style="display:none" class="text-[10px] text-slate-400 font-semibold text-center leading-tight">Sin foto</span>`
-                                    : `<span class="text-[10px] text-slate-400 font-semibold text-center leading-tight">+ Foto</span>`
-                                }
-                                <span class="absolute bottom-0.5 right-0.5 bg-slate-900/80 text-white text-[9px] px-1 py-0.5 rounded opacity-80 group-hover:opacity-100">📷</span>
+                        <div>
+                            <div class="text-xs font-mono-num text-slate-500 flex items-center justify-between">
+                                <span>${p.id} · ${p.brand}</span>
+                                ${committed > 0 ? `<span class="font-bold text-slate-900">En venta: ${committed}x</span>` : ''}
                             </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="text-xs font-mono-num text-slate-500 flex items-center justify-between gap-1">
-                                    <span class="truncate">${p.id} · ${p.brand}</span>
-                                    ${committed > 0 ? `<span class="font-bold text-slate-900 shrink-0">En venta: ${committed}x</span>` : ''}
-                                </div>
-                                <div class="text-sm font-bold text-slate-900 mt-1 leading-snug">${p.name}</div>
-                                <div class="text-[11px] font-mono-num text-slate-500 mt-1">Cod: ${p.barcode} · Prov: ${p.supplier}</div>
-                            </div>
+                            <div class="text-sm font-bold text-slate-900 mt-1">${p.name}</div>
+                            <div class="text-[11px] font-mono-num text-slate-500 mt-1">Cod: ${p.barcode} · Prov: ${p.supplier}</div>
                         </div>
                         <div class="flex items-center justify-between pt-3 border-t border-slate-100">
                             <div class="font-mono-num">
@@ -3067,20 +2695,16 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                         if (!p) return '';
                         const activeUnit = item.customUnitPrice !== null ? item.customUnitPrice : p.salePrice;
                         const safeId = String(p.id).replace(/'/g, "\\'");
-                        const fotoTicket = resolverFotoProducto(p).url;
                         return `
                             <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
-                                <div class="flex items-start justify-between gap-2.5">
-                                    <div class="flex items-center gap-2.5 min-w-0">
-                                        ${fotoTicket ? `<img src="${fotoTicket}" alt="" class="w-10 h-10 rounded-lg bg-white border border-slate-200 object-contain p-0.5 shrink-0" />` : ''}
-                                        <div class="min-w-0">
-                                            <div class="text-[11px] font-mono-num text-slate-500">
-                                                <strong>${p.id}</strong> · Lista: ${p.salePrice.toFixed(2)} · Stock: ${p.stock} → <strong class="text-slate-900">${Math.max(0, p.stock - item.quantity)}</strong>
-                                            </div>
-                                            <div class="text-sm font-bold text-slate-900 truncate">${p.name}</div>
+                                <div class="flex items-start justify-between gap-2">
+                                    <div>
+                                        <div class="text-[11px] font-mono-num text-slate-500">
+                                            <strong>${p.id}</strong> · Lista: $${p.salePrice.toFixed(2)} · Stock: ${p.stock} → <strong class="text-slate-900">${Math.max(0, p.stock - item.quantity)}</strong>
                                         </div>
+                                        <div class="text-sm font-bold text-slate-900">${p.name}</div>
                                     </div>
-                                    <button type="button" onclick="removeFromCart('${safeId}')" class="text-xs text-slate-400 hover:text-red-600 px-1 shrink-0">✕</button>
+                                    <button type="button" onclick="removeFromCart('${safeId}')" class="text-xs text-slate-400 hover:text-red-600 px-1">✕</button>
                                 </div>
                                 <div class="flex items-center justify-between pt-1">
                                     <div class="flex items-center gap-1.5">
@@ -3165,392 +2789,27 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             saveState();
         }
 
-        let newProductSelectedPhoto = '';
-        let newProductPhotoIsManual = false;
-        let photoModalTargetId = null; // productId or '__NEW__'
-        let photoModalTempUrl = '';
-
-        function irAAgregarProducto() {
-            switchTab('inventory');
-            const form = document.getElementById('new-product-form');
-            if (form && form.classList.contains('hidden')) {
-                toggleNewProductForm();
-            }
-            setTimeout(() => {
-                const nameInput = document.getElementById('new-name');
-                if (nameInput) nameInput.focus();
-            }, 80);
-        }
-
         function toggleNewProductForm() {
-            const form = document.getElementById('new-product-form');
-            if (!form) return;
-            form.classList.toggle('hidden');
-            if (!form.classList.contains('hidden')) {
-                actualizarSugerenciaImagenNuevoProd();
-            }
-        }
-
-        function mostrarPreviewNuevoProd(url) {
-            const imgEl = document.getElementById('new-photo-preview');
-            const emptyEl = document.getElementById('new-photo-empty');
-            if (!imgEl || !emptyEl) return;
-            const limpia = optimizarUrlDrive(url, 'w400');
-            if (limpia) {
-                imgEl.src = limpia;
-                imgEl.classList.remove('hidden');
-                emptyEl.classList.add('hidden');
-            } else {
-                imgEl.src = '';
-                imgEl.classList.add('hidden');
-                emptyEl.classList.remove('hidden');
-            }
-        }
-
-        function actualizarSugerenciaImagenNuevoProd() {
-            const idVal = document.getElementById('new-id')?.value || '';
-            const nameVal = document.getElementById('new-name')?.value || '';
-            const brandVal = document.getElementById('new-brand')?.value || '';
-            const statusEl = document.getElementById('new-photo-status');
-            const candEl = document.getElementById('new-photo-candidates');
-            if (!statusEl || !candEl) return;
-
-            if (!idVal.trim() && !nameVal.trim()) {
-                if (!newProductPhotoIsManual) {
-                    newProductSelectedPhoto = '';
-                    mostrarPreviewNuevoProd('');
-                }
-                statusEl.className = 'text-xs font-semibold text-slate-600';
-                statusEl.innerHTML = '🔎 Escribe el nombre o código arriba (ej. <em>"nano anker"</em>) para buscar su imagen en <strong>Catalogo 2026-NO BORRAR</strong>...';
-                candEl.classList.add('hidden');
-                return;
-            }
-
-            const candidatos = buscarCandidatosImagenCatalogo(idVal, nameVal, brandVal, 6);
-            if (candidatos.length > 0) {
-                const mejor = candidatos[0];
-                if (!newProductPhotoIsManual) {
-                    newProductSelectedPhoto = optimizarUrlDrive(mejor.img, 'w400');
-                    mostrarPreviewNuevoProd(newProductSelectedPhoto);
-                }
-                statusEl.className = 'text-xs font-semibold text-emerald-700';
-                statusEl.innerHTML = `✨ ¡Imagen encontrada en Catálogo 2026! → <strong>${mejor.marca} ${mejor.modelo} · ${mejor.nombre}</strong> <span class="text-slate-500 font-normal">(${mejor.razon})</span>`;
-
-                candEl.classList.remove('hidden');
-                candEl.innerHTML = `<span class="text-[11px] text-slate-500 shrink-0">Sugerencias:</span>` + candidatos.map((c, idx) => {
-                    const thumbUrl = optimizarUrlDrive(c.img, 'w200');
-                    const safeUrl = thumbUrl.replace(/'/g, "\\'");
-                    const active = newProductSelectedPhoto === optimizarUrlDrive(c.img, 'w400');
-                    return `
-                        <button
-                            type="button"
-                            onclick="seleccionarCandidatoNuevoProd('${safeUrl}', ${idx})"
-                            title="${c.marca} ${c.modelo} - ${c.nombre}"
-                            class="flex items-center gap-1.5 px-2 py-1 rounded-lg border text-left shrink-0 transition-colors ${active ? 'border-slate-900 bg-white shadow-sm' : 'border-slate-200 bg-white/70 hover:bg-white'}"
-                        >
-                            <img src="${thumbUrl}" alt="" class="w-7 h-7 object-contain rounded" />
-                            <span class="text-[11px] font-medium text-slate-700 max-w-[130px] truncate">${c.nombre}</span>
-                        </button>
-                    `;
-                }).join('');
-            } else {
-                if (!newProductPhotoIsManual) {
-                    newProductSelectedPhoto = '';
-                    mostrarPreviewNuevoProd('');
-                }
-                statusEl.className = 'text-xs font-semibold text-amber-700';
-                statusEl.innerHTML = `🤔 No encontré coincidencia exacta para «<strong>${(nameVal || idVal).replace(/</g, '&lt;')}</strong>» en Catálogo 2026. Puedes subir la foto desde tu equipo, pegar el link abajo o explorar el catálogo.`;
-                candEl.classList.add('hidden');
-            }
-        }
-
-        function seleccionarCandidatoNuevoProd(url) {
-            newProductPhotoIsManual = true;
-            newProductSelectedPhoto = optimizarUrlDrive(url, 'w400');
-            mostrarPreviewNuevoProd(newProductSelectedPhoto);
-            const urlInput = document.getElementById('new-photo-url');
-            if (urlInput) urlInput.value = newProductSelectedPhoto;
-        }
-
-        function usarUrlManualNuevoProd(val) {
-            const url = String(val || '').trim();
-            if (url) {
-                newProductPhotoIsManual = true;
-                newProductSelectedPhoto = optimizarUrlDrive(url, 'w400');
-                mostrarPreviewNuevoProd(newProductSelectedPhoto);
-                const statusEl = document.getElementById('new-photo-status');
-                if (statusEl) {
-                    statusEl.className = 'text-xs font-semibold text-blue-700';
-                    statusEl.innerHTML = '🔗 Usando link de imagen personalizado.';
-                }
-            } else {
-                newProductPhotoIsManual = false;
-                actualizarSugerenciaImagenNuevoProd();
-            }
-        }
-
-        function comprimirArchivoImagenADataUrl(file, callback) {
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                const img = new Image();
-                img.onload = function() {
-                    const canvas = document.createElement('canvas');
-                    const maxDim = 480;
-                    let w = img.width;
-                    let h = img.height;
-                    if (w > h && w > maxDim) {
-                        h = Math.round((h * maxDim) / w);
-                        w = maxDim;
-                    } else if (h > maxDim) {
-                        w = Math.round((w * maxDim) / h);
-                        h = maxDim;
-                    }
-                    canvas.width = w;
-                    canvas.height = h;
-                    const ctx = canvas.getContext('2d');
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, w, h);
-                    ctx.drawImage(img, 0, 0, w, h);
-                    callback(canvas.toDataURL('image/jpeg', 0.84));
-                };
-                img.onerror = function() {
-                    callback(ev.target.result);
-                };
-                img.src = ev.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function subirArchivoNuevoProd(e) {
-            const file = e.target.files && e.target.files[0];
-            if (!file) return;
-            comprimirArchivoImagenADataUrl(file, (dataUrl) => {
-                newProductPhotoIsManual = true;
-                newProductSelectedPhoto = dataUrl;
-                mostrarPreviewNuevoProd(dataUrl);
-                const statusEl = document.getElementById('new-photo-status');
-                if (statusEl) {
-                    statusEl.className = 'text-xs font-semibold text-emerald-700';
-                    statusEl.innerHTML = `📁 Archivo cargado desde tu dispositivo: <strong>${file.name}</strong>`;
-                }
-            });
+            document.getElementById('new-product-form').classList.toggle('hidden');
         }
 
         function saveNewProduct(e) {
             e.preventDefault();
-            const idVal = document.getElementById('new-id').value.trim();
-            const nameVal = document.getElementById('new-name').value.trim();
-            const brandVal = document.getElementById('new-brand').value.trim() || 'General';
-            let finalPhoto = newProductSelectedPhoto;
-            if (!finalPhoto) {
-                const autoMatch = buscarCandidatosImagenCatalogo(idVal, nameVal, brandVal, 1)[0];
-                if (autoMatch) finalPhoto = optimizarUrlDrive(autoMatch.img, 'w400');
-            }
             const newP = {
-                id: idVal,
+                id: document.getElementById('new-id').value.trim(),
                 barcode: document.getElementById('new-barcode').value.trim(),
-                name: nameVal,
-                brand: brandVal,
+                name: document.getElementById('new-name').value.trim(),
+                brand: document.getElementById('new-brand').value.trim() || 'General',
                 supplier: document.getElementById('new-supplier').value.trim() || 'Directo',
                 costPrice: parseNum(document.getElementById('new-cost').value),
                 salePrice: parseNum(document.getElementById('new-price').value),
                 stock: Math.max(0, Math.round(parseNum(document.getElementById('new-stock').value))),
-                photo: finalPhoto || ''
+                photo: ''
             };
             products.unshift(newP);
             e.target.reset();
-            newProductSelectedPhoto = '';
-            newProductPhotoIsManual = false;
-            mostrarPreviewNuevoProd('');
             toggleNewProductForm();
             saveState();
-        }
-
-        // ==================== MODAL SELECTOR DE IMAGEN ====================
-        function actualizarPreviewEnModal(url) {
-            const imgEl = document.getElementById('photo-modal-preview');
-            const emptyEl = document.getElementById('photo-modal-empty');
-            if (!imgEl || !emptyEl) return;
-            const limpia = optimizarUrlDrive(url, 'w400');
-            if (limpia) {
-                imgEl.src = limpia;
-                imgEl.classList.remove('hidden');
-                emptyEl.classList.add('hidden');
-            } else {
-                imgEl.src = '';
-                imgEl.classList.add('hidden');
-                emptyEl.classList.remove('hidden');
-            }
-        }
-
-        function openPhotoModal(productId) {
-            const p = products.find(x => x.id === productId);
-            if (!p) return;
-            photoModalTargetId = productId;
-            const resolved = resolverFotoProducto(p);
-            photoModalTempUrl = resolved.url || '';
-
-            document.getElementById('photo-modal-title').textContent = `Imagen de: ${p.name} (${p.id})`;
-            const urlInput = document.getElementById('photo-modal-url-input');
-            if (urlInput) urlInput.value = photoModalTempUrl.startsWith('data:') ? '' : photoModalTempUrl;
-
-            const autoCand = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1)[0];
-            const msgEl = document.getElementById('photo-modal-smart-msg');
-            if (msgEl) {
-                if (autoCand) {
-                    msgEl.className = 'text-xs font-semibold text-emerald-700';
-                    msgEl.innerHTML = `✨ Referencia detectada en Catálogo 2026: <strong>${autoCand.marca} ${autoCand.modelo} · ${autoCand.nombre}</strong> (${autoCand.razon})`;
-                } else {
-                    msgEl.className = 'text-xs font-semibold text-slate-600';
-                    msgEl.innerHTML = 'Puedes buscar en tu Catálogo 2026 abajo, pegar un link web o subir una imagen desde tu dispositivo.';
-                }
-            }
-
-            const searchEl = document.getElementById('photo-modal-search');
-            if (searchEl) searchEl.value = `${p.brand} ${p.name}`.trim();
-
-            actualizarPreviewEnModal(photoModalTempUrl);
-            renderPhotoModalCatalogGrid();
-            document.getElementById('photo-modal').classList.remove('hidden');
-        }
-
-        function openPhotoModalForNewProduct() {
-            photoModalTargetId = '__NEW__';
-            const idVal = document.getElementById('new-id')?.value || '';
-            const nameVal = document.getElementById('new-name')?.value || '';
-            const brandVal = document.getElementById('new-brand')?.value || '';
-            photoModalTempUrl = newProductSelectedPhoto || '';
-
-            document.getElementById('photo-modal-title').textContent = `Seleccionar imagen para nuevo producto`;
-            const urlInput = document.getElementById('photo-modal-url-input');
-            if (urlInput) urlInput.value = photoModalTempUrl.startsWith('data:') ? '' : photoModalTempUrl;
-
-            const searchEl = document.getElementById('photo-modal-search');
-            if (searchEl) searchEl.value = `${brandVal} ${nameVal} ${idVal}`.trim();
-
-            actualizarPreviewEnModal(photoModalTempUrl);
-            renderPhotoModalCatalogGrid();
-            document.getElementById('photo-modal').classList.remove('hidden');
-        }
-
-        function closePhotoModal() {
-            document.getElementById('photo-modal').classList.add('hidden');
-            photoModalTargetId = null;
-        }
-
-        function previewUrlInPhotoModal(val) {
-            photoModalTempUrl = optimizarUrlDrive(val, 'w400');
-            actualizarPreviewEnModal(photoModalTempUrl);
-        }
-
-        function handlePhotoModalFileUpload(e) {
-            const file = e.target.files && e.target.files[0];
-            if (!file) return;
-            comprimirArchivoImagenADataUrl(file, (dataUrl) => {
-                photoModalTempUrl = dataUrl;
-                actualizarPreviewEnModal(dataUrl);
-                const msgEl = document.getElementById('photo-modal-smart-msg');
-                if (msgEl) {
-                    msgEl.className = 'text-xs font-semibold text-emerald-700';
-                    msgEl.innerHTML = `📁 Imagen cargada desde tu dispositivo: <strong>${file.name}</strong> (Haz clic en Guardar Imagen)`;
-                }
-            });
-        }
-
-        function useAutoSuggestedPhotoInModal() {
-            if (photoModalTargetId === '__NEW__') {
-                const idVal = document.getElementById('new-id')?.value || '';
-                const nameVal = document.getElementById('new-name')?.value || '';
-                const brandVal = document.getElementById('new-brand')?.value || '';
-                const best = buscarCandidatosImagenCatalogo(idVal, nameVal, brandVal, 1)[0];
-                if (best) {
-                    photoModalTempUrl = optimizarUrlDrive(best.img, 'w400');
-                    actualizarPreviewEnModal(photoModalTempUrl);
-                    document.getElementById('photo-modal-url-input').value = photoModalTempUrl;
-                }
-                return;
-            }
-            const p = products.find(x => x.id === photoModalTargetId);
-            if (!p) return;
-            const best = buscarCandidatosImagenCatalogo(p.id, p.name, p.brand, 1)[0];
-            if (best) {
-                photoModalTempUrl = optimizarUrlDrive(best.img, 'w400');
-                actualizarPreviewEnModal(photoModalTempUrl);
-                document.getElementById('photo-modal-url-input').value = photoModalTempUrl;
-            }
-        }
-
-        function selectCatalogImageInModal(url) {
-            photoModalTempUrl = optimizarUrlDrive(url, 'w400');
-            actualizarPreviewEnModal(photoModalTempUrl);
-            const urlInput = document.getElementById('photo-modal-url-input');
-            if (urlInput) urlInput.value = photoModalTempUrl;
-            renderPhotoModalCatalogGrid();
-        }
-
-        function renderPhotoModalCatalogGrid() {
-            const grid = document.getElementById('photo-modal-grid');
-            const countEl = document.getElementById('photo-modal-count');
-            if (!grid) return;
-            const q = (document.getElementById('photo-modal-search')?.value || '').trim();
-            const banco = obtenerBancoImagenesCompleto();
-
-            let lista = [];
-            if (!q) {
-                lista = banco.slice(0, 40);
-            } else {
-                const candidatos = buscarCandidatosImagenCatalogo('', q, '', 24);
-                const qNorm = normImgToken(q);
-                const directMatches = banco.filter(item => {
-                    const txt = normImgToken(`${item.marca} ${item.modelo} ${item.nombre}`);
-                    return qNorm.split(' ').every(w => !w || txt.includes(w));
-                });
-                const mapUnico = new Map();
-                [...candidatos, ...directMatches].forEach(it => {
-                    if (it && it.img && !mapUnico.has(it.img)) mapUnico.set(it.img, it);
-                });
-                lista = Array.from(mapUnico.values()).slice(0, 36);
-                if (lista.length === 0) lista = banco.slice(0, 24);
-            }
-
-            if (countEl) countEl.textContent = `${banco.length} fotos en Catálogo 2026`;
-
-            grid.innerHTML = lista.map(item => {
-                const thumb = optimizarUrlDrive(item.img, 'w300');
-                const full = optimizarUrlDrive(item.img, 'w400');
-                const safeFull = full.replace(/'/g, "\\'");
-                const isSelected = photoModalTempUrl === full;
-                return `
-                    <button
-                        type="button"
-                        onclick="selectCatalogImageInModal('${safeFull}')"
-                        class="p-2 rounded-xl border text-left flex flex-col gap-1.5 transition-all ${isSelected ? 'border-slate-900 ring-2 ring-slate-900/15 bg-slate-50' : 'border-slate-200 hover:border-slate-400 bg-white'}"
-                    >
-                        <div class="w-full h-20 bg-slate-50 rounded-lg flex items-center justify-center overflow-hidden p-1">
-                            <img src="${thumb}" alt="" class="w-full h-full object-contain" loading="lazy" />
-                        </div>
-                        <div class="text-[10px] font-mono-num text-slate-500 truncate">${item.marca} · ${item.modelo}</div>
-                        <div class="text-[11px] font-bold text-slate-900 leading-tight line-clamp-2">${item.nombre}</div>
-                    </button>
-                `;
-            }).join('');
-        }
-
-        function savePhotoModalSelection() {
-            if (photoModalTargetId === '__NEW__') {
-                newProductPhotoIsManual = true;
-                newProductSelectedPhoto = photoModalTempUrl;
-                mostrarPreviewNuevoProd(photoModalTempUrl);
-                const urlInput = document.getElementById('new-photo-url');
-                if (urlInput && !photoModalTempUrl.startsWith('data:')) urlInput.value = photoModalTempUrl;
-                closePhotoModal();
-                return;
-            }
-            if (photoModalTargetId) {
-                updateProductField(photoModalTargetId, 'photo', photoModalTempUrl);
-            }
-            closePhotoModal();
         }
 
         function renderInventoryTable() {
@@ -3594,26 +2853,11 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             tbodyEl.innerHTML = filtered.map(p => {
                 const profit = p.salePrice - p.costPrice;
                 const safeId = String(p.id).replace(/'/g, "\\'");
-                const fotoInv = resolverFotoProducto(p).url;
                 return `
                     <tr class="hover:bg-slate-50">
                         <td class="py-3 px-4">
-                            <div class="flex items-center gap-3">
-                                <div
-                                    onclick="openPhotoModal('${safeId}')"
-                                    title="Cambiar foto del producto"
-                                    class="w-11 h-11 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center overflow-hidden shrink-0 cursor-pointer p-0.5 hover:border-slate-900"
-                                >
-                                    ${fotoInv
-                                        ? `<img src="${fotoInv}" alt="" class="w-full h-full object-contain" />`
-                                        : `<span class="text-[9px] text-slate-400 font-semibold text-center">📷 Foto</span>`
-                                    }
-                                </div>
-                                <div>
-                                    <div class="font-semibold text-slate-900">${p.name}</div>
-                                    <div class="text-xs font-mono-num text-slate-500">${p.id}</div>
-                                </div>
-                            </div>
+                            <div class="font-semibold text-slate-900">${p.name}</div>
+                            <div class="text-xs font-mono-num text-slate-500">${p.id}</div>
                         </td>
                         <td class="py-3 px-3 font-mono-num text-xs text-slate-600">${p.barcode}</td>
                         <td class="py-3 px-3 text-xs text-slate-600">${p.brand} · ${p.supplier}</td>
@@ -3811,527 +3055,6 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
                 });
             }
         });
-
-        // =========================================================================
-        // NUEVA FUNCIÓN AL FINAL: GALERÍA ESTILO MERCADO LIBRE (MISMO PRODUCTO)
-        // + BUSCADOR POR NOMBRE / NÚMERO DE SERIE (MODELO) PARA PEGAR LAS 4 IMÁGENES
-        // =========================================================================
-        const STORAGE_GALERIA_POR_MODELO = 'amovil_galeria_4fotos_modelo_v1';
-        let MAPA_FOTOS_EXTRA_MODELO = {};
-        let estadoGaleriaML = {
-            idProd: null,
-            claveModelo: '',
-            queryBusqueda: '',
-            imgPrincipal: '',
-            indiceActivo: 0,
-            vistas: []
-        };
-
-        function cargarMapaFotosExtraModelo() {
-            try {
-                const raw = localStorage.getItem(STORAGE_GALERIA_POR_MODELO);
-                if (raw) {
-                    const parsed = JSON.parse(raw);
-                    if (parsed && typeof parsed === 'object') {
-                        MAPA_FOTOS_EXTRA_MODELO = parsed;
-                    }
-                }
-            } catch (e) {}
-            return MAPA_FOTOS_EXTRA_MODELO;
-        }
-
-        function guardarFotosExtraDeModelo(claveModelo, array4Urls) {
-            cargarMapaFotosExtraModelo();
-            MAPA_FOTOS_EXTRA_MODELO[claveModelo] = array4Urls.map(u => String(u || '').trim());
-            try {
-                localStorage.setItem(STORAGE_GALERIA_POR_MODELO, JSON.stringify(MAPA_FOTOS_EXTRA_MODELO));
-            } catch (e) {}
-        }
-
-        function obtenerClaveGaleriaProducto(marca, modelo, titulo) {
-            return normImgToken(`${marca || ''}_${modelo || ''}_${titulo || ''}`);
-        }
-
-        // Extrae las 4 imágenes extra SOLO si pertenecen a ESTE MISMO producto (desde Excel Imagen separada por |, Imagen2..5, o guardadas para este SKU)
-        function obtener4UrlsMismoProducto(equipoRaw, claveModelo, imgPrincipal) {
-            cargarMapaFotosExtraModelo();
-            const guardadas = MAPA_FOTOS_EXTRA_MODELO[claveModelo];
-            if (Array.isArray(guardadas) && guardadas.some(Boolean)) {
-                return [guardadas[0] || '', guardadas[1] || '', guardadas[2] || '', guardadas[3] || ''];
-            }
-
-            const extrasExcel = [];
-            const principalLimpia = optimizarUrlDrive(imgPrincipal, 'w800');
-
-            // Si en la celda Imagen del Excel pusieron varios links separados por "|" o salto de línea
-            const rawImgCell = String(equipoRaw?.Imagen || '').trim();
-            if (rawImgCell.includes('|') || rawImgCell.includes('\n')) {
-                rawImgCell.split(/\s*\|\s*|\r?\n/).slice(1).forEach(u => {
-                    const l = optimizarUrlDrive(u.trim(), 'w800');
-                    if (l && l !== principalLimpia && !extrasExcel.includes(l)) extrasExcel.push(l);
-                });
-            }
-
-            // O si el Excel tiene columnas Imagen2, Imagen3, Imagen4, Imagen5
-            ['Imagen2', 'Imagen3', 'Imagen4', 'Imagen5', 'Foto2', 'Foto3', 'Foto4', 'Foto5'].forEach(col => {
-                if (equipoRaw && equipoRaw[col]) {
-                    const l = optimizarUrlDrive(String(equipoRaw[col]).trim(), 'w800');
-                    if (l && l !== principalLimpia && !extrasExcel.includes(l)) extrasExcel.push(l);
-                }
-            });
-
-            return [
-                extrasExcel[0] || '',
-                extrasExcel[1] || '',
-                extrasExcel[2] || '',
-                extrasExcel[3] || ''
-            ];
-        }
-
-        // Construye las 5 diapositivas estilo Mercado Libre usando SIEMPRE la foto del MISMO producto (o las 4 fotos reales pegadas de ese mismo modelo)
-        function construirVistasMercadoLibreMismoProducto(imgPrincipal, infoProd, cuatroUrlsReales = ['', '', '', '']) {
-            const urlBase = optimizarUrlDrive(imgPrincipal, 'w800');
-            const titulo = infoProd?.titulo || 'Producto Oficial';
-            const marca = (infoProd?.marca && infoProd.marca !== 'OTRAS MARCAS') ? infoProd.marca : 'A-MOVIL';
-            const sku = infoProd?.sku || '';
-            const colores = infoProd?.colores && infoProd.colores.toUpperCase() !== 'N/A' ? infoProd.colores : 'Original';
-
-            const vinetasLimpias = (infoProd?.vinetas || []).map(v => String(v || '').replace(/<[^>]+>/g, '').replace(/^[-•*]+\s*/, '').trim()).filter(Boolean);
-            const chipsLimpios = (infoProd?.chips || []).map(c => String(c || '').trim()).filter(Boolean);
-
-            const titularBeneficio1 = (chipsLimpios[0] || vinetasLimpias[0] || `CALIDAD OFICIAL ${marca}`).slice(0, 34).toUpperCase();
-            const textoBeneficio1 = (vinetasLimpias[0] || `Diseño original ${marca} ${sku} con máximo rendimiento garantizado.`).slice(0, 95);
-            const titularBeneficio2 = (chipsLimpios[1] || 'DISEÑO Y ACABADO PREMIUM').slice(0, 34).toUpperCase();
-            const textoBeneficio2 = (vinetasLimpias[1] || vinetasLimpias[0] || `Construcción de alta durabilidad y componentes certificados por ${marca}.`).slice(0, 95);
-
-            const spec1 = vinetasLimpias[0] || `Marca Oficial: ${marca} (${sku || 'Original'})`;
-            const spec2 = vinetasLimpias[1] || (chipsLimpios[0] ? `Destacado: ${chipsLimpios.join(' · ')}` : 'Rendimiento estable y seguro');
-            const spec3 = vinetasLimpias[2] || `Colores / Versión: ${colores} · Garantía Local`;
-
-            const u2 = cuatroUrlsReales[0] ? optimizarUrlDrive(cuatroUrlsReales[0], 'w800') : '';
-            const u3 = cuatroUrlsReales[1] ? optimizarUrlDrive(cuatroUrlsReales[1], 'w800') : '';
-            const u4 = cuatroUrlsReales[2] ? optimizarUrlDrive(cuatroUrlsReales[2], 'w800') : '';
-            const u5 = cuatroUrlsReales[3] ? optimizarUrlDrive(cuatroUrlsReales[3], 'w800') : '';
-
-            return [
-                // 1. Foto Principal Limpia
-                {
-                    tipo: 'clean',
-                    imgUrl: urlBase,
-                    thumbClass: '',
-                    thumbTag: ''
-                },
-                // 2. Foto 2 Real (si se pegó) o Póster Estilo Mercado Libre (Fondo Azul/Violeta con LA MISMA FOTO del producto)
-                u2 ? {
-                    tipo: 'clean',
-                    imgUrl: u2,
-                    thumbClass: '',
-                    thumbTag: ''
-                } : {
-                    tipo: 'poster_ml_blue',
-                    imgUrl: urlBase,
-                    thumbClass: 'thumb-poster-blue',
-                    thumbTag: titularBeneficio1.slice(0, 12),
-                    headline: titularBeneficio1,
-                    footer: textoBeneficio1,
-                    badgeRight: sku || marca
-                },
-                // 3. Foto 3 Real (si se pegó) o Guía de Especificaciones Estilo Ugreen/Mercado Libre (con LA MISMA FOTO del producto)
-                u3 ? {
-                    tipo: 'clean',
-                    imgUrl: u3,
-                    thumbClass: '',
-                    thumbTag: ''
-                } : {
-                    tipo: 'tech_guide_ml',
-                    imgUrl: urlBase,
-                    thumbClass: '',
-                    thumbTag: 'GUÍA',
-                    marcaModelo: `${marca} ${sku}`.trim(),
-                    tituloCorto: titulo,
-                    specs: [
-                        { tag: chipsLimpios[0] ? chipsLimpios[0].slice(0, 10) : 'SPEC 1', text: spec1.slice(0, 72) },
-                        { tag: chipsLimpios[1] ? chipsLimpios[1].slice(0, 10) : 'SPEC 2', text: spec2.slice(0, 72) },
-                        { tag: 'GARANTÍA', text: spec3.slice(0, 72) }
-                    ]
-                },
-                // 4. Foto 4 Real (si se pegó) o Lámina Zoom Detalle Macro (con LA MISMA FOTO del producto)
-                u4 ? {
-                    tipo: 'clean',
-                    imgUrl: u4,
-                    thumbClass: '',
-                    thumbTag: ''
-                } : {
-                    tipo: 'zoom_ml_card',
-                    imgUrl: urlBase,
-                    thumbClass: 'thumb-poster-dark',
-                    thumbTag: 'DETALLE',
-                    headline: titularBeneficio2,
-                    footer: textoBeneficio2
-                },
-                // 5. Foto 5 Real (si se pegó) o Póster de Colores / Contenido (con LA MISMA FOTO del producto)
-                u5 ? {
-                    tipo: 'clean',
-                    imgUrl: u5,
-                    thumbClass: '',
-                    thumbTag: ''
-                } : {
-                    tipo: 'poster_ml_colors',
-                    imgUrl: urlBase,
-                    thumbClass: 'thumb-poster-blue',
-                    thumbTag: 'COLORES',
-                    headline: `${marca} · ${sku || 'ORIGINAL'}`,
-                    colores: colores,
-                    footer: 'PRODUCTO 100% ORIGINAL CON GARANTÍA EN A-MOVIL STORE'
-                }
-            ];
-        }
-
-        function renderizarVisorPrincipalML(indice) {
-            const frame = document.querySelector('#detalle-producto-inyectado .detail-image-frame');
-            if (!frame || !estadoGaleriaML.vistas.length) return;
-
-            const total = estadoGaleriaML.vistas.length;
-            const idx = ((indice % total) + total) % total;
-            estadoGaleriaML.indiceActivo = idx;
-            const v = estadoGaleriaML.vistas[idx];
-
-            if (v.tipo === 'clean') {
-                frame.innerHTML = `<img src="${v.imgUrl}" class="ml-main-clean-img" alt="Vista ${idx + 1}">`;
-            } else if (v.tipo === 'poster_ml_blue') {
-                frame.innerHTML = `
-                    <div class="ml-slide-poster-blue">
-                        <div class="ml-poster-headline">${v.headline}</div>
-                        <div class="ml-poster-center">
-                            <div class="ml-poster-side-icons">
-                                <div class="ml-poster-icon-circle">⚡</div>
-                                <div class="ml-poster-icon-circle">🛡️</div>
-                                <div class="ml-poster-icon-circle">✓</div>
-                            </div>
-                            <img src="${v.imgUrl}" class="ml-same-prod-img" alt="${v.headline}">
-                            <div class="ml-poster-badge-right">
-                                <span>OFICIAL</span>
-                                <strong style="font-size:11px;">${v.badgeRight.slice(0, 9)}</strong>
-                            </div>
-                        </div>
-                        <div class="ml-poster-footer-text">${v.footer}</div>
-                    </div>
-                `;
-            } else if (v.tipo === 'tech_guide_ml') {
-                frame.innerHTML = `
-                    <div class="ml-slide-tech-guide">
-                        <div class="ml-guide-left">
-                            <img src="${v.imgUrl}" alt="${v.tituloCorto}">
-                            <div class="ml-guide-brand-title">${v.marcaModelo}</div>
-                            <div class="ml-guide-sub">${v.tituloCorto}</div>
-                        </div>
-                        <div class="ml-guide-right">
-                            ${v.specs.map(s => `
-                                <div class="ml-guide-spec-row">
-                                    <span class="ml-guide-port-pill">${s.tag}</span>
-                                    <span class="ml-guide-line"></span>
-                                    <div class="ml-guide-spec-text">${s.text}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                `;
-            } else if (v.tipo === 'zoom_ml_card') {
-                frame.innerHTML = `
-                    <div class="ml-slide-zoom-card">
-                        <div class="ml-poster-headline" style="font-size:18px;">${v.headline}</div>
-                        <div class="ml-zoom-img-circle">
-                            <img src="${v.imgUrl}" alt="Detalle">
-                        </div>
-                        <div class="ml-poster-footer-text">${v.footer}</div>
-                    </div>
-                `;
-            } else if (v.tipo === 'poster_ml_colors') {
-                frame.innerHTML = `
-                    <div class="ml-slide-poster-blue" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
-                        <div class="ml-poster-headline" style="font-size:18px;">${v.headline}</div>
-                        <div class="ml-poster-center">
-                            <img src="${v.imgUrl}" class="ml-same-prod-img" style="transform: scale(1.08);" alt="Variante">
-                        </div>
-                        <div style="background:rgba(255,255,255,0.14); padding:6px 14px; border-radius:20px; font-size:11.5px; font-weight:800; color:#fff; margin-bottom:4px;">
-                            Colores / Versión: ${v.colores}
-                        </div>
-                        <div class="ml-poster-footer-text">${v.footer}</div>
-                    </div>
-                `;
-            }
-
-            document.querySelectorAll('#mlThumbsColumn .ml-thumb-item').forEach((el, i) => {
-                el.classList.toggle('active', i === idx);
-            });
-        }
-
-        function renderizarMiniaturasColumnaML() {
-            const col = document.getElementById('mlThumbsColumn');
-            if (!col) return;
-            col.innerHTML = estadoGaleriaML.vistas.map((v, idx) => `
-                <div
-                    class="ml-thumb-item ${v.thumbClass || ''} ${idx === estadoGaleriaML.indiceActivo ? 'active' : ''}"
-                    onmouseenter="renderizarVisorPrincipalML(${idx})"
-                    onclick="renderizarVisorPrincipalML(${idx})"
-                    title="Imagen ${idx + 1}"
-                >
-                    ${v.thumbTag ? `<span class="ml-thumb-mini-tag">${v.thumbTag}</span>` : ''}
-                    <img src="${v.imgUrl}" alt="Miniatura ${idx + 1}" style="${v.tipo === 'zoom_ml_card' ? 'transform:scale(1.35);' : ''}">
-                </div>
-            `).join('');
-        }
-
-        // Busca en la web imágenes por Nombre + Número de Serie / Modelo (usando Bing Images vía proxy CORS público) para que el usuario las pegue con 1 clic
-        async function buscarImagenesWebPorModeloSerie(queryStr, contenedorId) {
-            const box = document.getElementById(contenedorId);
-            if (!box) return;
-            box.innerHTML = '<div style="font-size:11px; color:#2563eb; font-weight:700; padding:6px 0;">🔎 Buscando en la web fotos del modelo <strong>' + queryStr.replace(/</g, '&lt;') + '</strong>...</div>';
-
-            const urlsHalladas = [];
-            try {
-                const searchUrl = 'https://www.bing.com/images/search?q=' + encodeURIComponent(queryStr + ' product') + '&form=HDRSC2';
-                const proxyUrl = 'https://api.allorigins.win/get?url=' + encodeURIComponent(searchUrl);
-                const resp = await fetch(proxyUrl);
-                if (resp.ok) {
-                    const data = await resp.json();
-                    const htmlText = data?.contents || '';
-                    const matches = [...htmlText.matchAll(/murl&quot;:&quot;(https?:\/\/[^&]+?)&quot;/gi)];
-                    matches.forEach(m => {
-                        const u = m[1];
-                        if (u && !urlsHalladas.includes(u) && /\.(jpg|jpeg|png|webp)/i.test(u)) {
-                            urlsHalladas.push(u);
-                        }
-                    });
-                }
-            } catch (e) {}
-
-            if (urlsHalladas.length === 0) {
-                box.innerHTML = `
-                    <div style="font-size:11px; color:#475569; padding:6px 0;">
-                        Haz clic en <strong>Google Imágenes</strong> o <strong>Mercado Libre</strong> arriba, copia la dirección de imagen de los ángulos del producto y pégalas en las 4 casillas de abajo.
-                    </div>
-                `;
-                return;
-            }
-
-            box.innerHTML = `
-                <div style="font-size:11px; font-weight:800; color:#0f172a; margin-bottom:6px;">
-                    ✨ Imágenes encontradas en la web para «${queryStr.replace(/</g, '&lt;')}» (Haz clic en hasta 4 fotos para asignarlas a las casillas):
-                </div>
-                <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(68px, 1fr)); gap:8px; max-height:160px; overflow-y:auto; padding:4px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px;">
-                    ${urlsHalladas.slice(0, 12).map(u => {
-                        const safeU = u.replace(/'/g, "\\'");
-                        return `
-                            <div
-                                onclick="asignarUrlWebACasillaLibre('${safeU}')"
-                                title="Clic para agregar como una de las 4 imágenes del producto"
-                                style="height:64px; background:#fff; border:1.5px solid #cbd5e1; border-radius:6px; padding:3px; cursor:pointer; display:flex; align-items:center; justify-content:center; overflow:hidden;"
-                            >
-                                <img src="${u}" alt="" style="max-width:100%; max-height:100%; object-fit:contain;" onerror="this.parentElement.style.display='none'" />
-                            </div>
-                        `;
-                    }).join('')}
-                </div>
-            `;
-        }
-
-        function asignarUrlWebACasillaLibre(url) {
-            for (let i = 1; i <= 4; i++) {
-                const inp = document.getElementById('ml-extra-input-' + i) || document.getElementById('modal-extra-input-' + i);
-                if (inp && !inp.value.trim()) {
-                    inp.value = url;
-                    if (document.getElementById('ml-extra-input-1')) {
-                        guardar4ImagenesDesdeDetalle();
-                    }
-                    return;
-                }
-            }
-            const inp4 = document.getElementById('ml-extra-input-4') || document.getElementById('modal-extra-input-4');
-            if (inp4) {
-                inp4.value = url;
-                if (document.getElementById('ml-extra-input-1')) {
-                    guardar4ImagenesDesdeDetalle();
-                }
-            }
-        }
-
-        function guardar4ImagenesDesdeDetalle() {
-            const item = INVENTARIO_GLOBAL.find(p => p.id === estadoGaleriaML.idProd);
-            if (!item) return;
-            const urls4 = [1, 2, 3, 4].map(i => (document.getElementById('ml-extra-input-' + i)?.value || '').trim());
-            guardarFotosExtraDeModelo(estadoGaleriaML.claveModelo, urls4);
-
-            const infoBase = {
-                titulo: item.info?.tituloLlamativo || item.nombreModelo || 'Producto',
-                marca: item.marca || 'A-MOVIL',
-                sku: item.nombreModelo || '',
-                colores: item.info?.coloresLimpios || '',
-                vinetas: item.info?.listaVinetas || [],
-                chips: item.info?.listaChips || []
-            };
-            estadoGaleriaML.vistas = construirVistasMercadoLibreMismoProducto(estadoGaleriaML.imgPrincipal, infoBase, urls4);
-            renderizarMiniaturasColumnaML();
-            renderizarVisorPrincipalML(estadoGaleriaML.indiceActivo);
-        }
-
-        function copiar5UrlsParaExcel() {
-            const urls4 = [1, 2, 3, 4].map(i => (document.getElementById('ml-extra-input-' + i)?.value || '').trim()).filter(Boolean);
-            const todas = [estadoGaleriaML.imgPrincipal, ...urls4].filter(Boolean).join(' | ');
-            navigator.clipboard.writeText(todas);
-            alert('¡Copiado! Pega este texto en la celda de la columna "Imagen" de este producto en tu Excel Catalogo 2026-NO BORRAR:\n\n' + todas);
-        }
-
-        // Conecta abrirDetalleProducto para crear la Galería Vertical Estilo Mercado Libre + Buscador por Modelo/Serie
-        const _abrirDetalleProductoOriginal = abrirDetalleProducto;
-        abrirDetalleProducto = function(idProd, pushHistory = true) {
-            _abrirDetalleProductoOriginal(idProd, pushHistory);
-
-            const item = INVENTARIO_GLOBAL.find(p => p.id === idProd);
-            if (!item) return;
-
-            const equipo = item.raw || {};
-            const imgPrincipal = optimizarUrlDrive(equipo.Imagen, 'w800');
-            const titulo = item.info?.tituloLlamativo || item.nombreModelo || 'Producto';
-            const marca = item.marca !== 'OTRAS MARCAS' ? item.marca : '';
-            const sku = item.nombreModelo || '';
-            const claveModelo = obtenerClaveGaleriaProducto(marca, sku, titulo);
-            const queryBusqueda = `${marca} ${sku} ${titulo}`.replace(/\s+/g, ' ').trim();
-
-            const cuatroUrls = obtener4UrlsMismoProducto(equipo, claveModelo, imgPrincipal);
-            const infoBase = {
-                titulo,
-                marca: item.marca || 'A-MOVIL',
-                sku,
-                colores: item.info?.coloresLimpios || '',
-                vinetas: item.info?.listaVinetas || [],
-                chips: item.info?.listaChips || []
-            };
-
-            estadoGaleriaML = {
-                idProd,
-                claveModelo,
-                queryBusqueda,
-                imgPrincipal,
-                indiceActivo: 0,
-                vistas: construirVistasMercadoLibreMismoProducto(imgPrincipal, infoBase, cuatroUrls)
-            };
-
-            const leftCol = document.querySelector('#detalle-producto-inyectado .detail-left-col');
-            const frame = document.querySelector('#detalle-producto-inyectado .detail-image-frame');
-            if (leftCol && frame) {
-                // Envolver el frame en el layout horizontal estilo Mercado Libre (miniaturas verticales a la izquierda + visor grande a la derecha)
-                const layoutWrap = document.createElement('div');
-                layoutWrap.className = 'ml-gallery-layout';
-
-                const thumbsCol = document.createElement('div');
-                thumbsCol.id = 'mlThumbsColumn';
-                thumbsCol.className = 'ml-thumbs-column';
-
-                frame.parentNode.insertBefore(layoutWrap, frame);
-                layoutWrap.appendChild(thumbsCol);
-                layoutWrap.appendChild(frame);
-
-                // Agregar el buscador por Nombre / Número de Serie (Modelo) para pegar las 4 imágenes restantes
-                const finderWrap = document.createElement('div');
-                finderWrap.className = 'ml-finder-bar';
-                const qEncoded = encodeURIComponent(queryBusqueda);
-                finderWrap.innerHTML = `
-                    <button type="button" class="ml-finder-toggle-btn" onclick="const p=document.getElementById('mlFinderPanel'); p.classList.toggle('open'); if(p.classList.contains('open') && !p.dataset.searched){ p.dataset.searched='1'; buscarImagenesWebPorModeloSerie(document.getElementById('ml-model-query-input').value, 'ml-web-results-box'); }">
-                        <span>📸 +4 Imágenes del Modelo <strong>${sku || titulo}</strong> (Buscar por Serie/Nombre o Pegar Links)</span>
-                        <span>▼</span>
-                    </button>
-                    <div id="mlFinderPanel" class="ml-finder-panel">
-                        <div style="font-size:11.5px; font-weight:800; color:#0f172a; margin-bottom:8px;">
-                            Buscar las 4 imágenes restantes por Nombre o Número de Serie / Modelo:
-                        </div>
-                        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:10px;">
-                            <input id="ml-model-query-input" type="text" value="${queryBusqueda.replace(/"/g, '&quot;')}" style="flex:1; min-width:180px; padding:7px 10px; font-size:11.5px; font-weight:700; border:1.5px solid #cbd5e1; border-radius:8px;" />
-                            <button type="button" onclick="buscarImagenesWebPorModeloSerie(document.getElementById('ml-model-query-input').value, 'ml-web-results-box')" style="background:#0088ff; color:#fff; border:none; border-radius:8px; padding:7px 12px; font-size:11px; font-weight:800; cursor:pointer;">
-                                🌐 Buscar en Web Ahora
-                            </button>
-                            <a href="https://www.google.com/search?tbm=isch&q=${qEncoded}" target="_blank" style="background:#f1f5f9; color:#0f172a; border:1px solid #cbd5e1; border-radius:8px; padding:7px 10px; font-size:11px; font-weight:800; text-decoration:none;">
-                                🔎 Google Imágenes
-                            </a>
-                            <a href="https://listado.mercadolibre.com.ec/${qEncoded}" target="_blank" style="background:#fef9c3; color:#854d0e; border:1px solid #fde047; border-radius:8px; padding:7px 10px; font-size:11px; font-weight:800; text-decoration:none;">
-                                🛒 Mercado Libre
-                            </a>
-                        </div>
-                        <div id="ml-web-results-box"></div>
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px;">
-                            <input id="ml-extra-input-1" type="text" value="${(cuatroUrls[0] || '').replace(/"/g, '&quot;')}" oninput="guardar4ImagenesDesdeDetalle()" placeholder="Pegar Link Imagen 2 (Ángulo / Posición)..." style="padding:6px 9px; font-size:11px; border:1px solid #cbd5e1; border-radius:6px;" />
-                            <input id="ml-extra-input-2" type="text" value="${(cuatroUrls[1] || '').replace(/"/g, '&quot;')}" oninput="guardar4ImagenesDesdeDetalle()" placeholder="Pegar Link Imagen 3 (Guía / Puertos)..." style="padding:6px 9px; font-size:11px; border:1px solid #cbd5e1; border-radius:6px;" />
-                            <input id="ml-extra-input-3" type="text" value="${(cuatroUrls[2] || '').replace(/"/g, '&quot;')}" oninput="guardar4ImagenesDesdeDetalle()" placeholder="Pegar Link Imagen 4 (Detalle / Uso)..." style="padding:6px 9px; font-size:11px; border:1px solid #cbd5e1; border-radius:6px;" />
-                            <input id="ml-extra-input-4" type="text" value="${(cuatroUrls[3] || '').replace(/"/g, '&quot;')}" oninput="guardar4ImagenesDesdeDetalle()" placeholder="Pegar Link Imagen 5 (Beneficios / Caja)..." style="padding:6px 9px; font-size:11px; border:1px solid #cbd5e1; border-radius:6px;" />
-                        </div>
-                        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; margin-top:10px; flex-wrap:wrap;">
-                            <span style="font-size:10.5px; color:#64748b;">Al pegar un link arriba se actualiza la galería estilo Mercado Libre al instante.</span>
-                            <button type="button" onclick="copiar5UrlsParaExcel()" style="background:#0f172a; color:#fff; border:none; border-radius:7px; padding:6px 11px; font-size:10.5px; font-weight:800; cursor:pointer;">
-                                📋 Copiar las 5 URLs para mi Excel
-                            </button>
-                        </div>
-                    </div>
-                `;
-                layoutWrap.insertAdjacentElement('afterend', finderWrap);
-
-                renderizarMiniaturasColumnaML();
-                renderizarVisorPrincipalML(0);
-            }
-        };
-
-        // Conecta el Modal de Fotos del Punto de Venta para buscar por Nombre / Número de Serie (Modelo) las 4 imágenes restantes
-        const _actualizarPreviewEnModalOriginal = actualizarPreviewEnModal;
-        actualizarPreviewEnModal = function(url) {
-            _actualizarPreviewEnModalOriginal(url);
-            renderizar4ExtrasEnPhotoModal(url);
-        };
-
-        function renderizar4ExtrasEnPhotoModal(urlPrincipal) {
-            const grid4 = document.getElementById('photo-modal-extra4-grid');
-            const status4 = document.getElementById('photo-modal-extra4-status');
-            if (!grid4) return;
-
-            const limpia = optimizarUrlDrive(urlPrincipal, 'w400');
-            const p = products.find(x => x.id === photoModalTargetId);
-            const marca = p?.brand || (document.getElementById('new-brand')?.value || 'A-MOVIL');
-            const sku = p?.id || (document.getElementById('new-id')?.value || '');
-            const nombre = p?.name || (document.getElementById('new-name')?.value || 'Producto');
-            const claveMod = obtenerClaveGaleriaProducto(marca, sku, nombre);
-            const cuatro = obtener4UrlsMismoProducto({}, claveMod, limpia);
-
-            if (status4) {
-                status4.innerHTML = `Modelo / Serie: <strong>${marca} · ${sku} — ${nombre}</strong>`;
-            }
-
-            grid4.innerHTML = [0, 1, 2, 3].map(idx => `
-                <div class="bg-white border border-slate-200 rounded-lg p-2 flex flex-col gap-1.5 shadow-sm">
-                    <div class="w-full h-14 bg-slate-50 rounded flex items-center justify-center overflow-hidden p-1">
-                        <img src="${cuatro[idx] ? optimizarUrlDrive(cuatro[idx], 'w300') : limpia}" alt="Foto ${idx + 2}" class="max-h-full max-w-full object-contain" />
-                    </div>
-                    <input
-                        id="modal-extra-input-${idx + 1}"
-                        type="text"
-                        value="${(cuatro[idx] || '').replace(/"/g, '&quot;')}"
-                        oninput="guardar4ExtrasDesdeModalPOS('${claveMod}')"
-                        placeholder="Pegar link Foto ${idx + 2}..."
-                        class="w-full px-2 py-1 text-[10px] bg-slate-50 border border-slate-200 rounded focus:bg-white focus:border-slate-900 focus:outline-none"
-                    />
-                </div>
-            `).join('');
-        }
-
-        function guardar4ExtrasDesdeModalPOS(claveMod) {
-            const urls4 = [1, 2, 3, 4].map(i => (document.getElementById('modal-extra-input-' + i)?.value || '').trim());
-            guardarFotosExtraDeModelo(claveMod, urls4);
-        }
-
-        function abrirBusquedaGoogleImagenesModal() {
-            const p = products.find(x => x.id === photoModalTargetId);
-            const q = p
-                ? `${p.brand} ${p.id} ${p.name}`
-                : `${document.getElementById('new-brand')?.value || ''} ${document.getElementById('new-id')?.value || ''} ${document.getElementById('new-name')?.value || ''}`.trim() || 'Anker Ugreen';
-            window.open(`https://www.google.com/search?tbm=isch&q=${encodeURIComponent(q)}`, '_blank');
-        }
     </script>
 </body>
 </html>
