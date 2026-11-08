@@ -2353,7 +2353,7 @@
         };
 
         // ==================== OPTIMIZACIÓN SILENCIOSA DE RESOLUCIÓN DE IMÁGENES ====================
-        function optimizarUrlDrive(urlRaw, ancho = "w1600") {
+        function optimizarUrlDrive(urlRaw, ancho = "w600") {
             let url = String(urlRaw || "").split(/\s*\|\s*|\r?\n/)[0].trim();
             if (!url) return "";
 
@@ -2389,14 +2389,14 @@
 
             // 5. Unsplash
             if (url.includes("unsplash.com") && url.includes("w=")) {
-                return url.replace(/w=\d+/, `w=1600&q=90`);
+                return url.replace(/w=\d+/, `w=800&q=80`);
             }
 
             return url;
         }
 
-        function mejorarResolucionImagenIA(urlRaw, modo = 'hd') {
-            const tamano = modo === 'zoom' ? 'w2400' : (modo === 'card' ? 'w800' : 'w1600');
+        function mejorarResolucionImagenIA(urlRaw, modo = 'card') {
+            const tamano = modo === 'zoom' ? 'w1200' : (modo === 'detail' || modo === 'hd' ? 'w800' : 'w500');
             return optimizarUrlDrive(urlRaw, tamano);
         }
 
@@ -2981,6 +2981,7 @@
             const codigoSKU = item.nombreModelo;
 
             const dispStr = String(equipo.DISP || equipo.Agotado || "").trim().toUpperCase();
+            const estaAgotado = item.tieneOfertaColumnaL ? false : (dispStr === "NO" || dispStr === "AGOTADO");
             const imagenURL = mejorarResolucionImagenIA(equipo.Imagen, "card");
             const imgClase = estaAgotado ? 'product-image agotado-img' : 'product-image';
             const badgeAgotado = estaAgotado ? '<div class="agotado-badge">AGOTADO</div>' : '';
@@ -3011,7 +3012,7 @@
                     ${badgeDestacado}
                     ${badgeAgotado}
                     <div class="card-click-zone" onclick="abrirDetalleProducto(${idProd})" title="Haz clic para ver más información">
-                        <img src="${imagenURL}" alt="${tituloLlamativo}" class="${imgClase}">
+                        <img src="${imagenURL}" alt="${tituloLlamativo}" class="${imgClase}" loading="lazy" decoding="async">
                         <div class="card-brand-tag">${marca !== "OTRAS MARCAS" ? marca : "A-MOVIL"}</div>
                         <div class="card-main-title">${tituloLlamativo}</div>
                     </div>
@@ -5213,18 +5214,18 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             }
 
             const extrasExcel = [];
-            const principalLimpia = optimizarUrlDrive(imgPrincipal, 'w1000');
+            const principalLimpia = optimizarUrlDrive(imgPrincipal, 'w800');
             const rawImgCell = String(equipoRaw?.Imagen || '').trim();
             if (rawImgCell.includes('|') || rawImgCell.includes('\n')) {
                 rawImgCell.split(/\s*\|\s*|\r?\n/).slice(1).forEach(u => {
-                    const l = optimizarUrlDrive(u.trim(), 'w1000');
+                    const l = optimizarUrlDrive(u.trim(), 'w800');
                     if (l && l !== principalLimpia && !extrasExcel.includes(l)) extrasExcel.push(l);
                 });
             }
 
             ['Imagen2', 'Imagen3', 'Imagen4', 'Imagen5', 'Foto2', 'Foto3', 'Foto4', 'Foto5'].forEach(col => {
                 if (equipoRaw && equipoRaw[col]) {
-                    const l = optimizarUrlDrive(String(equipoRaw[col]).trim(), 'w1000');
+                    const l = optimizarUrlDrive(String(equipoRaw[col]).trim(), 'w800');
                     if (l && l !== principalLimpia && !extrasExcel.includes(l)) extrasExcel.push(l);
                 }
             });
@@ -5573,8 +5574,8 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             if (btnNext) btnNext.style.display = total > 1 ? 'flex' : 'none';
 
             if (imgEl) {
-                // Solicitar imagen en resolución máxima para zoom (w2400)
-                imgEl.src = optimizarUrlDrive(lista[idx], 'w2400');
+                // Solicitar imagen optimizada en alta definición para zoom (w1200)
+                imgEl.src = optimizarUrlDrive(lista[idx], 'w1200');
                 aplicarTransformZoomModal();
             }
 
@@ -6152,7 +6153,7 @@ UGR-60759,6957303807598,Cable Tipo C a Lightning 3A 1m Negro (US304),UGREEN,Nure
             const titulo = item.info?.tituloLlamativo || sku || 'Producto';
             const claveModelo = obtenerClaveGaleriaProducto(marca, sku, titulo);
 
-            const imgBaseOriginal = optimizarUrlDrive(equipo.Imagen, 'w1600');
+            const imgBaseOriginal = optimizarUrlDrive(equipo.Imagen, 'w800');
             const imgVarianteColorLocal = buscarFotoVarianteExactaEnBancoLocal(item, colorActivo);
             const primeraImagen = imgVarianteColorLocal || imgBaseOriginal;
 
